@@ -1,31 +1,22 @@
 package forge.screens.home.quest;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import forge.deck.Deck;
 import forge.game.GameFormat;
 import forge.gamemodes.quest.QuestController;
 import forge.gamemodes.quest.QuestMode;
 import forge.gamemodes.quest.QuestUtil;
-import forge.gamemodes.quest.QuestWorld;
 import forge.gamemodes.quest.StartingPoolPreferences;
-import forge.gamemodes.quest.StartingPoolType;
 import forge.gamemodes.quest.data.DeckConstructionRules;
-import forge.gamemodes.quest.data.GameFormatQuest;
 import forge.gamemodes.quest.data.QuestData;
 import forge.gamemodes.quest.data.QuestPreferences;
 import forge.gui.UiCommand;
 import forge.gui.framework.ICDoc;
-import forge.item.PaperCard;
 import forge.model.FModel;
 import forge.screens.home.CHomeUI;
 import forge.toolbox.FOptionPane;
 import forge.util.Localizer;
+
+import java.util.*;
 
 /**
  * Controls the quest data submenu in the home UI.
@@ -158,107 +149,54 @@ public enum CSubmenuQuestStart implements ICDoc {
     public void update() {
     }
 
-    /**
-     * The actuator for new quests.
-     */
     private void newQuest() {
+        String questName = input_getQuestName();
+        if (questName == null) return;
+
+        //IStorage<PreconDeck> decks = QuestController.getPrecons();
+        Deck dckStartPool = QuestController.getPrecons().get("Angelic Might").getDeck(); //start with a deck
+
+        //IStorage<QuestWorld> w =  FModel.getWorlds(); //used to view worlds in debug
+        //final QuestWorld startWorld = FModel.getWorlds().get("Main world"); //useful to get main world
+
+        final StartingPoolPreferences userPrefs = new StartingPoolPreferences(StartingPoolPreferences.PoolType.BALANCED,
+                preferredColors,
+                false,
+                false,
+                false,
+                0);
+
+        //setup quest
+        final QuestController qc = FModel.getQuest();
+        qc.newGame(questName,
+                3, //Very Hard
+                QuestMode.Classic,
+                null,
+                true,
+                dckStartPool,
+                null,
+                "Main world",
+                userPrefs,
+                DeckConstructionRules.Default);
+        FModel.getQuest().save();
+        FModel.getQuestPreferences().setPref(QuestPreferences.QPref.CURRENT_QUEST, questName + ".dat");
+        FModel.getQuestPreferences().save();
+
+        //TODO: change to main game screen
+        //TODO: create event system and event popup. Display starting event
+
+        // Change to QuestDecks screen
+        CHomeUI.SINGLETON_INSTANCE.itemClick(VSubmenuQuestDecks.SINGLETON_INSTANCE.getDocumentID());
+    }
+
+    private String input_getQuestName()
+    {
         final Localizer localizer = Localizer.getInstance();
-        final VSubmenuQuestStart view = VSubmenuQuestStart.SINGLETON_INSTANCE;
-        final int difficulty = view.getSelectedDifficulty();
-
-        final QuestMode mode = view.isFantasy() ? QuestMode.Fantasy : QuestMode.Classic;
-
-        Deck dckStartPool = null;
-        GameFormat fmtStartPool = null;
-        final QuestWorld startWorld = FModel.getWorlds().get(view.getStartingWorldName());
-
-        final GameFormat worldFormat = (startWorld == null ? null : startWorld.getFormat());
-
-        if (worldFormat == null) {
-            switch(view.getStartingPoolType()) {
-                case Sanctioned:
-                    fmtStartPool = view.getRotatingFormat();
-                    break;
-
-                case Casual:
-                case CustomFormat:
-                    if (customFormatCodes.isEmpty()) {
-                        if (!FOptionPane.showConfirmDialog(localizer.getMessage("lblNotFormatDefined"))) {
-                            return;
-                        }
-                    }
-                    fmtStartPool = customFormatCodes.isEmpty() ? null : new GameFormatQuest("Custom", customFormatCodes, null); // chosen sets and no banned cards
-                    break;
-
-                case DraftDeck:
-                case SealedDeck:
-                case Cube:
-                    dckStartPool = view.getSelectedDeck();
-                    if (null == dckStartPool) {
-                        FOptionPane.showMessageDialog(localizer.getMessage("lbldckStartPool"), localizer.getMessage("lblCannotStartaQuest"), FOptionPane.ERROR_ICON);
-                        return;
-                    }
-                    break;
-
-                case Precon:
-                    dckStartPool = QuestController.getPrecons().get(view.getSelectedPrecon()).getDeck();
-                    break;
-
-                case Complete:
-                default:
-                    // leave everything as nulls
-                    break;
-            }
-        }
-        else {
-            fmtStartPool = worldFormat;
-        }
-
-        GameFormat fmtPrizes;
-
-        final StartingPoolType prizedPoolType = view.getPrizedPoolType();
-        if (null == prizedPoolType) {
-            fmtPrizes = fmtStartPool;
-            if (null == fmtPrizes && dckStartPool != null) { // build it form deck
-                final Set<String> sets = new HashSet<>();
-
-                for(Map.Entry<PaperCard, Integer> entry : dckStartPool.getAllCardsInASinglePool()) {
-                    sets.add(entry.getKey().getEdition());
-                }
-                fmtPrizes = new GameFormat(localizer.getMessage("lblFromDeck"), sets, null);
-            }
-        }
-        else {
-            switch(prizedPoolType) {
-                case Complete:
-                    fmtPrizes = null;
-                    break;
-                case Casual:
-                case CustomFormat:
-                    if (customPrizeFormatCodes.isEmpty()) {
-                        if (!FOptionPane.showConfirmDialog(localizer.getMessage("lblNotFormatDefined"))) {
-                            return;
-                        }
-                    }
-                    fmtPrizes = customPrizeFormatCodes.isEmpty() ? null : new GameFormat("Custom Prizes", customPrizeFormatCodes, null); // chosen sets and no banned cards
-                    break;
-                case Sanctioned:
-                    fmtPrizes = view.getPrizedRotatingFormat();
-                    break;
-                default:
-                    throw new RuntimeException("Should not get this result");
-            }
-        }
-
-        final StartingPoolPreferences userPrefs = new StartingPoolPreferences(poolType, preferredColors, includeArtifacts, view.startWithCompleteSet(), view.allowDuplicateCards(), numberOfBoosters);
-
-        String questName;
+        String questName = "";
         while (true) {
             questName = FOptionPane.showInputDialog(localizer.getMessage("MsgQuestNewName") + ":",  localizer.getMessage("TitQuestNewName"));
-            if (questName == null) { return; }
-
+            if (questName == null) return null;
             questName = QuestUtil.cleanString(questName);
-
             if (questName.isEmpty()) {
                 FOptionPane.showMessageDialog(localizer.getMessage("lblQuestNameEmpty"));
                 continue;
@@ -270,24 +208,7 @@ public enum CSubmenuQuestStart implements ICDoc {
             break;
         }
 
-        //Apply the appropriate deck construction rules for this quest
-        DeckConstructionRules dcr = DeckConstructionRules.Default;
-
-        if(VSubmenuQuestStart.SINGLETON_INSTANCE.isCommander()){
-            dcr = DeckConstructionRules.Commander;
-        }
-
-        final QuestController qc = FModel.getQuest();
-
-        qc.newGame(questName, difficulty, mode, fmtPrizes, view.isUnlockSetsAllowed(), dckStartPool, fmtStartPool, view.getStartingWorldName(), userPrefs, dcr);
-        FModel.getQuest().save();
-
-        // Save in preferences.
-        FModel.getQuestPreferences().setPref(QuestPreferences.QPref.CURRENT_QUEST, questName + ".dat");
-        FModel.getQuestPreferences().save();
-
-        // Change to QuestDecks screen
-        CHomeUI.SINGLETON_INSTANCE.itemClick(VSubmenuQuestDecks.SINGLETON_INSTANCE.getDocumentID());
+        return questName;
     }
 
     private Map<String, QuestData> getAllQuests() {
