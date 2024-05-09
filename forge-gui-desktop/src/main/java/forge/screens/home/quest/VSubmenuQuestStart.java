@@ -1,15 +1,6 @@
 package forge.screens.home.quest;
 
-import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.plaf.basic.BasicComboBoxRenderer;
-
+import forge.Singletons;
 import forge.deck.Deck;
 import forge.deck.DeckGroup;
 import forge.game.GameFormat;
@@ -26,15 +17,28 @@ import forge.model.FModel;
 import forge.screens.home.EMenuGroup;
 import forge.screens.home.IVSubmenu;
 import forge.screens.home.VHomeUI;
-import forge.toolbox.FCheckBox;
-import forge.toolbox.FComboBoxWrapper;
-import forge.toolbox.FLabel;
-import forge.toolbox.FRadioButton;
-import forge.toolbox.FSkin;
-import forge.toolbox.JXButtonPanel;
+import forge.toolbox.*;
 import forge.util.Localizer;
 import forge.util.WordUtil;
+import javafx.application.Platform;
+import javafx.embed.swing.JFXPanel;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import net.miginfocom.swing.MigLayout;
+
+import javax.swing.*;
+import javax.swing.plaf.basic.BasicComboBoxRenderer;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
+
+import static forge.localinstance.properties.ForgeConstants.VIDEO_DIR;
 
 /**
  * Assembles Swing components of quest data submenu singleton.
@@ -359,19 +363,63 @@ public enum VSubmenuQuestStart implements IVSubmenu<CSubmenuQuestStart> {
         pnlOptions.add(btnEmbark, "w 300px!, h 30px!, ax center, span 2, gap 0 0 15px 30px");
     }
 
+    public static boolean lock = false;
+    final MediaView mediaView = new MediaView();
+    public static MediaView st_mediaview;
+
+
     /* (non-Javadoc)
      * @see forge.view.home.IViewSubmenu#populate()
      */
     @Override
     public void populate() {
+        Platform.setImplicitExit(false);
         VHomeUI.SINGLETON_INSTANCE.getPnlDisplay().removeAll();
         VHomeUI.SINGLETON_INSTANCE.getPnlDisplay().setLayout(new MigLayout("insets 0, gap 0, wrap"));
 
-        VHomeUI.SINGLETON_INSTANCE.getPnlDisplay().add(lblTitleNew, "w 98%, h 30px!, gap 1% 0 15px 10px");
-        VHomeUI.SINGLETON_INSTANCE.getPnlDisplay().add(pnlOptions, "w 98%!, growy, pushy, gap 1% 0 0 0");
+        if (true)
+        {
+            JFXPanel fxPanel = new JFXPanel();
+            VHomeUI.SINGLETON_INSTANCE.getPnlDisplay().add(lblTitleNew, "w 98%, h 30px!, gap 1% 0 15px 10px");
+            VHomeUI.SINGLETON_INSTANCE.getPnlDisplay().add(pnlOptions, "w 98%!, growy, pushy, gap 1% 0 0 0");
+            VHomeUI.SINGLETON_INSTANCE.getPnlDisplay().add(fxPanel, "pos 0 0");
+
+//            SwingUtilities.invokeLater(() -> {
+//                FXNode.populate_nodes_invoke();
+//
+//            });
+
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+
+                    st_mediaview = mediaView;
+                    st_mediaview.setMediaPlayer(new MediaPlayer(new Media(new File(VIDEO_DIR , "main_menu.mp4").toURI().toString())));
+                    st_mediaview.getMediaPlayer().setCycleCount(MediaPlayer.INDEFINITE);
+                    st_mediaview.getMediaPlayer().setAutoPlay(true);
+                    initFX(fxPanel);
+
+                }
+            });
+
+        }
+
 
         VHomeUI.SINGLETON_INSTANCE.getPnlDisplay().repaintSelf();
         VHomeUI.SINGLETON_INSTANCE.getPnlDisplay().revalidate();
+        lock = true;
+    }
+
+    private static void initFX(JFXPanel fxPanel) {
+        fxPanel.setBackground(Color.BLACK);
+        AnchorPane pane = new AnchorPane();
+        pane.setStyle("-fx-background-color: #000000");
+        Scene scene = new Scene(pane, Singletons.getView().getFrame().getBounds().width, Singletons.getView().getFrame().getBounds().height);
+        fxPanel.setScene(scene);
+
+//        FXNode.initFX(pane);
+
+        pane.getChildren().add(st_mediaview);
     }
 
     /* (non-Javadoc)
