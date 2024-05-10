@@ -42,6 +42,8 @@ public class Locations {
     public static void travelTo(Location location)
     {
         PREVIOUS_LOCATION = Locations.CURRENT_LOCATION;
+        Locations.CURRENT_LOCATION = location;
+
         Platform.runLater(() -> {
             Platform.runLater(() -> {
                 MediaPlayer player = new MediaPlayer(new Media(new File(VIDEO_DIR , location.video()).toURI().toString()));
@@ -49,7 +51,6 @@ public class Locations {
                 player.setAutoPlay(true);
                 player.setOnReady(()-> {
                     PREVIOUS_LOCATION.fadeOut();
-                    Locations.CURRENT_LOCATION = location;
 
                     FadeTransition out = new FadeTransition();
                     out.setDuration(Duration.millis(2000));
@@ -65,7 +66,7 @@ public class Locations {
                         in.setFromValue(0);
                         in.setToValue(1);
                         in.setOnFinished(e -> {
-                            CURRENT_LOCATION.fadeIn();
+                            location.fadeIn();
                         });
 
                         in.play();

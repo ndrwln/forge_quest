@@ -152,6 +152,22 @@ public abstract class ItemManager<T extends InventoryItem> extends JPanel implem
         return cDetailPicture;
     }
 
+    public void quest_hidestuff()
+    {
+        this.btnViewOptions.setVisible(false);
+        this.pnlButtons.setVisible(false);
+        this.btnFilters.setVisible(false);
+        this.btnFilters.setVisible(false);
+        this.lblEmpty.setVisible(false);
+        this.cbxSection.setVisible(false);
+        this.cbxSection.setVisible(false);
+        for (final ItemView<T> view : this.views) {
+            view.getButton().setVisible(false);
+        }
+
+
+    }
+
     /**
      * Initialize item manager if needed
      */

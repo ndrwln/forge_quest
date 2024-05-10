@@ -52,7 +52,7 @@ public class FNavigationBar extends FTitleBarBase {
     private final List<NavigationTab> tabs = Lists.newArrayList();
     private final FDigitalClock clock = new FDigitalClock();
     private final JPanel pnlReveal = new JPanel();
-    private NavigationTab selectedTab;
+    public NavigationTab selectedTab;
     private int revealDir = 0;
     private long timeMenuHidden = 0;
     private Timer incrementRevealTimer, checkForRevealChangeTimer;
@@ -89,7 +89,7 @@ public class FNavigationBar extends FTitleBarBase {
 
     @Override
     protected void addControls() {
-        add(btnForge);
+//        add(btnForge);
         layout.putConstraint(SpringLayout.WEST, btnForge, 1, SpringLayout.WEST, this);
         layout.putConstraint(SpringLayout.SOUTH, btnForge, -1, SpringLayout.SOUTH, this);
         addForgeButtonListeners();
@@ -369,11 +369,11 @@ public class FNavigationBar extends FTitleBarBase {
         }
     }
 
-    private final class NavigationTab extends SkinnedLabel implements ILocalRepaint {
+    public final class NavigationTab extends SkinnedLabel implements ILocalRepaint {
         private static final int fontSize = 14;
         private static final int unhoveredAlpha = 150;
 
-        private final FScreen screen;
+        public final FScreen screen;
         private final CloseButton btnClose;
         private SkinColor backColor;
         private boolean selected = false;

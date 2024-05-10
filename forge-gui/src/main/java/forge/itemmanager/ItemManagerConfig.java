@@ -92,7 +92,7 @@ public enum ItemManagerConfig {
             null, null, 3, 0),
     WINSTON_DECKS(SColumnUtil.getDecksDefaultColumns(true, false), false, false, false,
             null, null, 3, 0),
-    QUEST_DECKS(SColumnUtil.getDecksDefaultColumns(true, false), false, false, false,
+    QUEST_DECKS(SColumnUtil.getDecksQuestColumns(true, false), false, false, true,
             null, null, 3, 0),
     PRECON_DECKS(SColumnUtil.getDecksDefaultColumns(false, false), false, false, false,
             null, null, 3, 0),

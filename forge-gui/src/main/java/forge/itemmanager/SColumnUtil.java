@@ -17,12 +17,12 @@
  */
 package forge.itemmanager;
 
+import forge.itemmanager.ItemColumnConfig.SortState;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import forge.itemmanager.ItemColumnConfig.SortState;
 
 /**
  * A collection of methods pertaining to columns in card catalog and
@@ -226,6 +226,35 @@ public final class SColumnUtil {
 
         Map<ColumnDef, ItemColumnConfig> columns = getColumns(colDefs);
         columns.get(ColumnDef.DECK_FAVORITE).setSortPriority(1);
+        if (includeFolder) {
+            columns.get(ColumnDef.DECK_FOLDER).setSortPriority(2);
+            columns.get(ColumnDef.NAME).setSortPriority(3);
+        }
+        else {
+            columns.get(ColumnDef.NAME).setSortPriority(2);
+        }
+        return columns;
+    }
+
+    public static Map<ColumnDef, ItemColumnConfig> getDecksQuestColumns(boolean allowEdit, boolean includeFolder) {
+        List<ColumnDef> colDefs = new ArrayList<>();
+//        colDefs.add(ColumnDef.DECK_FAVORITE);
+        if (allowEdit) {
+            colDefs.add(ColumnDef.DECK_ACTIONS);
+        }
+        if (includeFolder) {
+            colDefs.add(ColumnDef.DECK_FOLDER);
+        }
+        colDefs.add(ColumnDef.NAME);
+        colDefs.add(ColumnDef.DECK_COLOR);
+//        colDefs.add(ColumnDef.DECK_FORMAT);
+//        colDefs.add(ColumnDef.DECK_EDITION);
+//        colDefs.add(ColumnDef.DECK_MAIN);
+//        colDefs.add(ColumnDef.DECK_SIDE);
+//        colDefs.add(ColumnDef.DECK_AI);
+
+        Map<ColumnDef, ItemColumnConfig> columns = getColumns(colDefs);
+//        columns.get(ColumnDef.DECK_FAVORITE).setSortPriority(1);
         if (includeFolder) {
             columns.get(ColumnDef.DECK_FOLDER).setSortPriority(2);
             columns.get(ColumnDef.NAME).setSortPriority(3);

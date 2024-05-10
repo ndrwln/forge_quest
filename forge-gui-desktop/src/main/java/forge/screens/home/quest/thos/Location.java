@@ -18,7 +18,7 @@ import java.util.ArrayList;
     public Location add_action(ArrayList<SNode> action) { actions.add(action); return this; }
 
 
-    public void fadeOut() {fadeOut(1000);}
+    public void fadeOut() {fadeOut(500);}
     public void fadeOut(int ms)
     {
         SwingUtilities.invokeLater(() -> {
@@ -33,7 +33,7 @@ import java.util.ArrayList;
         });
     }
 
-    public void fadeIn() {fadeIn(1000);}
+    public void fadeIn() {fadeIn(500);}
     public void fadeIn(int ms)
     {
         SwingUtilities.invokeLater(() -> {

@@ -1,15 +1,5 @@
 package forge.screens.deckeditor.controllers;
 
-import java.awt.Dialog.ModalityType;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.io.File;
-import java.util.regex.Pattern;
-
-import javax.swing.JFileChooser;
-import javax.swing.SwingUtilities;
-import javax.swing.filechooser.FileFilter;
-
 import forge.Singletons;
 import forge.deck.Deck;
 import forge.deck.DeckBase;
@@ -23,6 +13,14 @@ import forge.screens.deckeditor.DeckImport;
 import forge.screens.deckeditor.SEditorIO;
 import forge.screens.deckeditor.views.VCurrentDeck;
 import forge.toolbox.FOptionPane;
+
+import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
+import java.awt.Dialog.ModalityType;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.io.File;
+import java.util.regex.Pattern;
 
 /**
  * Controls the "current deck" panel in the deck editor UI.
@@ -82,7 +80,7 @@ public enum CCurrentDeck implements ICDoc {
         VCurrentDeck.SINGLETON_INSTANCE.getBtnPrintProxies().setCommand(new UiCommand() {
             @Override
             public void run() {
-                printProxies();
+                Singletons.getView().getNavigationBar().closeTab(Singletons.getView().getNavigationBar().selectedTab.screen);
             }
         });
         VCurrentDeck.SINGLETON_INSTANCE.getBtnOpen().setCommand(new UiCommand() {

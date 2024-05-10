@@ -1,9 +1,5 @@
 package forge.screens.home.quest;
 
-import java.awt.Font;
-
-import javax.swing.SwingConstants;
-
 import forge.game.GameType;
 import forge.gui.framework.DragCell;
 import forge.gui.framework.DragTab;
@@ -20,6 +16,9 @@ import forge.toolbox.FLabel;
 import forge.toolbox.FSkin;
 import forge.util.Localizer;
 import net.miginfocom.swing.MigLayout;
+
+import javax.swing.*;
+import java.awt.*;
 
 /** 
  * Assembles Swing components of quest decks submenu singleton.
@@ -84,6 +83,8 @@ public enum VSubmenuQuestDecks implements IVSubmenu<CSubmenuQuestDecks> {
         pnlDisplay.add(lblDir3, "gap 0 0 0 20px");
 
         pnlDisplay.add(btnNewDeck, "w 250px!, h 30px!, ax center, gap 0 10% 0 20px");
+
+
         pnlDisplay.add(new ItemManagerContainer(lstDecks), "w 80%!, gap 0 10% 0 0, pushy, growy, gapbottom 20px");
 
         pnlDisplay.repaintSelf();

@@ -1,8 +1,5 @@
 package forge.screens.deckeditor.views;
 
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-
 import forge.gui.framework.DragCell;
 import forge.gui.framework.DragTab;
 import forge.gui.framework.EDocID;
@@ -17,6 +14,8 @@ import forge.toolbox.FSkin;
 import forge.toolbox.FTextField;
 import forge.util.Localizer;
 import net.miginfocom.swing.MigLayout;
+
+import javax.swing.*;
 
 /**
  * Assembles Swing components of current deck being edited in deck editor.
@@ -67,11 +66,9 @@ public enum VCurrentDeck implements IVDoc<CCurrentDeck> {
 
     private final FLabel btnPrintProxies = new FLabel.Builder()
             .fontSize(14)
-            .tooltip(localizer.getMessage("ttbtnPrintProxies"))
-            .iconInBackground(true)
-            .iconAlignX(SwingConstants.CENTER)
-            .icon(FSkin.getIcon(FSkinProp.ICO_PRINT))
-            .text(" ").hoverable(true).build();
+            .text("Quit")
+            .tooltip("Quit the deck editor, giving user option to save")
+            .opaque(true).hoverable(true).build();
 
     private final FLabel btnImport = new FLabel.Builder()
             .fontSize(14)
@@ -97,12 +94,12 @@ public enum VCurrentDeck implements IVDoc<CCurrentDeck> {
 
         pnlHeader.add(lblTitle, "h 26px!");
         pnlHeader.add(txfTitle, "pushx, growx");
-        pnlHeader.add(btnSave, "w 26px!, h 26px!");
-        pnlHeader.add(btnNew, "w 26px!, h 26px!");
-
-        pnlHeader.add(btnLoad, "w 26px!, h 26px!");
-        pnlHeader.add(btnSaveAs, "w 26px!, h 26px!");
-        pnlHeader.add(btnPrintProxies, "w 26px!, h 26px!");
+//        pnlHeader.add(btnSave, "w 26px!, h 26px!");
+//        pnlHeader.add(btnNew, "w 26px!, h 26px!");
+//
+//        pnlHeader.add(btnLoad, "w 26px!, h 26px!");
+//        pnlHeader.add(btnSaveAs, "w 26px!, h 26px!");
+        pnlHeader.add(btnPrintProxies, "w 61px!, h 26px!");
         pnlHeader.add(btnImport, "w 61px!, h 26px!");
     }
 
