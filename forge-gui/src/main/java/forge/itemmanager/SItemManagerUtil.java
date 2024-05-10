@@ -1,12 +1,6 @@
 package forge.itemmanager;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map.Entry;
-
 import com.google.common.base.Predicate;
-
 import forge.card.CardRules;
 import forge.card.CardRulesPredicates;
 import forge.deck.DeckProxy;
@@ -17,6 +11,11 @@ import forge.localinstance.skin.FSkinProp;
 import forge.localinstance.skin.IHasSkinProp;
 import forge.util.ComparableOp;
 import forge.util.Localizer;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map.Entry;
 
 /**
  * Static methods for working with top-level editor methods,
@@ -164,13 +163,10 @@ public final class SItemManagerUtil {
         return builder.toString();
     }
 
-    private static final GroupDef[] CARD_GROUPBY_OPTIONS = {GroupDef.DEFAULT, GroupDef.CARD_TYPE, GroupDef.COLOR,
-                                                            GroupDef.COLOR_IDENTITY, GroupDef.SET, GroupDef.CARD_RARITY,
-                                                            GroupDef.PW_DECK_SORT};
+    private static final GroupDef[] CARD_GROUPBY_OPTIONS = {GroupDef.CARD_TYPE};
+    private static final ColumnDef[] CARD_PILEBY_OPTIONS = {ColumnDef.NAME,};
+
     private static final GroupDef[] DECK_GROUPBY_OPTIONS = {GroupDef.COLOR, GroupDef.COLOR_IDENTITY, GroupDef.SET};
-    private static final ColumnDef[] CARD_PILEBY_OPTIONS = {ColumnDef.CMC, ColumnDef.COLOR, ColumnDef.NAME,
-                                                            ColumnDef.COST, ColumnDef.TYPE, ColumnDef.RARITY,
-                                                            ColumnDef.SET, ColumnDef.COLLECTOR_ORDER, ColumnDef.FORMAT};
     private static final ColumnDef[] DECK_PILEBY_OPTIONS = {ColumnDef.DECK_COLOR, ColumnDef.DECK_FOLDER,
                                                             ColumnDef.NAME, ColumnDef.DECK_FORMAT,
                                                             ColumnDef.DECK_EDITION, ColumnDef.DECK_AI};
@@ -188,7 +184,7 @@ public final class SItemManagerUtil {
         for (final ColumnDef option : pileByOptions) {
             cbPileByOptions.addItem(option);
         }
-        cbGroupByOptions.setSelectedIndex(0);
-        cbPileByOptions.setSelectedIndex(0);
+        cbGroupByOptions.setSelectedItem(GroupDef.CARD_TYPE);
+        cbPileByOptions.setSelectedItem(ColumnDef.NAME);
     }
 }

@@ -17,35 +17,15 @@
  */
 package forge.screens.deckeditor.controllers;
 
-import java.awt.Toolkit;
-import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
-import java.util.List;
-import java.util.Map.Entry;
-
-import javax.swing.JMenu;
-import javax.swing.JPopupMenu;
-import javax.swing.KeyStroke;
-import javax.swing.SwingUtilities;
-
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
-
-import forge.deck.CardPool;
-import forge.deck.Deck;
-import forge.deck.DeckBase;
-import forge.deck.DeckFormat;
-import forge.deck.DeckSection;
+import forge.deck.*;
 import forge.game.GameType;
 import forge.gui.GuiBase;
 import forge.gui.GuiChoose;
 import forge.gui.GuiUtils;
 import forge.gui.UiCommand;
-import forge.gui.framework.DragCell;
-import forge.gui.framework.FScreen;
-import forge.gui.framework.ICDoc;
-import forge.gui.framework.IVDoc;
-import forge.gui.framework.SRearrangingUtil;
+import forge.gui.framework.*;
 import forge.item.InventoryItem;
 import forge.item.PaperCard;
 import forge.itemmanager.CardManager;
@@ -68,6 +48,13 @@ import forge.util.Aggregates;
 import forge.util.ItemPool;
 import forge.util.Localizer;
 import forge.view.FView;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
+import java.util.List;
+import java.util.Map.Entry;
 
 /**
  * Maintains a generically typed architecture for various editing
@@ -336,9 +323,9 @@ public abstract class ACEditorBase<TItem extends InventoryItem, TModel extends D
                 CDeckEditorUI.SINGLETON_INSTANCE.removeSelectedCards(false, 4);
             }
         });
-        itemManager.getPnlButtons().add(btnRemove, "w 30%!, h 30px!, gapx 5");
-        itemManager.getPnlButtons().add(btnRemove4, "w 30%!, h 30px!, gapx 5");
-        itemManager.getPnlButtons().add(btnAddBasicLands, "w 30%!, h 30px!, gapx 5");
+//        itemManager.getPnlButtons().add(btnRemove, "w 30%!, h 30px!, gapx 5");
+//        itemManager.getPnlButtons().add(btnRemove4, "w 30%!, h 30px!, gapx 5");
+//        itemManager.getPnlButtons().add(btnAddBasicLands, "w 30%!, h 30px!, gapx 5");
     }
 
     /**
@@ -376,7 +363,7 @@ public abstract class ACEditorBase<TItem extends InventoryItem, TModel extends D
     /**
      * Removes the specified tab and returns its parent for later re-adding
      */
-    protected DragCell removeTab (final IVDoc<? extends ICDoc> tab) {
+    public DragCell removeTab (final IVDoc<? extends ICDoc> tab) {
         final DragCell parent;
         if (tab.getParentCell() == null) {
             parent = null;

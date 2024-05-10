@@ -193,11 +193,7 @@ public class ImageView<T extends InventoryItem> extends ItemView<T> {
         }
         groupBy = groupBy0;
 
-        if (groupBy == null) {
-            cbGroupByOptions.setSelectedIndex(0);
-        } else {
-            cbGroupByOptions.setSelectedItem(groupBy);
-        }
+        cbGroupByOptions.setSelectedItem(GroupDef.CARD_TYPE);
 
         groups.clear();
 

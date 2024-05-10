@@ -17,21 +17,10 @@
  */
 package forge.screens.deckeditor.controllers;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import javax.swing.KeyStroke;
-
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.base.Supplier;
-
 import forge.card.CardRules;
 import forge.card.CardRulesPredicates;
 import forge.card.ColorSet;
@@ -56,13 +45,20 @@ import forge.localinstance.properties.ForgePreferences.FPref;
 import forge.model.FModel;
 import forge.screens.deckeditor.AddBasicLandsDialog;
 import forge.screens.deckeditor.SEditorIO;
-import forge.screens.deckeditor.views.VAllDecks;
-import forge.screens.deckeditor.views.VCurrentDeck;
-import forge.screens.deckeditor.views.VDeckgen;
+import forge.screens.deckeditor.views.*;
 import forge.screens.home.quest.CSubmenuQuestDecks;
 import forge.screens.match.controllers.CDetailPicture;
 import forge.toolbox.FComboBox;
 import forge.util.ItemPool;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  * Child controller for quest deck editor UI.
@@ -80,6 +76,7 @@ public final class CEditorQuest extends CDeckEditor<Deck> {
     private final List<DeckSection> allSections = new ArrayList<>();
     private DragCell allDecksParent = null;
     private DragCell deckGenParent = null;
+    private DragCell statisticsParent = null;
 
     private Map<PaperCard, Integer> decksUsingMyCards;
 
@@ -460,6 +457,13 @@ public final class CEditorQuest extends CDeckEditor<Deck> {
 
         deckGenParent = removeTab(VDeckgen.SINGLETON_INSTANCE);
         allDecksParent = removeTab(VAllDecks.SINGLETON_INSTANCE);
+        statisticsParent = removeTab(VStatistics.SINGLETON_INSTANCE);
+        removeTab(VCommanderDecks.SINGLETON_INSTANCE);
+        removeTab(VOathbreakerDecks.SINGLETON_INSTANCE);
+        removeTab(VBrawlDecks.SINGLETON_INSTANCE);
+        removeTab(VTinyLeadersDecks.SINGLETON_INSTANCE);
+
+
 
         if (this.controller.getModel() == null) {
             this.getDeckController().setModel(new Deck());
@@ -492,6 +496,9 @@ public final class CEditorQuest extends CDeckEditor<Deck> {
         }
         if (allDecksParent != null) {
             allDecksParent.addDoc(VAllDecks.SINGLETON_INSTANCE);
+        }
+        if (statisticsParent != null) {
+            statisticsParent.addDoc(VStatistics.SINGLETON_INSTANCE);
         }
     }
 }

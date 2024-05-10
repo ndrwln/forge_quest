@@ -153,14 +153,13 @@ public class ImageView<T extends InventoryItem> extends ItemView<T> {
         super(itemManager0, model0);
 
         SItemManagerUtil.populateImageViewOptions(itemManager0, cbGroupByOptions, cbPileByOptions);
-
         for (Integer i = MIN_COLUMN_COUNT; i <= MAX_COLUMN_COUNT; i++) {
             cbColumnCount.addItem(i);
         }
         cbGroupByOptions.setMaximumRowCount(cbGroupByOptions.getItemCount());
         cbPileByOptions.setMaximumRowCount(cbPileByOptions.getItemCount());
         cbColumnCount.setMaximumRowCount(cbColumnCount.getItemCount());
-        cbColumnCount.setSelectedIndex(columnCount - MIN_COLUMN_COUNT);
+        cbColumnCount.setSelectedIndex(5 - MIN_COLUMN_COUNT);
 
         cbGroupByOptions.addActionListener(new ActionListener() {
             @Override
@@ -382,12 +381,7 @@ public class ImageView<T extends InventoryItem> extends ItemView<T> {
         if (groupBy == groupBy0) { return; }
         groupBy = groupBy0;
 
-        if (groupBy == null) {
-            cbGroupByOptions.setSelectedIndex(0);
-        }
-        else {
-            cbGroupByOptions.setSelectedItem(groupBy);
-        }
+        cbGroupByOptions.setSelectedItem(GroupDef.CARD_TYPE);
 
         groups.clear();
 
@@ -426,16 +420,11 @@ public class ImageView<T extends InventoryItem> extends ItemView<T> {
         if (pileBy == pileBy0) { return; }
         pileBy = pileBy0;
 
-        if (pileBy == null) {
-            cbPileByOptions.setSelectedIndex(0);
-        }
-        else {
-            cbPileByOptions.setSelectedItem(pileBy);
-        }
+        cbPileByOptions.setSelectedItem(ColumnDef.NAME);
 
         if (!forSetup) {
             if (itemManager.getConfig() != null) {
-                itemManager.getConfig().setPileBy(pileBy);
+                itemManager.getConfig().setPileBy(ColumnDef.NAME);
             }
             refresh(null, -1, 0);
         }

@@ -75,7 +75,9 @@ public class DialogShowDecks {
 		btn_new_deck.setCommand((UiCommand) () -> {
             if (!QuestUtil.checkActiveQuest(localizer.getMessage("lblCreateaDeck"))) return;
             Singletons.getControl().setCurrentScreen(FScreen.DECK_EDITOR_QUEST);
-            CDeckEditorUI.SINGLETON_INSTANCE.setEditorController(new CEditorQuest(FModel.getQuest(), CDeckEditorUI.SINGLETON_INSTANCE.getCDetailPicture()));
+
+			CEditorQuest childController0 = new CEditorQuest(FModel.getQuest(), CDeckEditorUI.SINGLETON_INSTANCE.getCDetailPicture());
+			CDeckEditorUI.SINGLETON_INSTANCE.setEditorController(childController0);
         });
 
 
