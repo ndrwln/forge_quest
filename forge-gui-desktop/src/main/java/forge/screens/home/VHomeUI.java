@@ -17,27 +17,8 @@
  */
 package forge.screens.home;
 
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.SortedMap;
-import java.util.TreeMap;
-
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.SwingConstants;
-
 import forge.Singletons;
-import forge.gui.framework.EDocID;
-import forge.gui.framework.FScreen;
-import forge.gui.framework.ICDoc;
-import forge.gui.framework.ILocalRepaint;
-import forge.gui.framework.IVTopLevelUI;
+import forge.gui.framework.*;
 import forge.localinstance.properties.ForgePreferences.FPref;
 import forge.localinstance.skin.FSkinProp;
 import forge.model.FModel;
@@ -45,22 +26,11 @@ import forge.screens.home.gauntlet.*;
 import forge.screens.home.online.VSubmenuOnlineLobby;
 import forge.screens.home.puzzle.VSubmenuPuzzleCreate;
 import forge.screens.home.puzzle.VSubmenuPuzzleSolve;
-//import forge.screens.home.puzzle.VSubmenuTutorial;
-import forge.screens.home.quest.VSubmenuChallenges;
-import forge.screens.home.quest.VSubmenuDuels;
-import forge.screens.home.quest.VSubmenuQuestDecks;
-import forge.screens.home.quest.VSubmenuQuestDraft;
-import forge.screens.home.quest.VSubmenuQuestLoadData;
-import forge.screens.home.quest.VSubmenuQuestPrefs;
-import forge.screens.home.quest.VSubmenuQuestStart;
+import forge.screens.home.quest.*;
 import forge.screens.home.sanctioned.VSubmenuConstructed;
 import forge.screens.home.sanctioned.VSubmenuDraft;
 import forge.screens.home.sanctioned.VSubmenuSealed;
-import forge.screens.home.settings.VSubmenuAchievements;
-import forge.screens.home.settings.VSubmenuAvatars;
-import forge.screens.home.settings.VSubmenuDownloaders;
-import forge.screens.home.settings.VSubmenuPreferences;
-import forge.screens.home.settings.VSubmenuReleaseNotes;
+import forge.screens.home.settings.*;
 import forge.toolbox.FLabel;
 import forge.toolbox.FScrollPanel;
 import forge.toolbox.FSkin;
@@ -68,6 +38,11 @@ import forge.toolbox.FSkin.SkinColor;
 import forge.toolbox.FSkin.SkinnedPanel;
 import forge.view.FView;
 import net.miginfocom.swing.MigLayout;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.List;
+import java.util.*;
 
 /**
  * Top level view class for home UI drag layout.<br>
@@ -217,8 +192,8 @@ public enum VHomeUI implements IVTopLevelUI {
         pnl.setBorder(null);
         pnl.setLayout(new MigLayout("insets 0, gap 0"));
 
-        pnl.add(pnlMenu, "w 205px!, h 100%!");
-        pnl.add(pnlDisplay, "w 100% - 205px!, h 100%!");
+//        pnl.add(pnlMenu, "w 205px!, h 100%!");
+        pnl.add(pnlDisplay, "w 100%, h 100%!");
     }
 
     /** */

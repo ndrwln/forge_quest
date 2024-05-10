@@ -1,21 +1,5 @@
 package forge.view;
 
-import java.awt.BasicStroke;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.RenderingHints;
-import java.awt.Toolkit;
-import java.awt.Window;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.WindowEvent;
-
-import javax.swing.SpringLayout;
-import javax.swing.SwingUtilities;
-
 import forge.gui.framework.ILocalRepaint;
 import forge.toolbox.FSkin;
 import forge.toolbox.FSkin.Colors;
@@ -23,6 +7,12 @@ import forge.toolbox.FSkin.SkinColor;
 import forge.toolbox.FSkin.SkinnedLabel;
 import forge.toolbox.FSkin.SkinnedMenuBar;
 import forge.util.Localizer;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowEvent;
 
 @SuppressWarnings("serial")
 public abstract class FTitleBarBase extends SkinnedMenuBar {
@@ -56,21 +46,21 @@ public abstract class FTitleBarBase extends SkinnedMenuBar {
             layout.putConstraint(SpringLayout.EAST, btnClose, 0, SpringLayout.EAST, this);
             layout.putConstraint(SpringLayout.SOUTH, btnClose, 0, SpringLayout.SOUTH, this);
 
-            add(btnMaximize);
-            layout.putConstraint(SpringLayout.EAST, btnMaximize, 0, SpringLayout.WEST, btnClose);
-            layout.putConstraint(SpringLayout.SOUTH, btnMaximize, 0, SpringLayout.SOUTH, btnClose);
-            
-            add(btnFullScreen);
-            layout.putConstraint(SpringLayout.EAST, btnFullScreen, 0, SpringLayout.WEST, btnMaximize);
-            layout.putConstraint(SpringLayout.SOUTH, btnFullScreen, 0, SpringLayout.SOUTH, btnMaximize);
+//            add(btnMaximize);
+//            layout.putConstraint(SpringLayout.EAST, btnMaximize, 0, SpringLayout.WEST, btnClose);
+//            layout.putConstraint(SpringLayout.SOUTH, btnMaximize, 0, SpringLayout.SOUTH, btnClose);
+//
+//            add(btnFullScreen);
+//            layout.putConstraint(SpringLayout.EAST, btnFullScreen, 0, SpringLayout.WEST, btnMaximize);
+//            layout.putConstraint(SpringLayout.SOUTH, btnFullScreen, 0, SpringLayout.SOUTH, btnMaximize);
             
             add(btnMinimize);
-            layout.putConstraint(SpringLayout.EAST, btnMinimize, 0, SpringLayout.WEST, btnFullScreen);
-            layout.putConstraint(SpringLayout.SOUTH, btnMinimize, 0, SpringLayout.SOUTH, btnFullScreen);
+            layout.putConstraint(SpringLayout.EAST, btnMinimize, 0, SpringLayout.WEST, btnClose);
+            layout.putConstraint(SpringLayout.SOUTH, btnMinimize, 0, SpringLayout.SOUTH, btnClose);
             
-            add(btnLockTitleBar);
-            layout.putConstraint(SpringLayout.EAST, btnLockTitleBar, 0, SpringLayout.WEST, btnMinimize);
-            layout.putConstraint(SpringLayout.SOUTH, btnLockTitleBar, 0, SpringLayout.SOUTH, btnMinimize);
+//            add(btnLockTitleBar);
+//            layout.putConstraint(SpringLayout.EAST, btnLockTitleBar, 0, SpringLayout.WEST, btnMinimize);
+//            layout.putConstraint(SpringLayout.SOUTH, btnLockTitleBar, 0, SpringLayout.SOUTH, btnMinimize);
         }
         else {
             int offset = owner instanceof FDialog && ((FDialog)owner).allowResize() ? 0 : -1;

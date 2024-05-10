@@ -1,9 +1,5 @@
 package forge.screens.home;
 
-import java.util.List;
-
-import javax.swing.JMenu;
-
 import forge.Singletons;
 import forge.gui.framework.EDocID;
 import forge.gui.framework.ICDoc;
@@ -12,8 +8,12 @@ import forge.localinstance.properties.ForgePreferences.FPref;
 import forge.menus.IMenuProvider;
 import forge.menus.MenuUtil;
 import forge.model.FModel;
+import forge.screens.home.quest.VSubmenuQuestStart;
 import forge.screens.home.sanctioned.VSubmenuConstructed;
 import forge.toolbox.FAbsolutePositioner;
+
+import javax.swing.*;
+import java.util.List;
 
 /**
  * Assembles Swing components of exit submenu option singleton.
@@ -86,6 +86,7 @@ public enum CHomeUI implements ICDoc, IMenuProvider {
         Singletons.getControl().getForgeMenu().setProvider(this);
 
         selectPrevious();
+        CHomeUI.SINGLETON_INSTANCE.itemClick(VSubmenuQuestStart.SINGLETON_INSTANCE.getDocumentID());
     }
 
     /* (non-Javadoc)

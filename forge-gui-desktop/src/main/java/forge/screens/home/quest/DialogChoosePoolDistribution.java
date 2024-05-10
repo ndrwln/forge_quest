@@ -1,30 +1,19 @@
 package forge.screens.home.quest;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.ButtonGroup;
-import javax.swing.JPanel;
-
 import forge.card.MagicColor;
 import forge.gamemodes.quest.StartingPoolPreferences.PoolType;
 import forge.gui.SOverlayUtils;
 import forge.gui.UiCommand;
 import forge.localinstance.skin.FSkinProp;
-import forge.toolbox.FButton;
-import forge.toolbox.FCheckBox;
-import forge.toolbox.FLabel;
-import forge.toolbox.FOverlay;
-import forge.toolbox.FPanel;
-import forge.toolbox.FRadioButton;
-import forge.toolbox.FSkin;
-import forge.toolbox.FTextField;
-import forge.toolbox.FTextPane;
-import forge.toolbox.JXButtonPanel;
+import forge.toolbox.*;
 import forge.util.Localizer;
 import net.miginfocom.swing.MigLayout;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 @SuppressWarnings("WeakerAccess")
 public class DialogChoosePoolDistribution {
@@ -53,7 +42,7 @@ public class DialogChoosePoolDistribution {
 	private Runnable callback;
 
 	@SuppressWarnings("serial")
-	public DialogChoosePoolDistribution(final List<Byte> preferredColors, final PoolType poolType, final boolean includeArtifacts) {
+	public DialogChoosePoolDistribution() {
 
 		if (poolTypeButtonGroup.getButtonCount() == 0) {
 			poolTypeButtonGroup.add(radBalanced);
@@ -62,7 +51,7 @@ public class DialogChoosePoolDistribution {
 			poolTypeButtonGroup.add(radBoosters);
 		}
 
-		for (Byte color : preferredColors) {
+		for (Byte color : CSubmenuQuestStart.SINGLETON_INSTANCE.preferredColors) {
 			switch (color) {
 				case MagicColor.BLACK:
 					cbxBlack.setSelected(true);
@@ -85,9 +74,9 @@ public class DialogChoosePoolDistribution {
 			}
 		}
 
-		cbxArtifacts.setSelected(includeArtifacts);
+		cbxArtifacts.setSelected(false);
 
-		switch (poolType) {
+		switch (CSubmenuQuestStart.SINGLETON_INSTANCE.poolType) {
 			case BALANCED:
 				radBalanced.setSelected(true);
 				break;

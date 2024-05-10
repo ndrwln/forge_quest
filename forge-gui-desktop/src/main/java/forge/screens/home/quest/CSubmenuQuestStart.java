@@ -1,7 +1,6 @@
 package forge.screens.home.quest;
 
 import forge.deck.Deck;
-import forge.game.GameFormat;
 import forge.gamemodes.quest.QuestController;
 import forge.gamemodes.quest.QuestMode;
 import forge.gamemodes.quest.QuestUtil;
@@ -9,14 +8,16 @@ import forge.gamemodes.quest.StartingPoolPreferences;
 import forge.gamemodes.quest.data.DeckConstructionRules;
 import forge.gamemodes.quest.data.QuestData;
 import forge.gamemodes.quest.data.QuestPreferences;
-import forge.gui.UiCommand;
 import forge.gui.framework.ICDoc;
 import forge.model.FModel;
 import forge.screens.home.CHomeUI;
 import forge.toolbox.FOptionPane;
 import forge.util.Localizer;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Controls the quest data submenu in the home UI.
@@ -34,10 +35,9 @@ public enum CSubmenuQuestStart implements ICDoc {
     private final List<String> customFormatCodes = new ArrayList<>();
     private final List<String> customPrizeFormatCodes = new ArrayList<>();
 
-    private List<Byte> preferredColors = new ArrayList<>();
-    private StartingPoolPreferences.PoolType poolType = StartingPoolPreferences.PoolType.BALANCED;
-    private boolean includeArtifacts = true;
-    private int numberOfBoosters = 0;
+    public List<Byte> preferredColors = new ArrayList<>();
+    public StartingPoolPreferences.PoolType poolType = StartingPoolPreferences.PoolType.BALANCED;
+    public int numberOfBoosters = 0;
 
     @Override
     public void register() {
@@ -48,8 +48,8 @@ public enum CSubmenuQuestStart implements ICDoc {
      */
     @Override
     public void initialize() {
-        view.getBtnEmbark().setCommand(
-                new UiCommand() { @Override public void run() { newQuest(); } });
+//        view.getBtnEmbark().setCommand(
+//                new UiCommand() { @Override public void run() { newQuest(); } });
 
         // disable the very powerful sets -- they can be unlocked later for a high price
         final List<String> unselectableSets = new ArrayList<>();
@@ -60,85 +60,70 @@ public enum CSubmenuQuestStart implements ICDoc {
         unselectableSets.add("ARC");
         unselectableSets.add("PC2");
 
-        view.getBtnCustomFormat().setCommand(new UiCommand() {
-            @Override
-            public void run() {
-                final DialogChooseSets dialog = new DialogChooseSets(customFormatCodes, unselectableSets, false);
-                dialog.setOkCallback(new Runnable() {
-                    @Override
-                    public void run() {
-                        customFormatCodes.clear();
-                        customFormatCodes.addAll(dialog.getSelectedSets());
-                    }
-                });
-            }
-        });
+//        view.getBtnCustomFormat().setCommand(new UiCommand() {
+//            @Override
+//            public void run() {
+//                final DialogChooseSets dialog = new DialogChooseSets(customFormatCodes, unselectableSets, false);
+//                dialog.setOkCallback(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        customFormatCodes.clear();
+//                        customFormatCodes.addAll(dialog.getSelectedSets());
+//                    }
+//                });
+//            }
+//        });
+//
+//        view.getBtnSelectFormat().setCommand(new UiCommand() {
+//            @Override
+//            public void run() {
+//                final DialogChooseFormats dialog = new DialogChooseFormats();
+//                dialog.setOkCallback(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        customFormatCodes.clear();
+//                        Set<String> sets = new HashSet<>();
+//                        for(GameFormat format:dialog.getSelectedFormats()){
+//                            sets.addAll(format.getAllowedSetCodes());
+//                        }
+//                        customFormatCodes.addAll(sets);
+//                    }
+//                });
+//            }
+//        });
+//
+//        view.getBtnPrizeCustomFormat().setCommand(new UiCommand() {
+//            @Override
+//            public void run() {
+//                final DialogChooseSets dialog = new DialogChooseSets(customPrizeFormatCodes, unselectableSets, false);
+//                dialog.setOkCallback(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        customPrizeFormatCodes.clear();
+//                        customPrizeFormatCodes.addAll(dialog.getSelectedSets());
+//                    }
+//                });
+//            }
+//        });
+//
+//        view.getBtnPrizeSelectFormat().setCommand(new UiCommand() {
+//            @Override
+//            public void run() {
+//                final DialogChooseFormats dialog = new DialogChooseFormats();
+//                dialog.setOkCallback(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        customPrizeFormatCodes.clear();
+//                        Set<String> sets = new HashSet<>();
+//                        for(GameFormat format:dialog.getSelectedFormats()){
+//                            sets.addAll(format.getAllowedSetCodes());
+//                        }
+//                        customPrizeFormatCodes.addAll(sets);
+//                    }
+//                });
+//            }
+//        });
 
-        view.getBtnSelectFormat().setCommand(new UiCommand() {
-            @Override
-            public void run() {
-                final DialogChooseFormats dialog = new DialogChooseFormats();
-                dialog.setOkCallback(new Runnable() {
-                    @Override
-                    public void run() {
-                        customFormatCodes.clear();
-                        Set<String> sets = new HashSet<>();
-                        for(GameFormat format:dialog.getSelectedFormats()){
-                            sets.addAll(format.getAllowedSetCodes());
-                        }
-                        customFormatCodes.addAll(sets);
-                    }
-                });
-            }
-        });
-
-        view.getBtnPrizeCustomFormat().setCommand(new UiCommand() {
-            @Override
-            public void run() {
-                final DialogChooseSets dialog = new DialogChooseSets(customPrizeFormatCodes, unselectableSets, false);
-                dialog.setOkCallback(new Runnable() {
-                    @Override
-                    public void run() {
-                        customPrizeFormatCodes.clear();
-                        customPrizeFormatCodes.addAll(dialog.getSelectedSets());
-                    }
-                });
-            }
-        });
-
-        view.getBtnPrizeSelectFormat().setCommand(new UiCommand() {
-            @Override
-            public void run() {
-                final DialogChooseFormats dialog = new DialogChooseFormats();
-                dialog.setOkCallback(new Runnable() {
-                    @Override
-                    public void run() {
-                        customPrizeFormatCodes.clear();
-                        Set<String> sets = new HashSet<>();
-                        for(GameFormat format:dialog.getSelectedFormats()){
-                            sets.addAll(format.getAllowedSetCodes());
-                        }
-                        customPrizeFormatCodes.addAll(sets);
-                    }
-                });
-            }
-        });
-
-        view.getBtnPreferredColors().setCommand(new UiCommand() {
-            @Override
-            public void run() {
-                final DialogChoosePoolDistribution colorChooser = new DialogChoosePoolDistribution(preferredColors, poolType, includeArtifacts);
-                colorChooser.show(new UiCommand() {
-                    @Override
-                    public void run() {
-                        preferredColors = colorChooser.getPreferredColors();
-                        poolType = colorChooser.getPoolType();
-                        includeArtifacts = colorChooser.includeArtifacts();
-                        numberOfBoosters = colorChooser.getNumberOfBoosters();
-                    }
-                });
-            }
-        });
 
     }
 
@@ -149,7 +134,7 @@ public enum CSubmenuQuestStart implements ICDoc {
     public void update() {
     }
 
-    private void newQuest() {
+    public void newQuest() {
         String questName = input_getQuestName();
         if (questName == null) return;
 

@@ -95,7 +95,7 @@ public class FNavigationBar extends FTitleBarBase {
         addForgeButtonListeners();
 
         addNavigationTab(FScreen.HOME_SCREEN);
-        addNavigationTab(FScreen.DECK_EDITOR_CONSTRUCTED);
+        //addNavigationTab(FScreen.DECK_EDITOR_CONSTRUCTED);
         if (ForgePreferences.DEV_MODE) {
             //TODO: Make Workshop available outside developer mode when custom cards supported
             addNavigationTab(FScreen.WORKSHOP_SCREEN);
@@ -120,7 +120,7 @@ public class FNavigationBar extends FTitleBarBase {
         }
         layout.putConstraint(SpringLayout.SOUTH, tab, 0, SpringLayout.SOUTH, this);
         tabs.add(tab);
-        add(tab);
+//        add(tab);
         return tab;
     }
 
