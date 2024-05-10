@@ -11,8 +11,13 @@ import java.util.ArrayList;
 
 @Getter @Setter @Accessors(fluent = true, chain = true) public class Location {
 
-    ArrayList<ArrayList<SNode>> actions = new ArrayList<>();
     String video;
+    ArrayList<ArrayList<SNode>> actions = new ArrayList<>();
+
+    ArrayList<ArrayList<SNode>> event_hunting = new ArrayList<>();
+    ArrayList<ArrayList<SNode>> event_hunting_hard = new ArrayList<>();
+    ArrayList<ArrayList<SNode>> event_explore = new ArrayList<>();
+
 
     public Location() {}
     public Location add_action(ArrayList<SNode> action) { actions.add(action); return this; }

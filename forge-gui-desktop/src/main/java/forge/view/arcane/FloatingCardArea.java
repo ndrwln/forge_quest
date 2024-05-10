@@ -6,28 +6,16 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package forge.view.arcane;
-
-import java.awt.Component;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.ScrollPaneConstants;
-import javax.swing.Timer;
 
 import forge.Singletons;
 import forge.game.card.CardView;
@@ -42,12 +30,20 @@ import forge.toolbox.MouseTriggerEvent;
 import forge.view.FDialog;
 import forge.view.FFrame;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
+
 //import forge.util.collect.FCollectionView;
 
 // show some cards in a new window
 public abstract class FloatingCardArea extends CardArea {
 
-    protected static final String COORD_DELIM = ","; 
+    protected static final String COORD_DELIM = ",";
     protected static final ForgePreferences prefs = FModel.getPreferences();
 
     protected String title;
@@ -109,9 +105,7 @@ public abstract class FloatingCardArea extends CardArea {
             }
             if (!b0 && hasBeenShown && locPref != null) {
                 //update preference before hiding window, as otherwise its location will be 0,0
-                prefs.setPref(locPref,
-                        getX() + COORD_DELIM + getY() + COORD_DELIM +
-                                getWidth() + COORD_DELIM + getHeight());
+                prefs.setPref(locPref, locPref.getDefault());
                 //don't call prefs.save(), instead allowing them to be saved when match ends
             }
             if (b0) {
@@ -141,11 +135,11 @@ public abstract class FloatingCardArea extends CardArea {
                         int y = Integer.parseInt(coords[1]);
                         int w = Integer.parseInt(coords[2]);
                         int h = Integer.parseInt(coords[3]);
-    
+
                         //ensure the window is accessible
                         int centerX = x + w / 2;
                         int centerY = y + h / 2;
-                        Rectangle screenBounds = SDisplayUtil.getScreenBoundsForPoint(new Point(centerX, centerY)); 
+                        Rectangle screenBounds = SDisplayUtil.getScreenBoundsForPoint(new Point(centerX, centerY));
                         if (centerX < screenBounds.x) {
                             x = screenBounds.x;
                         }
@@ -183,7 +177,7 @@ public abstract class FloatingCardArea extends CardArea {
 
     protected void refresh() {
         if (!getWindow().isVisible()) { return; } //don't refresh while window hidden
-	doRefresh();
+        doRefresh();
     }
 
     protected void doRefresh() {
@@ -207,12 +201,12 @@ public abstract class FloatingCardArea extends CardArea {
         setCardPanels(cardPanels);
         getWindow().setTitle(String.format(title, cardPanels.size()));
 
-	//pfps - rather suspect, so commented out for now
-	//        //if window had cards and now doesn't, hide window
-	//        //(e.g. cast final card from Flashback zone)
-	//        if (hadCardPanels && cardPanels.size() == 0) {
-	//            getWindow().setVisible(false);
-	//        }
+        //pfps - rather suspect, so commented out for now
+        //        //if window had cards and now doesn't, hide window
+        //        //(e.g. cast final card from Flashback zone)
+        //        if (hadCardPanels && cardPanels.size() == 0) {
+        //            getWindow().setVisible(false);
+        //        }
     }
 
     @Override

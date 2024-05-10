@@ -1,16 +1,5 @@
 package forge.screens.home.quest;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.List;
-
-import javax.swing.JRadioButton;
-import javax.swing.SwingUtilities;
-
 import forge.gamemodes.quest.QuestController;
 import forge.gamemodes.quest.QuestEventDuel;
 import forge.gamemodes.quest.QuestUtil;
@@ -20,6 +9,10 @@ import forge.gui.framework.ICDoc;
 import forge.model.FModel;
 import forge.toolbox.JXButtonPanel;
 import forge.util.Localizer;
+
+import javax.swing.*;
+import java.awt.event.*;
+import java.util.List;
 
 /**
  * Controls the quest duels submenu in the home UI.
@@ -58,14 +51,7 @@ public enum CSubmenuDuels implements ICDoc {
 					}
 				});
 
-		view.getBtnTravel().setCommand(
-				new UiCommand() {
-					@Override
-					public void run() {
-						QuestUtil.travelWorld();
-						CSubmenuDuels.this.update();
-					}
-				});
+
 
 		view.getBtnUnlock().setCommand(
 				new UiCommand() {
@@ -80,7 +66,7 @@ public enum CSubmenuDuels implements ICDoc {
 				new ActionListener() {
 					@Override
 					public void actionPerformed(final ActionEvent e) {
-						QuestUtil.startGame();
+						QuestUtil.notify_start_game();
 					}
 				});
 

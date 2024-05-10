@@ -270,7 +270,7 @@ public final class ForgeConstants {
     private static final String _DEFAULTS_DIR = RES_DIR + "defaults" + PATH_SEPARATOR;
     public static final String NO_CARD_FILE   = _DEFAULTS_DIR + "no_card.jpg";
     public static final FileLocation WINDOW_LAYOUT_FILE      = new FileLocation(_DEFAULTS_DIR, USER_PREFS_DIR, "window.xml");
-    public static final FileLocation MATCH_LAYOUT_FILE       = new FileLocation(_DEFAULTS_DIR, USER_PREFS_DIR, "match.xml");
+    public static final FileLocation MATCH_LAYOUT_FILE       = new FileLocation(BASE_SKINS_DIR, BASE_SKINS_DIR, "match.xml");
     public static final FileLocation WORKSHOP_LAYOUT_FILE    = new FileLocation(_DEFAULTS_DIR, USER_PREFS_DIR, "workshop.xml");
     public static final FileLocation EDITOR_LAYOUT_FILE      = new FileLocation(_DEFAULTS_DIR, USER_PREFS_DIR, "editor.xml");
     public static final FileLocation GAUNTLET_DIR            = new FileLocation(_DEFAULTS_DIR, USER_DIR,       "gauntlet" + PATH_SEPARATOR);

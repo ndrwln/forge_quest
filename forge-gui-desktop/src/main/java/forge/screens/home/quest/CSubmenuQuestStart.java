@@ -30,109 +30,12 @@ public enum CSubmenuQuestStart implements ICDoc {
     SINGLETON_INSTANCE;
 
     private final Map<String, QuestData> arrQuests = new HashMap<>();
-
-    private final VSubmenuQuestStart view = VSubmenuQuestStart.SINGLETON_INSTANCE;
-    private final List<String> customFormatCodes = new ArrayList<>();
-    private final List<String> customPrizeFormatCodes = new ArrayList<>();
-
     public List<Byte> preferredColors = new ArrayList<>();
     public StartingPoolPreferences.PoolType poolType = StartingPoolPreferences.PoolType.BALANCED;
-    public int numberOfBoosters = 0;
 
-    @Override
-    public void register() {
-    }
-
-    /* (non-Javadoc)
-     * @see forge.gui.control.home.IControlSubmenu#update()
-     */
-    @Override
-    public void initialize() {
-//        view.getBtnEmbark().setCommand(
-//                new UiCommand() { @Override public void run() { newQuest(); } });
-
-        // disable the very powerful sets -- they can be unlocked later for a high price
-        final List<String> unselectableSets = new ArrayList<>();
-        unselectableSets.add("LEA");
-        unselectableSets.add("LEB");
-        unselectableSets.add("MBP");
-        unselectableSets.add("VAN");
-        unselectableSets.add("ARC");
-        unselectableSets.add("PC2");
-
-//        view.getBtnCustomFormat().setCommand(new UiCommand() {
-//            @Override
-//            public void run() {
-//                final DialogChooseSets dialog = new DialogChooseSets(customFormatCodes, unselectableSets, false);
-//                dialog.setOkCallback(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        customFormatCodes.clear();
-//                        customFormatCodes.addAll(dialog.getSelectedSets());
-//                    }
-//                });
-//            }
-//        });
-//
-//        view.getBtnSelectFormat().setCommand(new UiCommand() {
-//            @Override
-//            public void run() {
-//                final DialogChooseFormats dialog = new DialogChooseFormats();
-//                dialog.setOkCallback(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        customFormatCodes.clear();
-//                        Set<String> sets = new HashSet<>();
-//                        for(GameFormat format:dialog.getSelectedFormats()){
-//                            sets.addAll(format.getAllowedSetCodes());
-//                        }
-//                        customFormatCodes.addAll(sets);
-//                    }
-//                });
-//            }
-//        });
-//
-//        view.getBtnPrizeCustomFormat().setCommand(new UiCommand() {
-//            @Override
-//            public void run() {
-//                final DialogChooseSets dialog = new DialogChooseSets(customPrizeFormatCodes, unselectableSets, false);
-//                dialog.setOkCallback(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        customPrizeFormatCodes.clear();
-//                        customPrizeFormatCodes.addAll(dialog.getSelectedSets());
-//                    }
-//                });
-//            }
-//        });
-//
-//        view.getBtnPrizeSelectFormat().setCommand(new UiCommand() {
-//            @Override
-//            public void run() {
-//                final DialogChooseFormats dialog = new DialogChooseFormats();
-//                dialog.setOkCallback(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        customPrizeFormatCodes.clear();
-//                        Set<String> sets = new HashSet<>();
-//                        for(GameFormat format:dialog.getSelectedFormats()){
-//                            sets.addAll(format.getAllowedSetCodes());
-//                        }
-//                        customPrizeFormatCodes.addAll(sets);
-//                    }
-//                });
-//            }
-//        });
-
-
-    }
-
-    /* (non-Javadoc)
-     * @see forge.gui.control.home.IControlSubmenu#update()
-     */
-    @Override
-    public void update() {
-    }
+    @Override public void register() {}
+    @Override public void initialize() {}
+    @Override public void update() {}
 
     public void newQuest() {
         String questName = input_getQuestName();

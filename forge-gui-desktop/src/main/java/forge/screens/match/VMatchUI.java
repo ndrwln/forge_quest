@@ -1,17 +1,7 @@
 package forge.screens.match;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.SwingUtilities;
-
 import forge.Singletons;
-import forge.gui.framework.DragCell;
-import forge.gui.framework.EDocID;
-import forge.gui.framework.FScreen;
-import forge.gui.framework.IVTopLevelUI;
-import forge.gui.framework.SRearrangingUtil;
-import forge.gui.framework.VEmptyDoc;
+import forge.gui.framework.*;
 import forge.localinstance.properties.ForgePreferences;
 import forge.screens.match.views.VDev;
 import forge.screens.match.views.VField;
@@ -20,6 +10,10 @@ import forge.sound.MusicPlaylist;
 import forge.sound.SoundSystem;
 import forge.toolbox.FButton;
 import forge.view.FView;
+
+import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /** 
  * Top level view class for match UI drag layout.<br>
@@ -52,11 +46,7 @@ public class VMatchUI implements IVTopLevelUI {
                 final DragCell parent = vDev.getParentCell();
                 parent.removeDoc(vDev);
                 vDev.setParentCell(null);
-
-                // If dev mode was first tab, the new first tab needs re-selecting.
-                if (parent.getDocs().size() > 0) {
-                    parent.setSelected(parent.getDocs().get(0));
-                }
+                if (!parent.getDocs().isEmpty()) parent.setSelected(parent.getDocs().get(0));
             }
         } else if (vDev.getParentCell() == null) {
             // Dev mode enabled? May already by added, or put in message cell by default.

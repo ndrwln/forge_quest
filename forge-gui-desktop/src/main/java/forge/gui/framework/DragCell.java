@@ -1,29 +1,19 @@
 package forge.gui.framework;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-
 import com.google.common.collect.Lists;
-
-import forge.localinstance.properties.ForgePreferences;
-import forge.localinstance.properties.ForgePreferences.FPref;
 import forge.localinstance.skin.FSkinProp;
-import forge.model.FModel;
 import forge.toolbox.FPanel;
 import forge.toolbox.FSkin;
 import forge.toolbox.FSkin.SkinImage;
 import forge.view.FView;
 import net.miginfocom.swing.MigLayout;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Top-level container in drag layout.  A cell holds
@@ -112,8 +102,7 @@ public final class DragCell extends JPanel implements ILocalRepaint {
      * Determines visibility of tabs on game screen.
      */
     private static boolean showGameTabs() {
-        final ForgePreferences prefs = FModel.getPreferences();
-        return !prefs.getPrefBoolean(FPref.UI_HIDE_GAME_TABS);
+        return false;
     }
 
     /** @return {@link javax.swing.JPanel} */

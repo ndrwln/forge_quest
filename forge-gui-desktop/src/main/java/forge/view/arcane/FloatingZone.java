@@ -17,15 +17,6 @@
  */
 package forge.view.arcane;
 
-import java.awt.event.MouseEvent;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.swing.ScrollPaneConstants;
-import javax.swing.WindowConstants;
-
 import forge.game.card.CardView;
 import forge.game.player.PlayerView;
 import forge.game.zone.ZoneType;
@@ -38,6 +29,13 @@ import forge.toolbox.FScrollPane;
 import forge.toolbox.FSkin;
 import forge.util.Localizer;
 import forge.util.collect.FCollection;
+
+import javax.swing.*;
+import java.awt.event.MouseEvent;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
 
 public class FloatingZone extends FloatingCardArea {
     private static final long serialVersionUID = 1927906492186378596L;
@@ -239,31 +237,36 @@ public class FloatingZone extends FloatingCardArea {
         player = player0;
         setTitle();
 
+        ;
+
+
+
+
         boolean isAi = player0.isAI();
         switch (zone) {
             case Exile:
-                locPref = isAi ? FPref.ZONE_LOC_AI_EXILE : FPref.ZONE_LOC_HUMAN_EXILE;
+                locPref = isAi ? FPref.ZONE_LOC_AI_GRAVEYARD : FPref.ZONE_LOC_HUMAN_GRAVEYARD;
                 break;
             case Graveyard:
                 locPref = isAi ? FPref.ZONE_LOC_AI_GRAVEYARD : FPref.ZONE_LOC_HUMAN_GRAVEYARD;
                 break;
             case Hand:
-                locPref = isAi ? FPref.ZONE_LOC_AI_HAND : FPref.ZONE_LOC_HUMAN_HAND;
+                locPref = isAi ? FPref.ZONE_LOC_AI_GRAVEYARD : FPref.ZONE_LOC_HUMAN_GRAVEYARD;
                 break;
             case Library:
-                locPref = isAi ? FPref.ZONE_LOC_AI_LIBRARY : FPref.ZONE_LOC_HUMAN_LIBRARY;
+                locPref = isAi ? FPref.ZONE_LOC_AI_GRAVEYARD : FPref.ZONE_LOC_HUMAN_GRAVEYARD;
                 break;
             case Flashback:
-                locPref = isAi ? FPref.ZONE_LOC_AI_FLASHBACK : FPref.ZONE_LOC_HUMAN_FLASHBACK;
+                locPref = isAi ? FPref.ZONE_LOC_AI_GRAVEYARD : FPref.ZONE_LOC_HUMAN_GRAVEYARD;
                 break;
             case Command:
-                locPref = isAi ? FPref.ZONE_LOC_AI_COMMAND : FPref.ZONE_LOC_HUMAN_COMMAND;
+                locPref = isAi ? FPref.ZONE_LOC_AI_GRAVEYARD : FPref.ZONE_LOC_HUMAN_GRAVEYARD;
                 break;
             case Ante:
-                locPref = isAi ? FPref.ZONE_LOC_AI_ANTE : FPref.ZONE_LOC_HUMAN_ANTE;
+                locPref = isAi ? FPref.ZONE_LOC_AI_GRAVEYARD : FPref.ZONE_LOC_HUMAN_GRAVEYARD;
                 break;
             case Sideboard:
-                locPref = isAi ? FPref.ZONE_LOC_AI_SIDEBOARD : FPref.ZONE_LOC_HUMAN_SIDEBOARD;
+                locPref = isAi ? FPref.ZONE_LOC_AI_GRAVEYARD : FPref.ZONE_LOC_HUMAN_GRAVEYARD;
                 break;
             default:
                 locPref = null;

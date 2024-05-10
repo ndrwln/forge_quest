@@ -1,11 +1,5 @@
 package forge.gamemodes.quest;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
 import forge.gamemodes.quest.data.QuestPreferences;
 import forge.gamemodes.quest.data.QuestPreferences.DifficultyPrefs;
 import forge.gamemodes.quest.data.QuestPreferences.QPref;
@@ -17,6 +11,12 @@ import forge.util.maps.EnumMapOfLists;
 import forge.util.maps.MapOfLists;
 import forge.util.storage.IStorage;
 import forge.util.storage.StorageBase;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class MainWorldEventDuelManager implements QuestEventDuelManagerInterface {
 
@@ -145,7 +145,7 @@ public class MainWorldEventDuelManager implements QuestEventDuelManagerInterface
         final int index = qCtrl.getAchievements().getDifficulty();
         final List<QuestEventDuel> duelOpponents = new ArrayList<>();
 
-        QuestEventDifficulty randomDuelDifficulty = QuestEventDifficulty.EASY;
+        QuestEventDifficulty randomDuelDifficulty;
         
         double randomDouble = MyRandom.getRandom().nextDouble();
 

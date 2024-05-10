@@ -1,18 +1,5 @@
 package forge.menus;
 
-import java.awt.Cursor;
-import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-
-import javax.swing.ButtonGroup;
-import javax.swing.JCheckBoxMenuItem;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JRadioButtonMenuItem;
-import javax.swing.KeyStroke;
-
 import forge.Singletons;
 import forge.control.FControl;
 import forge.gui.GuiChoose;
@@ -28,6 +15,12 @@ import forge.toolbox.FSkin.SkinnedMenuItem;
 import forge.util.Localizer;
 import forge.view.FFrame;
 import forge.view.FView;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 /**
  * Returns a JMenu containing options associated with game screen layout.
@@ -140,7 +133,7 @@ public final class LayoutMenu {
         final Localizer localizer = Localizer.getInstance();
         final JCheckBoxMenuItem menuItem = new JCheckBoxMenuItem(localizer.getMessage("lblPanelTabs"));
         menuItem.setAccelerator(MenuUtil.getAcceleratorKey(KeyEvent.VK_T));
-        menuItem.setState(!prefs.getPrefBoolean(FPref.UI_HIDE_GAME_TABS));
+        menuItem.setState(false);
         menuItem.addActionListener(getShowTabsAction(menuItem));
         return menuItem;
     }

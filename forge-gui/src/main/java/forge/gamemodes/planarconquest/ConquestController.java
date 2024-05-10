@@ -17,11 +17,6 @@
  */
 package forge.gamemodes.planarconquest;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
 import forge.LobbyPlayer;
 import forge.card.CardType;
 import forge.deck.CardPool;
@@ -50,6 +45,11 @@ import forge.util.Aggregates;
 import forge.util.FileUtil;
 import forge.util.storage.IStorage;
 import forge.util.storage.StorageImmediatelySerialized;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 public class ConquestController {
     private ConquestData model;
@@ -131,7 +131,7 @@ public class ConquestController {
         battle.setOpponentAvatar(aiPlayer, gui);
         starter.add(aiStart.setPlayer(aiPlayer));
 
-        final boolean useRandomFoil = FModel.getPreferences().getPrefBoolean(FPref.UI_RANDOM_FOIL);
+        final boolean useRandomFoil = false;
         for (final RegisteredPlayer rp : starter) {
             rp.setRandomFoil(useRandomFoil);
         }

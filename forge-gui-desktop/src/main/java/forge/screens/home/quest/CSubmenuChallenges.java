@@ -1,20 +1,5 @@
 package forge.screens.home.quest;
 
-import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.JRadioButton;
-import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
-import javax.swing.border.EmptyBorder;
-
 import forge.Singletons;
 import forge.gamemodes.quest.QuestController;
 import forge.gamemodes.quest.QuestEventChallenge;
@@ -27,6 +12,13 @@ import forge.model.FModel;
 import forge.toolbox.FLabel;
 import forge.toolbox.JXButtonPanel;
 import forge.util.Localizer;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Controls the quest challenges submenu in the home UI.
@@ -62,13 +54,10 @@ public enum CSubmenuChallenges implements ICDoc {
                 new UiCommand() { @Override
                     public void run() { QuestUtil.chooseAndUnlockEdition(); CSubmenuChallenges.this.update(); } });
 
-        view.getBtnTravel().setCommand(
-                new UiCommand() { @Override
-                    public void run() { QuestUtil.travelWorld(); CSubmenuChallenges.this.update(); } });
 
         view.getBtnStart().addActionListener(
                 new ActionListener() { @Override
-                    public void actionPerformed(final ActionEvent e) { QuestUtil.startGame(); } });
+                    public void actionPerformed(final ActionEvent e) { QuestUtil.notify_start_game(); } });
 
         view.getLblZep().setCommand(
                 new UiCommand() {

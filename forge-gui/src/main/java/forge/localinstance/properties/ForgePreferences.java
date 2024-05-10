@@ -89,7 +89,7 @@ public class ForgePreferences extends PreferencesStore<ForgePreferences.FPref> {
         UI_AUTO_AIDECK_SELECTION("true"),
         UI_DISABLE_CARD_IMAGES ("false"),
         UI_IMAGE_CACHE_MAXIMUM("400"),
-        UI_OVERLAY_FOIL_EFFECT ("true"),
+        UI_OVERLAY_FOIL_EFFECT ("false"),
         UI_HIDE_REMINDER_TEXT ("false"),
         UI_CARD_IMAGE_RENDER_USE_SANS_SERIF_FONT ("true"),
         UI_CARD_IMAGE_RENDER_HIDE_REMINDER_TEXT ("true"),
@@ -132,7 +132,7 @@ public class ForgePreferences extends PreferencesStore<ForgePreferences.FPref> {
         UI_MATCH_IMAGE_VISIBLE ("true"),
         UI_THEMED_COMBOBOX ("true"), // Now applies to all theme settings, not just Combo.
         UI_LOCK_TITLE_BAR ("false"),
-        UI_HIDE_GAME_TABS ("false"), // Visibility of tabs in match screen.
+        UI_HIDE_GAME_TABS ("true"), // Visibility of tabs in match screen.
         UI_CLOSE_ACTION ("NONE"),
         UI_MANA_LOST_PROMPT ("false"), // Prompt on losing mana when passing priority
         UI_STACK_EFFECT_NOTIFICATION_POLICY ("Never"),
@@ -253,7 +253,7 @@ public class ForgePreferences extends PreferencesStore<ForgePreferences.FPref> {
 
         ZONE_LOC_HUMAN_HAND(""),
         ZONE_LOC_HUMAN_LIBRARY(""),
-        ZONE_LOC_HUMAN_GRAVEYARD(""),
+        ZONE_LOC_HUMAN_GRAVEYARD("0,40,1534,1042"),
         ZONE_LOC_HUMAN_EXILE(""),
         ZONE_LOC_HUMAN_FLASHBACK(""),
         ZONE_LOC_HUMAN_COMMAND(""),
@@ -262,7 +262,7 @@ public class ForgePreferences extends PreferencesStore<ForgePreferences.FPref> {
 
         ZONE_LOC_AI_HAND(""),
         ZONE_LOC_AI_LIBRARY(""),
-        ZONE_LOC_AI_GRAVEYARD(""),
+        ZONE_LOC_AI_GRAVEYARD("0,40,1535,1040"),
         ZONE_LOC_AI_EXILE(""),
         ZONE_LOC_AI_FLASHBACK(""),
         ZONE_LOC_AI_COMMAND(""),
