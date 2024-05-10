@@ -22,11 +22,18 @@ Dev instructions here: [Getting Started](https://github.com/Card-Forge/forge/wik
 
 ## Project Quick Setup
 
+- Go to main repo and try to get a working version that can run and build of the main fork. When you can do that, you can try to do it with this
 - Login into GitHub with your user account and fork the project.
-
 - Clone your forked project to your local machine
-
 - Go to the project location on your machine.  Run Maven to download all dependencies and build a snapshot.  Example for Windows & Linux: `mvn -U -B clean -P windows-linux install`
+
+- Setup Lombok
+  - Look up intellij setup
+- Get Liberica-11 Jar that contains javafx from Intellij jars
+  - Set the java home path to it after downloading for builds
+  - this works for builds but to run, you need to add the Javafx sdk (download v17) to project libraries, 
+  - then add library to the forge-gui module
+
 
 ## Eclipse
 
