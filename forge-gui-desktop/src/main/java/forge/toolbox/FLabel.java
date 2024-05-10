@@ -32,6 +32,7 @@ import java.awt.event.*;
  */
 @SuppressWarnings("serial")
 public class FLabel extends SkinnedLabel implements ILocalRepaint, IButton {
+
     /**
      * Uses the Builder pattern to facilitate/encourage inline styling.
      * Credit to Effective Java 2 (Joshua Bloch).
@@ -668,6 +669,10 @@ public class FLabel extends SkinnedLabel implements ILocalRepaint, IButton {
         this.alphaDim = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
     }
 
-    public double getOpacity() {return opacity;}
+    double timer = 0;
+    public void setTier(double timer) {this.timer = timer;}
+
+
+
     public float getStartingAlpha() {return alphaDim_start;}
 }

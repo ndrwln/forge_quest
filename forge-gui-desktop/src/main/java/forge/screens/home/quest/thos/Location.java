@@ -18,19 +18,29 @@ import java.util.ArrayList;
     public Location add_action(ArrayList<SNode> action) { actions.add(action); return this; }
 
 
+    public void fadeOutPrep()
+    {
+        for (ArrayList<SNode> a : actions) for (SNode node : a)
+        {
+            node.fLabel.setEnabled(false);
+        }
+    }
+
     public void fadeOut() {fadeOut(500);}
     public void fadeOut(int ms)
     {
-        SwingUtilities.invokeLater(() -> {
-            for (ArrayList<SNode> a : actions) for (SNode node : a)
-            {
-                node.fLabel.setEnabled(false);
+        for (ArrayList<SNode> a : actions) for (SNode node : a)
+        {
+            node.fLabel.setEnabled(false);
+            SwingUtilities.invokeLater(() -> {
                 Timeline.builder(node.fLabel())
                         .addPropertyToInterpolate("opacity", node.fLabel.getStartingAlpha(), 0.0F)
                         .setDuration(ms)
                         .play();
-            }
-        });
+            });
+        }
+
+
     }
 
     public void fadeIn() {fadeIn(500);}

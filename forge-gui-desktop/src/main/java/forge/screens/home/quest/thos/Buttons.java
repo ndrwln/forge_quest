@@ -50,6 +50,7 @@ public class Buttons {
                 .constraints("w 300px!, h 30px!, ax center, span 2")
                 .ui(UI_MAIN)
                 .fn((UiCommand) () -> {
+
                     Locations.travelTo(REST_AREA);
                 });
 

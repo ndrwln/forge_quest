@@ -12,6 +12,7 @@ import java.util.ArrayList;
 @Getter @Setter @Accessors(fluent = true, chain = true) public class SNode {
     public static ArrayList<SNode> sNodes = new ArrayList<>();
 
+
     FLabel fLabel;
     String constraints;
     ArrayList<SNode> ui;

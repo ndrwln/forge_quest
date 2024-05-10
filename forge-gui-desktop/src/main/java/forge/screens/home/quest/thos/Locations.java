@@ -43,6 +43,7 @@ public class Locations {
     {
         PREVIOUS_LOCATION = Locations.CURRENT_LOCATION;
         Locations.CURRENT_LOCATION = location;
+        PREVIOUS_LOCATION.fadeOutPrep();
 
         Platform.runLater(() -> {
             Platform.runLater(() -> {
