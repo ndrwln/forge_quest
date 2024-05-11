@@ -1,5 +1,7 @@
 package forge.screens.home.quest.thos;
 
+import forge.screens.home.VHomeUI;
+import forge.screens.home.quest.VSubmenuQuestStart;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -22,38 +24,29 @@ import java.util.ArrayList;
     public Location() {}
     public Location add_action(ArrayList<SNode> action) { actions.add(action); return this; }
 
-
-    public void fadeOutPrep()
-    {
-        for (ArrayList<SNode> a : actions) for (SNode node : a)
-        {
-            node.fLabel.setEnabled(false);
-        }
-    }
-
     public void fadeOut() {fadeOut(500);}
     public void fadeOut(int ms)
     {
-        for (ArrayList<SNode> a : actions) for (SNode node : a)
+        for (SNode node : SNode.sNodes)
         {
+            node.fLabel.setOpacity(0);
             node.fLabel.setEnabled(false);
-            SwingUtilities.invokeLater(() -> {
-                Timeline.builder(node.fLabel())
-                        .addPropertyToInterpolate("opacity", node.fLabel.getStartingAlpha(), 0.0F)
-                        .setDuration(ms)
-                        .play();
-            });
+            SNode.remove_from_view(VSubmenuQuestStart.MAIN_PANEL, node);
         }
+        VHomeUI.SINGLETON_INSTANCE.getPnlDisplay().repaintSelf();
+        VHomeUI.SINGLETON_INSTANCE.getPnlDisplay().revalidate();
 
 
     }
 
-    public void fadeIn() {fadeIn(500);}
+    public void fadeIn() {fadeIn(1000);}
     public void fadeIn(int ms)
     {
         SwingUtilities.invokeLater(() -> {
             for (ArrayList<SNode> a : actions) for (SNode node : a)
             {
+                SNode.add_to_view(VSubmenuQuestStart.MAIN_PANEL, node);
+
                 Timeline.builder(node.fLabel())
                         .addPropertyToInterpolate("opacity", 0.0F, node.fLabel.getStartingAlpha())
                         .setDuration(ms)
@@ -65,6 +58,8 @@ import java.util.ArrayList;
                         } )
                         .play();
             }
+            VHomeUI.SINGLETON_INSTANCE.getPnlDisplay().repaintSelf();
+            VHomeUI.SINGLETON_INSTANCE.getPnlDisplay().revalidate();
         });
     }
 

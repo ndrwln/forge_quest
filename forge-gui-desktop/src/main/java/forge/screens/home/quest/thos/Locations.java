@@ -1,5 +1,8 @@
 package forge.screens.home.quest.thos;
 
+import forge.gamemodes.quest.QuestMode;
+import forge.gamemodes.quest.QuestUtil;
+import forge.model.FModel;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.scene.media.Media;
@@ -11,6 +14,8 @@ import java.util.ArrayList;
 
 import static forge.localinstance.properties.ForgeConstants.VIDEO_DIR;
 import static forge.screens.home.quest.VSubmenuQuestStart.MEDIA_VIEW;
+import static forge.screens.home.quest.thos.Buttons.lbl_crystals;
+import static forge.screens.home.quest.thos.Buttons.lbl_life;
 
 public class Locations {
 
@@ -18,6 +23,9 @@ public class Locations {
     public static final ArrayList<SNode> UI_INFO = new ArrayList<>();
     public static final ArrayList<SNode> UI_GENERAL = new ArrayList<>();
     public static final ArrayList<SNode> UI_MAP = new ArrayList<>();
+    public static final ArrayList<SNode> UI_LEARN = new ArrayList<>();
+    public static final ArrayList<SNode> UI_GOTOPLANE = new ArrayList<>();
+    public static final ArrayList<SNode> UI_EXPLORE = new ArrayList<>();
 
     public static final Location MAIN_MENU = new Location()
             .video("main_menu.mp4")
@@ -43,7 +51,6 @@ public class Locations {
     {
         PREVIOUS_LOCATION = Locations.CURRENT_LOCATION;
         Locations.CURRENT_LOCATION = location;
-        PREVIOUS_LOCATION.fadeOutPrep();
 
         Platform.runLater(() -> {
             Platform.runLater(() -> {
@@ -52,9 +59,8 @@ public class Locations {
                 player.setAutoPlay(true);
                 player.setOnReady(()-> {
                     PREVIOUS_LOCATION.fadeOut();
-
                     FadeTransition out = new FadeTransition();
-                    out.setDuration(Duration.millis(2000));
+                    out.setDuration(Duration.millis(500));
                     out.setNode(MEDIA_VIEW);
                     out.setFromValue(1);
                     out.setToValue(0);
@@ -62,14 +68,14 @@ public class Locations {
                         MEDIA_VIEW.setMediaPlayer(player);
 
                         FadeTransition in = new FadeTransition();
-                        in.setDuration(Duration.millis(2000));
+                        in.setDuration(Duration.millis(500));
                         in.setNode(MEDIA_VIEW);
                         in.setFromValue(0);
                         in.setToValue(1);
-                        in.setOnFinished(e -> {
+                        in.setOnFinished(event1 -> {
+                            update_stats();
                             location.fadeIn();
                         });
-
                         in.play();
                     });
 
@@ -77,18 +83,20 @@ public class Locations {
                 });
             });
         });
+
+
     }
 
 
 
 
 
-//    public static void update_stats()
-//    {
-//        lbl_crystals.getfLabel().setText(QuestUtil.formatCredits(FModel.getQuest().getAssets().getCredits()));
-//        lbl_life.getfLabel().setText(FModel.getQuest().getAssets().getLife(QuestMode.Classic) + "/" + FModel.getQuest().getAssets().getLifeMax(QuestMode.Classic));
-//    }
-//
+    public static void update_stats()
+    {
+        lbl_crystals.fLabel.setText(QuestUtil.formatCredits(FModel.getQuest().getAssets().getCredits()));
+        lbl_life.fLabel.setText(FModel.getQuest().getAssets().getLife(QuestMode.Classic) + "/" + FModel.getQuest().getAssets().getLifeMax(QuestMode.Classic));
+    }
+
 
 
 }

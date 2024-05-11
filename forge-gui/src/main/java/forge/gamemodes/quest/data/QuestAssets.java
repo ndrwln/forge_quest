@@ -6,21 +6,16 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package forge.gamemodes.quest.data;
-
-import java.lang.reflect.InvocationTargetException;
-import java.util.EnumMap;
-import java.util.HashMap;
-import java.util.Map;
 
 import forge.deck.Deck;
 import forge.deck.DeckGroup;
@@ -34,6 +29,11 @@ import forge.item.InventoryItem;
 import forge.item.PaperCard;
 import forge.model.FModel;
 import forge.util.ItemPool;
+
+import java.lang.reflect.InvocationTargetException;
+import java.util.EnumMap;
+import java.util.HashMap;
+import java.util.Map;
 
 /** */
 public class QuestAssets {
@@ -65,7 +65,7 @@ public class QuestAssets {
 
     // Much the same like other map, but keyed by string (to support a lot of custom pets)
     private final Map<String, QuestItemCondition> combatPets = new HashMap<>();
-    
+
     private final HashMap<String, DeckGroup> draftDecks = new HashMap<>();
     /**
      * Checks for item.
@@ -190,7 +190,7 @@ public class QuestAssets {
 
     /**
      * Gets the credits.
-     * 
+     *
      * @return the credits
      */
     public long getCredits() {
@@ -205,20 +205,16 @@ public class QuestAssets {
      * @return the life
      */
     public int getLife(final QuestMode mode) {
-        int base = mode.equals(QuestMode.Fantasy) ? 15 : 20;
+        return Math.max(1, 10 + this.getItemLevel(QuestItemType.ELIXIR_OF_LIFE) - this.getItemLevel(QuestItemType.POUND_FLESH));
+    }
 
-        //Modify life for the quest's sub-format, e.g.: Commander adds 20
-        switch(FModel.getQuest().getDeckConstructionRules()){
-            case Default: break;
-            case Commander: base += 20;
-        }
-
-        return (base + this.getItemLevel(QuestItemType.ELIXIR_OF_LIFE)) - this.getItemLevel(QuestItemType.POUND_FLESH);
+    public int getLifeMax(final QuestMode mode) {
+        return 10 + this.getItemLevel(QuestItemType.ELIXIR_OF_LIFE);
     }
 
     /**
      * Gets the new card list.
-     * 
+     *
      * @return the newCardList
      */
     public ItemPool<InventoryItem> getNewCardList() {
@@ -227,7 +223,7 @@ public class QuestAssets {
 
     /**
      * Gets the shop list.
-     * 
+     *
      * @return the shopList
      */
     public ItemPool<InventoryItem> getShopList() {
@@ -236,7 +232,7 @@ public class QuestAssets {
 
     /**
      * Sets the credits.
-     * 
+     *
      * @param credits0
      *            the credits to set
      */
@@ -247,7 +243,7 @@ public class QuestAssets {
     // Credits
     /**
      * Adds the credits.
-     * 
+     *
      * @param c
      *            the c
      */
@@ -257,7 +253,7 @@ public class QuestAssets {
 
     /**
      * Gets the card pool.
-     * 
+     *
      * @return the cardPool
      */
     public ItemPool<PaperCard> getCardPool() {
@@ -266,7 +262,7 @@ public class QuestAssets {
 
     /**
      * Subtract credits.
-     * 
+     *
      * @param c
      *            the c
      */

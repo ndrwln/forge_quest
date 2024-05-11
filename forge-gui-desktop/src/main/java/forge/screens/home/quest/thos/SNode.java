@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 
 @Getter @Setter @Accessors(fluent = true, chain = true) public class SNode {
@@ -17,30 +18,18 @@ import java.util.ArrayList;
     String constraints;
     ArrayList<SNode> ui;
     UiCommand fn;
+    boolean is_transparent = false;
 
     public SNode() { sNodes.add(this); }
-
-
-//    Double x = 0.0;public SNode setX(double x) {this.x = x;return this;}
-//    Double y = 0.0;public SNode setY(double y) {this.y = y;return this;}
-//    Double x_step = 0.0;public SNode setX_step(double x_step) {this.x_step = x_step;return this;}
-//    Double y_step = 0.0;public SNode setY_step(double y_step) {this.y_step = y_step;return this;}
-//    boolean panelTransparent = false; public SNode setPanelTransparent() {panelTransparent = true; return this;}
-
-    public static void init_buttons()
-    {
-        Buttons.init_buttons();
-    }
-
 
     public static void init_panels(JPanel parent)
     {
         for (SNode s : sNodes)
         {
-            parent.add(s.fLabel, s.constraints);
             if (s.fn != null) s.fLabel.setCommand(s.fn);
             s.fLabel.setOpacity(0.0F);
             s.fLabel.setEnabled(false);
+            if (s.is_transparent) s.fLabel.setBackground(new Color(0,0,0,0));
         }
     }
 
@@ -50,5 +39,15 @@ import java.util.ArrayList;
         {
            if (sNode.ui != null) sNode.ui.add(sNode);
         }
+    }
+
+    public static void add_to_view(JPanel parent, SNode s)
+    {
+        parent.add(s.fLabel, s.constraints);
+    }
+
+    public static void remove_from_view(JPanel parent, SNode s)
+    {
+        parent.remove(s.fLabel);
     }
 }

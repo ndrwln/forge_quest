@@ -8,8 +8,7 @@ import forge.screens.home.quest.DialogChoosePoolDistribution;
 import forge.toolbox.FLabel;
 import forge.toolbox.FSkin;
 
-import static forge.screens.home.quest.thos.Locations.REST_AREA;
-import static forge.screens.home.quest.thos.Locations.UI_MAIN;
+import static forge.screens.home.quest.thos.Locations.*;
 
 public class Buttons {
 
@@ -20,9 +19,18 @@ public class Buttons {
     public static SNode btn_inventory;
     public static SNode btn_learn;
     public static SNode btn_explore;
+    public static SNode lbl_life;
+    public static SNode lbl_crystals;
+
+    public static SNode btn_map_green;
+    public static SNode btn_map_black;
+    public static SNode btn_map_white;
+    public static SNode btn_map_red;
+    public static SNode btn_map_blue;
+    public static SNode btn_map_rest;
 
 
-    public static void init_buttons()
+    public Buttons()
     {
         if (btn_new != null) return;
 
@@ -54,9 +62,25 @@ public class Buttons {
                 .constraints("w 300px!, h 30px!, ax center, span 2")
                 .ui(UI_MAIN)
                 .fn((UiCommand) () -> {
-
                     Locations.travelTo(REST_AREA);
                 });
+
+        //UI Info
+        lbl_life = new SNode()
+                .fLabel(new FLabel.Builder()
+                        .icon(FSkin.getIcon(FSkinProp.ICO_QUEST_LIFE))
+                        .fontSize(15).build())
+                .constraints("w 300px!, h 30px!, pos 80% 1% n n")
+                .ui(UI_INFO);
+
+        lbl_crystals = new SNode()
+                .fLabel(new FLabel.Builder()
+                        .icon(FSkin.getIcon(FSkinProp.ICO_QUEST_BIG_BOOTS))
+                        .fontSize(15).build())
+                .constraints("w 300px!, h 30px!, pos 84% 1% n n")
+                .ui(UI_INFO);
+
+
 
         //General Buttons - Side
         btn_map = new SNode()
@@ -67,7 +91,10 @@ public class Buttons {
                         .fontSize(15)
                         .build())
                 .constraints("w 75px!, h 75px!, pos 0% 28% n n")
-                .ui(UI_MAIN);
+                .ui(UI_GENERAL)
+                .fn((UiCommand) () -> {
+                    Locations.travelTo(MAP_AREA);
+                });
 
         btn_decks = new SNode()
                 .fLabel(new FLabel.Builder()
@@ -77,10 +104,11 @@ public class Buttons {
                         .fontSize(15)
                         .build())
                 .constraints("w 75px!, h 75px!, pos 0% 36% n n")
-                .ui(UI_MAIN)
+                .ui(UI_GENERAL)
                 .fn((UiCommand) () -> {
                     final DialogShowDecks decklist = new DialogShowDecks();
                     decklist.show((UiCommand) () -> {
+
 
                     });
                 });
@@ -93,7 +121,7 @@ public class Buttons {
                         .fontSize(15)
                         .build())
                 .constraints("w 75px!, h 75px!, pos 0% 44% n n")
-                .ui(UI_MAIN)
+                .ui(UI_GENERAL)
                 .fn((UiCommand) () -> {
 
                 });
@@ -106,7 +134,7 @@ public class Buttons {
                         .fontSize(15)
                         .build())
                 .constraints("w 75px!, h 75px!, pos 0% 52% n n")
-                .ui(UI_MAIN)
+                .ui(UI_LEARN)
                 .fn((UiCommand) QuestUtil::showSpellShop);
 
         btn_explore = new SNode()
@@ -117,10 +145,76 @@ public class Buttons {
                         .fontSize(15)
                         .build())
                 .constraints("w 75px!, h 75px!, pos 0% 60% n n")
-                .ui(UI_MAIN)
+                .ui(UI_EXPLORE)
                 .fn((UiCommand) () -> {
                     QuestUtil.notify_start_game();
 
+                });
+
+
+        //MAP
+        //UI - MAP
+        btn_map_green = new SNode()
+                .fLabel(new FLabel.Builder()
+                        .opaque(true)
+                        .fontSize(16)
+                        .hoverable(true)
+                        .text("Green Sage's Hut")
+                        .build())
+                .constraints("w 300px!, h 30px!, pos 42% 77% n n")
+                .ui(UI_MAP);
+
+        btn_map_white = new SNode()
+                .fLabel(new FLabel.Builder()
+                        .opaque(true)
+                        .fontSize(16)
+                        .hoverable(true)
+                        .text("Heavenly Court")
+                        .build())
+                .constraints("w 300px!, h 30px!, pos 30% 16% n n")
+                .ui(UI_MAP);
+
+        btn_map_red = new SNode()
+                .fLabel(new FLabel.Builder()
+                        .opaque(true)
+                        .fontSize(16)
+                        .hoverable(true)
+                        .text("Inner Flame Peak")
+                        .build())
+                .constraints("w 300px!, h 30px!, pos 84% 46% n n")
+                .ui(UI_MAP);
+
+        btn_map_blue = new SNode()
+                .fLabel(new FLabel.Builder()
+                        .opaque(true)
+                        .fontSize(16)
+                        .hoverable(true)
+                        .text("Blue Tower")
+                        .build())
+                .constraints("w 300px!, h 30px!, pos 35% 42% n n")
+                .ui(UI_MAP);
+
+        btn_map_black = new SNode()
+                .fLabel(new FLabel.Builder()
+                        .opaque(true)
+                        .fontSize(16)
+                        .hoverable(true)
+                        .text("Abyssal Bone Forest")
+                        .build())
+                .constraints("w 300px!, h 30px!, pos 1% 18% n n")
+                .ui(UI_MAP);
+
+        btn_map_rest = new SNode()
+                .fLabel(new FLabel.Builder()
+                        .opaque(true)
+                        .fontSize(16)
+                        .hoverable(true)
+                        .text("Illusion Dormitories")
+                        .build())
+                .constraints("w 300px!, h 30px!, pos 1% 86% n n")
+                .ui(UI_MAP)
+                .fn((UiCommand) () -> {
+                    Locations.travelTo(REST_AREA);
                 });
 
 

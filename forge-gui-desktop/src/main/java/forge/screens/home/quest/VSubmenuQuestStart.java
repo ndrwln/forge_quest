@@ -7,6 +7,7 @@ import forge.gui.framework.EDocID;
 import forge.screens.home.EMenuGroup;
 import forge.screens.home.IVSubmenu;
 import forge.screens.home.VHomeUI;
+import forge.screens.home.quest.thos.Buttons;
 import forge.screens.home.quest.thos.Locations;
 import forge.screens.home.quest.thos.SNode;
 import forge.util.Localizer;
@@ -17,8 +18,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
-import lombok.Getter;
-import lombok.Setter;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
@@ -35,58 +34,59 @@ import static forge.localinstance.properties.ForgeConstants.VIDEO_DIR;
 public enum VSubmenuQuestStart implements IVSubmenu<CSubmenuQuestStart> {
     SINGLETON_INSTANCE;
 
-    private final JPanel panel = new JPanel();
-    public static MediaView MEDIA_VIEW = new MediaView();
-    @Getter @Setter public static boolean lock = false;
+    public static Buttons buttons = new Buttons();
+
+    private final JPanel main_panel = new JPanel();
+    public static JPanel MAIN_PANEL;
+    public static final MediaView MEDIA_VIEW = new MediaView();
 
     @SuppressWarnings("unchecked") VSubmenuQuestStart() {
-        panel.setOpaque(false);
-        panel.setLayout(new MigLayout("insets 0, gap 10px, fillx, wrap 2"));
+        main_panel.setOpaque(false);
+        main_panel.setLayout(new MigLayout("insets 0, gap 10px, fillx, wrap 2"));
     }
+
+    public static boolean lock = false;
 
     @Override public void populate() {
         Platform.setImplicitExit(false);
         VHomeUI.SINGLETON_INSTANCE.getPnlDisplay().removeAll();
         VHomeUI.SINGLETON_INSTANCE.getPnlDisplay().setLayout(new MigLayout("insets 0, gap 0, wrap"));
 
-        if (true)
-        {
-            VHomeUI.SINGLETON_INSTANCE.getPnlDisplay().add(panel, "w 98%!, growy, pushy, gap 1% 0 0 0");
-            JFXPanel fxPanel = new JFXPanel();
-            VHomeUI.SINGLETON_INSTANCE.getPnlDisplay().add(fxPanel, "pos 0 0");
+        MAIN_PANEL = main_panel;
+        VHomeUI.SINGLETON_INSTANCE.getPnlDisplay().add(main_panel, "w 98%!, growy, pushy, gap 1% 0 0 0");
+        JFXPanel fxPanel = new JFXPanel();
+        VHomeUI.SINGLETON_INSTANCE.getPnlDisplay().add(fxPanel, "pos 0 0");
 
-            SNode.init_buttons();
-            SNode.init_panels(panel);
-            SNode.populate_nodes();
+        SNode.init_panels(main_panel);
+        SNode.populate_nodes();
 
-            Platform.runLater(new Runnable() {
-                @Override
-                public void run() {
-                    AnchorPane pane = new AnchorPane();
-                    pane.setStyle("-fx-background-color: #000000");
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                AnchorPane pane = new AnchorPane();
+                pane.setStyle("-fx-background-color: #000000");
 
-                    Scene scene = new Scene(pane, Singletons.getView().getFrame().getBounds().width, Singletons.getView().getFrame().getBounds().height);
+                Scene scene = new Scene(pane, Singletons.getView().getFrame().getBounds().width, Singletons.getView().getFrame().getBounds().height);
 
-                    fxPanel.setBackground(Color.BLACK);
-                    fxPanel.setScene(scene);
+                fxPanel.setBackground(Color.BLACK);
+                fxPanel.setScene(scene);
 
-                    MEDIA_VIEW.setMediaPlayer(new MediaPlayer(new Media(new File(VIDEO_DIR , Locations.CURRENT_LOCATION.video()).toURI().toString())));
-                    MEDIA_VIEW.getMediaPlayer().setCycleCount(MediaPlayer.INDEFINITE);
-                    MEDIA_VIEW.getMediaPlayer().setAutoPlay(true);
-                    MEDIA_VIEW.getMediaPlayer().setOnReady(() -> {
-                        SwingUtilities.invokeLater(() -> {
-                            Locations.CURRENT_LOCATION.fadeIn();
-                        });
-
+                MEDIA_VIEW.setMediaPlayer(new MediaPlayer(new Media(new File(VIDEO_DIR , Locations.CURRENT_LOCATION.video()).toURI().toString())));
+                MEDIA_VIEW.getMediaPlayer().setCycleCount(MediaPlayer.INDEFINITE);
+                MEDIA_VIEW.getMediaPlayer().setAutoPlay(true);
+                MEDIA_VIEW.getMediaPlayer().setOnReady(() -> {
+                    SwingUtilities.invokeLater(() -> {
+                        Locations.CURRENT_LOCATION.fadeIn();
                     });
-                    pane.getChildren().add(MEDIA_VIEW);
-                }
-            });
-        }
+
+                });
+                pane.getChildren().add(MEDIA_VIEW);
+
+            }
+        });
 
         VHomeUI.SINGLETON_INSTANCE.getPnlDisplay().repaintSelf();
         VHomeUI.SINGLETON_INSTANCE.getPnlDisplay().revalidate();
-        setLock(true);
     }
 
 
