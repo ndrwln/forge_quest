@@ -17,32 +17,10 @@
  */
 package forge.screens.match;
 
-import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.EnumMap;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.concurrent.atomic.AtomicReference;
-
-import javax.swing.JMenu;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
-import javax.swing.KeyStroke;
-import javax.swing.event.PopupMenuEvent;
-import javax.swing.event.PopupMenuListener;
-
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
-
 import forge.ImageCache;
 import forge.LobbyPlayer;
 import forge.Singletons;
@@ -69,29 +47,11 @@ import forge.game.player.DelayedReveal;
 import forge.game.player.IHasIcon;
 import forge.game.player.Player;
 import forge.game.player.PlayerView;
-import forge.game.spellability.SpellAbility;
-import forge.game.spellability.SpellAbilityStackInstance;
-import forge.game.spellability.SpellAbilityView;
-import forge.game.spellability.StackItemView;
-import forge.game.spellability.TargetChoices;
+import forge.game.spellability.*;
 import forge.game.zone.ZoneType;
 import forge.gamemodes.match.AbstractGuiGame;
-import forge.gui.FNetOverlay;
-import forge.gui.FThreads;
-import forge.gui.GuiBase;
-import forge.gui.GuiChoose;
-import forge.gui.GuiDialog;
-import forge.gui.GuiUtils;
-import forge.gui.MenuScroller;
-import forge.gui.SOverlayUtils;
-import forge.gui.framework.DragCell;
-import forge.gui.framework.EDocID;
-import forge.gui.framework.FScreen;
-import forge.gui.framework.ICDoc;
-import forge.gui.framework.IVDoc;
-import forge.gui.framework.SDisplayUtil;
-import forge.gui.framework.SLayoutIO;
-import forge.gui.framework.VEmptyDoc;
+import forge.gui.*;
+import forge.gui.framework.*;
 import forge.gui.util.SOptionPane;
 import forge.item.InventoryItem;
 import forge.item.PaperCard;
@@ -103,23 +63,13 @@ import forge.menus.IMenuProvider;
 import forge.model.FModel;
 import forge.player.PlayerZoneUpdate;
 import forge.player.PlayerZoneUpdates;
-import forge.screens.match.controllers.CAntes;
-import forge.screens.match.controllers.CCombat;
-import forge.screens.match.controllers.CDetailPicture;
-import forge.screens.match.controllers.CDev;
-import forge.screens.match.controllers.CDock;
-import forge.screens.match.controllers.CLog;
-import forge.screens.match.controllers.CPrompt;
-import forge.screens.match.controllers.CStack;
+import forge.screens.home.quest.thos.Locations;
+import forge.screens.match.controllers.*;
 import forge.screens.match.menus.CMatchUIMenus;
 import forge.screens.match.views.VField;
 import forge.screens.match.views.VHand;
-import forge.toolbox.FButton;
-import forge.toolbox.FLabel;
-import forge.toolbox.FOptionPane;
-import forge.toolbox.FSkin;
+import forge.toolbox.*;
 import forge.toolbox.FSkin.SkinImage;
-import forge.toolbox.FTextArea;
 import forge.toolbox.imaging.FImagePanel;
 import forge.toolbox.imaging.FImagePanel.AutoSizeImageMode;
 import forge.toolbox.imaging.FImageUtil;
@@ -133,8 +83,29 @@ import forge.util.collect.FCollectionView;
 import forge.view.FView;
 import forge.view.arcane.CardPanel;
 import forge.view.arcane.FloatingZone;
+import javafx.application.Platform;
+import javafx.embed.swing.JFXPanel;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import net.miginfocom.layout.LinkHandler;
 import net.miginfocom.swing.MigLayout;
+
+import javax.swing.*;
+import javax.swing.event.PopupMenuEvent;
+import javax.swing.event.PopupMenuListener;
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.util.List;
+import java.util.*;
+import java.util.Map.Entry;
+import java.util.concurrent.atomic.AtomicReference;
+
+import static forge.localinstance.properties.ForgeConstants.VIDEO_DIR;
 
 /**
  * Constructs instance of match UI controller, used as a single point of
@@ -177,7 +148,7 @@ public final class CMatchUI
         this.screen = FScreen.getMatchScreen(this, view);
         this.myDocs = new EnumMap<>(EDocID.class);
         this.myDocs.put(EDocID.CARD_PICTURE, cDetailPicture.getCPicture().getView());
-        this.myDocs.put(EDocID.CARD_DETAIL, cDetailPicture.getCDetail().getView());
+//        this.myDocs.put(EDocID.CARD_DETAIL, cDetailPicture.getCDetail().getView());
         // only create an ante doc if playing for ante
         if (isPreferenceEnabled(FPref.UI_ANTE)) {
             this.myDocs.put(EDocID.CARD_ANTES, cAntes.getView());
@@ -186,10 +157,10 @@ public final class CMatchUI
         }
         this.myDocs.put(EDocID.REPORT_MESSAGE, getCPrompt().getView());
         this.myDocs.put(EDocID.REPORT_STACK, getCStack().getView());
-        this.myDocs.put(EDocID.REPORT_COMBAT, cCombat.getView());
-        this.myDocs.put(EDocID.REPORT_LOG, cLog.getView());
+//        this.myDocs.put(EDocID.REPORT_COMBAT, cCombat.getView());
+//        this.myDocs.put(EDocID.REPORT_LOG, cLog.getView());
         this.myDocs.put(EDocID.DEV_MODE, getCDev().getView());
-        this.myDocs.put(EDocID.BUTTON_DOCK, getCDock().getView());
+//        this.myDocs.put(EDocID.BUTTON_DOCK, getCDock().getView());
     }
 
     private void registerDocs() {
@@ -392,20 +363,7 @@ public final class CMatchUI
     @Override
     public void showCombat() {
         final CombatView combat = getGameView().getCombat();
-        if (combat != null && combat.getNumAttackers() > 0 && getGameView().peekStack() == null) {
-            if (selectedDocBeforeCombat == null) {
-                final IVDoc<? extends ICDoc> combatDoc = EDocID.REPORT_COMBAT.getDoc();
-                if (combatDoc.getParentCell() != null) {
-                    selectedDocBeforeCombat = combatDoc.getParentCell().getSelected();
-                    if (selectedDocBeforeCombat != combatDoc) {
-                        SDisplayUtil.showTab(combatDoc);
-                    } else {
-                        selectedDocBeforeCombat = null; //don't need to cache combat doc this way
-                    }
-                }
-            }
-        }
-        else if (selectedDocBeforeCombat != null) { //re-select doc that was selected before once combat finished
+        if (selectedDocBeforeCombat != null) { //re-select doc that was selected before once combat finished
             SDisplayUtil.showTab(selectedDocBeforeCombat);
             selectedDocBeforeCombat = null;
         }
@@ -1075,22 +1033,64 @@ public final class CMatchUI
         if (players.size() == 2 && myPlayers != null && myPlayers.size() == 1 && myPlayers.get(0).equals(players.get(1))) {
             players = new FCollection<>(new PlayerView[]{players.get(1), players.get(0)});
         }
+
         initMatch(players, myPlayers);
         clearSelectables(); //fix uncleared selection
 
         actuateMatchPreferences();
 
         Singletons.getControl().setCurrentScreen(screen);
-        SDisplayUtil.showTab(EDocID.REPORT_LOG.getDoc());
+//        SDisplayUtil.showTab(EDocID.REPORT_LOG.getDoc());
 
         SOverlayUtils.hideOverlay();
         //reset every match
         getScreen().setDaytime(null);
-        if (FModel.getPreferences().getPrefBoolean(FPref.UI_MATCH_IMAGE_VISIBLE))
-            FView.SINGLETON_INSTANCE.getPnlInsets().setForegroundImage(FSkin.getIcon(FSkinProp.BG_MATCH), true);
-        else
-            FView.SINGLETON_INSTANCE.getPnlInsets().setForegroundImage((Image)null);
+        FView.SINGLETON_INSTANCE.getPnlInsets().setForegroundImage((Image)null);
+        add_video();
+
+
+
+
     }
+
+    private void add_video()
+    {
+        JFXPanel fxPanel = new JFXPanel();
+        MediaView MEDIA_VIEW = new MediaView();
+        FView.SINGLETON_INSTANCE.getPnlInsets().add(fxPanel);
+
+
+        Platform.runLater(() -> {
+            AnchorPane pane = new AnchorPane();
+            pane.setStyle("-fx-background-color: #000000");
+
+            Scene scene = new Scene(pane, Singletons.getView().getFrame().getBounds().width, Singletons.getView().getFrame().getBounds().height);
+
+            fxPanel.setBackground(Color.BLACK);
+            fxPanel.setScene(scene);
+
+            MEDIA_VIEW.setMediaPlayer(new MediaPlayer(new Media(new File(VIDEO_DIR , Locations.CURRENT_LOCATION.video()).toURI().toString())));
+            MEDIA_VIEW.getMediaPlayer().setCycleCount(MediaPlayer.INDEFINITE);
+            MEDIA_VIEW.getMediaPlayer().setAutoPlay(true);
+            pane.getChildren().add(MEDIA_VIEW);
+
+        });
+
+        FView.SINGLETON_INSTANCE.getPnlInsets().repaintSelf();
+        FView.SINGLETON_INSTANCE.getPnlInsets().revalidate();
+
+//        List<DragCell> lst = FView.SINGLETON_INSTANCE.getDragCells();
+//        for (DragCell cell : lst)
+//        {
+//            cell.setBackground(new Color(0,0,0,0));
+//        }
+
+
+
+
+
+    }
+
 
     @Override
     public void afterGameEnd() {

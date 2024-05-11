@@ -48,12 +48,7 @@ public class CCombat implements ICDoc {
      */
     @Override
     public void update() {
-        final CombatView localCombat = this.combat; // noone will re-assign this from other thread.
-        if (localCombat != null) {
-            view.updateCombat(localCombat.getNumAttackers(), getCombatDescription(localCombat));
-        } else {
-            view.updateCombat(0, "");
-        }
+
     }
 
     public void setModel(final CombatView combat) {

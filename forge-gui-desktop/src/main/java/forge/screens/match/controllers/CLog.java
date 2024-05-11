@@ -1,12 +1,12 @@
 package forge.screens.match.controllers;
 
-import java.util.Observable;
-import java.util.Observer;
-
 import forge.gui.FThreads;
 import forge.gui.framework.ICDoc;
 import forge.screens.match.CMatchUI;
 import forge.screens.match.views.VLog;
+
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * Controls the combat panel in the match UI.
@@ -45,7 +45,7 @@ public class CLog implements ICDoc, Observer {
     private final Runnable r = new Runnable() {
         @Override
         public void run() {
-            view.updateConsole();
+
         }
     };
 
@@ -54,7 +54,7 @@ public class CLog implements ICDoc, Observer {
      */
     @Override
     public void update(final Observable o, final Object arg) {
-        update();
+
     }
 
     /* (non-Javadoc)

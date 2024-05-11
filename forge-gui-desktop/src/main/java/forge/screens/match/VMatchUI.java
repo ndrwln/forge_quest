@@ -46,7 +46,11 @@ public class VMatchUI implements IVTopLevelUI {
                 final DragCell parent = vDev.getParentCell();
                 parent.removeDoc(vDev);
                 vDev.setParentCell(null);
-                if (!parent.getDocs().isEmpty()) parent.setSelected(parent.getDocs().get(0));
+
+                // If dev mode was first tab, the new first tab needs re-selecting.
+                if (!parent.getDocs().isEmpty()) {
+                    parent.setSelected(parent.getDocs().get(0));
+                }
             }
         } else if (vDev.getParentCell() == null) {
             // Dev mode enabled? May already by added, or put in message cell by default.

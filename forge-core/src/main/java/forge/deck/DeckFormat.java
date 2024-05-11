@@ -202,7 +202,7 @@ public enum DeckFormat {
 
         int deckSize = deck.getMain().countAll();
 
-        int min = getMainRange().getMinimum();
+        int min = 60;
         int max = getMainRange().getMaximum();
         boolean noBasicLands = false;
 

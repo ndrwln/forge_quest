@@ -77,6 +77,7 @@ public enum VSubmenuQuestStart implements IVSubmenu<CSubmenuQuestStart> {
                 MEDIA_VIEW.getMediaPlayer().setOnReady(() -> {
                     SwingUtilities.invokeLater(() -> {
                         Locations.CURRENT_LOCATION.fadeIn();
+                        Locations.update_stats();
                     });
 
                 });

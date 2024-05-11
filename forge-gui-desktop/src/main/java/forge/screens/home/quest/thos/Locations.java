@@ -40,12 +40,34 @@ public class Locations {
             .video("map.mp4")
             .add_action(UI_MAP);
 
+    public static final Location GREEN_AREA_HUNTING = new Location()
+            .video("green_hunting.mp4")
+            .add_action(UI_GENERAL)
+            .add_action(UI_INFO)
+            .add_action(UI_EXPLORE);
+
+    public static final Location GREEN_AREA = new Location()
+            .video("green.mp4")
+            .plane(GREEN_AREA_HUNTING)
+            .add_action(UI_GENERAL)
+            .add_action(UI_INFO)
+            .add_action(UI_LEARN)
+            .add_action(UI_GOTOPLANE);
+
+
+
 
 
 
     //fns
-    public static Location CURRENT_LOCATION = MAIN_MENU;
-    public static Location PREVIOUS_LOCATION = MAIN_MENU;
+    public static Location CURRENT_LOCATION = GREEN_AREA_HUNTING;
+    public static Location PREVIOUS_LOCATION = GREEN_AREA_HUNTING;
+
+    public static void travelToPlane(Location location)
+    {
+        if (location.plane != null) travelTo(location.plane);
+
+    }
 
     public static void travelTo(Location location)
     {

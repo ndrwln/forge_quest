@@ -19,6 +19,9 @@ public class Buttons {
     public static SNode btn_inventory;
     public static SNode btn_learn;
     public static SNode btn_explore;
+    public static SNode btn_gotoplane;
+
+
     public static SNode lbl_life;
     public static SNode lbl_crystals;
 
@@ -151,6 +154,20 @@ public class Buttons {
 
                 });
 
+        btn_gotoplane = new SNode()
+                .fLabel(new FLabel.Builder()
+                        .icon(FSkin.getIcon(FSkinProp.ICO_QUEST_BIG_SWORD))
+                        .opaque(true)
+                        .hoverable(true)
+                        .fontSize(15)
+                        .build())
+                .constraints("w 75px!, h 75px!, pos 0% 60% n n")
+                .ui(UI_GOTOPLANE)
+                .fn((UiCommand) () -> {
+                    Locations.travelToPlane(CURRENT_LOCATION);
+
+                });
+
 
         //MAP
         //UI - MAP
@@ -162,7 +179,10 @@ public class Buttons {
                         .text("Green Sage's Hut")
                         .build())
                 .constraints("w 300px!, h 30px!, pos 42% 77% n n")
-                .ui(UI_MAP);
+                .ui(UI_MAP)
+                .fn((UiCommand) () -> {
+                    travelTo(GREEN_AREA);
+                });
 
         btn_map_white = new SNode()
                 .fLabel(new FLabel.Builder()

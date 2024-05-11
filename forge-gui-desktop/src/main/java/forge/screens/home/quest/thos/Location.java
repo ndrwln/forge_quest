@@ -19,6 +19,7 @@ import java.util.ArrayList;
     ArrayList<ArrayList<SNode>> event_hunting = new ArrayList<>();
     ArrayList<ArrayList<SNode>> event_hunting_hard = new ArrayList<>();
     ArrayList<ArrayList<SNode>> event_explore = new ArrayList<>();
+    Location plane = null;
 
 
     public Location() {}
