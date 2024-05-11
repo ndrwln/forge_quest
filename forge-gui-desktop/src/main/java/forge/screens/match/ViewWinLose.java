@@ -1,19 +1,5 @@
 package forge.screens.match;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Point;
-import java.awt.Toolkit;
-import java.awt.datatransfer.StringSelection;
-import java.util.List;
-
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
-
-import org.apache.commons.lang3.StringUtils;
-
 import forge.game.GameLogEntry;
 import forge.game.GameLogEntryType;
 import forge.game.GameView;
@@ -24,19 +10,16 @@ import forge.item.PaperCard;
 import forge.localinstance.properties.ForgePreferences.FPref;
 import forge.localinstance.skin.FSkinProp;
 import forge.model.FModel;
-import forge.toolbox.FButton;
-import forge.toolbox.FLabel;
-import forge.toolbox.FOverlay;
-import forge.toolbox.FScrollPane;
-import forge.toolbox.FSkin;
-import forge.toolbox.FSkin.Colors;
-import forge.toolbox.FSkin.SkinColor;
-import forge.toolbox.FSkin.SkinIcon;
-import forge.toolbox.FSkin.SkinnedLabel;
-import forge.toolbox.FSkin.SkinnedPanel;
-import forge.toolbox.FTextArea;
+import forge.toolbox.*;
+import forge.toolbox.FSkin.*;
 import forge.util.Localizer;
 import net.miginfocom.swing.MigLayout;
+import org.apache.commons.lang3.StringUtils;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.datatransfer.StringSelection;
+import java.util.List;
 
 public class ViewWinLose implements IWinLoseView<FButton> {
     private final ControlWinLose control;
@@ -154,8 +137,7 @@ public class ViewWinLose implements IWinLoseView<FButton> {
 
         final boolean customIsPopulated = control.populateCustomPanel();
         if (customIsPopulated) {
-            overlay.add(pnlLeft, "w 40%!, h 100%!");
-            overlay.add(pnlRight, "w 60%!, h 100%!");
+            overlay.add(pnlLeft, "w 40%!, h 100%!, center");
             pnlRight.add(scrCustom, "w 100%!, h 100%!");
         } else {
             overlay.add(pnlLeft, "w 100%!, h 100%!");

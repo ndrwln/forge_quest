@@ -1060,6 +1060,7 @@ public final class CMatchUI
         FView.SINGLETON_INSTANCE.getPnlInsets().add(fxPanel);
 
 
+        Platform.setImplicitExit(false);
         Platform.runLater(() -> {
             AnchorPane pane = new AnchorPane();
             pane.setStyle("-fx-background-color: #000000");

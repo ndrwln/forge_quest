@@ -54,6 +54,44 @@ public class Locations {
             .add_action(UI_LEARN)
             .add_action(UI_GOTOPLANE);
 
+    public static final Location RED_AREA = new Location()
+            .video("red.mp4")
+            .plane(GREEN_AREA_HUNTING)
+            .add_action(UI_GENERAL)
+            .add_action(UI_INFO)
+            .add_action(UI_LEARN)
+            .add_action(UI_GOTOPLANE);
+
+    public static final Location BLUE_AREA = new Location()
+            .video("blue.mp4")
+            .plane(GREEN_AREA_HUNTING)
+            .add_action(UI_GENERAL)
+            .add_action(UI_INFO)
+            .add_action(UI_LEARN)
+            .add_action(UI_GOTOPLANE);
+
+    public static final Location WHITE_AREA = new Location()
+            .video("white.mp4")
+            .plane(GREEN_AREA_HUNTING)
+            .add_action(UI_GENERAL)
+            .add_action(UI_INFO)
+            .add_action(UI_LEARN)
+            .add_action(UI_GOTOPLANE);
+
+    public static final Location BLACK_AREA_HUNTING = new Location()
+            .video("black_hunting.mp4")
+            .add_action(UI_GENERAL)
+            .add_action(UI_INFO)
+            .add_action(UI_EXPLORE);
+
+    public static final Location BLACK_AREA = new Location()
+            .video("black.mp4")
+            .plane(BLACK_AREA_HUNTING)
+            .add_action(UI_GENERAL)
+            .add_action(UI_INFO)
+            .add_action(UI_LEARN)
+            .add_action(UI_GOTOPLANE);
+
 
 
 
@@ -71,16 +109,14 @@ public class Locations {
 
     public static void travelTo(Location location)
     {
-        PREVIOUS_LOCATION = Locations.CURRENT_LOCATION;
-        Locations.CURRENT_LOCATION = location;
-
+        Platform.setImplicitExit(false);
         Platform.runLater(() -> {
             Platform.runLater(() -> {
                 MediaPlayer player = new MediaPlayer(new Media(new File(VIDEO_DIR , location.video()).toURI().toString()));
                 player.setCycleCount(MediaPlayer.INDEFINITE);
                 player.setAutoPlay(true);
                 player.setOnReady(()-> {
-                    PREVIOUS_LOCATION.fadeOut();
+                    CURRENT_LOCATION.fadeOut();
                     FadeTransition out = new FadeTransition();
                     out.setDuration(Duration.millis(500));
                     out.setNode(MEDIA_VIEW);
@@ -97,6 +133,8 @@ public class Locations {
                         in.setOnFinished(event1 -> {
                             update_stats();
                             location.fadeIn();
+                            PREVIOUS_LOCATION = Locations.CURRENT_LOCATION;
+                            Locations.CURRENT_LOCATION = location;
                         });
                         in.play();
                     });

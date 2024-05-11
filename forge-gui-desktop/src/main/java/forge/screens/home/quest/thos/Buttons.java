@@ -165,7 +165,6 @@ public class Buttons {
                 .ui(UI_GOTOPLANE)
                 .fn((UiCommand) () -> {
                     Locations.travelToPlane(CURRENT_LOCATION);
-
                 });
 
 
@@ -192,7 +191,10 @@ public class Buttons {
                         .text("Heavenly Court")
                         .build())
                 .constraints("w 300px!, h 30px!, pos 30% 16% n n")
-                .ui(UI_MAP);
+                .ui(UI_MAP)
+                .fn((UiCommand) () -> {
+                    travelTo(WHITE_AREA);
+                });
 
         btn_map_red = new SNode()
                 .fLabel(new FLabel.Builder()
@@ -202,7 +204,10 @@ public class Buttons {
                         .text("Inner Flame Peak")
                         .build())
                 .constraints("w 300px!, h 30px!, pos 84% 46% n n")
-                .ui(UI_MAP);
+                .ui(UI_MAP)
+                .fn((UiCommand) () -> {
+                    travelTo(RED_AREA);
+                });
 
         btn_map_blue = new SNode()
                 .fLabel(new FLabel.Builder()
@@ -212,7 +217,10 @@ public class Buttons {
                         .text("Blue Tower")
                         .build())
                 .constraints("w 300px!, h 30px!, pos 35% 42% n n")
-                .ui(UI_MAP);
+                .ui(UI_MAP)
+                .fn((UiCommand) () -> {
+                    travelTo(BLUE_AREA);
+                });
 
         btn_map_black = new SNode()
                 .fLabel(new FLabel.Builder()
@@ -222,7 +230,10 @@ public class Buttons {
                         .text("Abyssal Bone Forest")
                         .build())
                 .constraints("w 300px!, h 30px!, pos 1% 18% n n")
-                .ui(UI_MAP);
+                .ui(UI_MAP)
+                .fn((UiCommand) () -> {
+                    travelTo(BLACK_AREA);
+                });
 
         btn_map_rest = new SNode()
                 .fLabel(new FLabel.Builder()

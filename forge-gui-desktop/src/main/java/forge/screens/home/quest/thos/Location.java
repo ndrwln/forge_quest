@@ -40,7 +40,7 @@ import java.util.ArrayList;
 
     }
 
-    public void fadeIn() {fadeIn(1000);}
+    public void fadeIn() {fadeIn(1001);}
     public void fadeIn(int ms)
     {
         SwingUtilities.invokeLater(() -> {
@@ -53,7 +53,10 @@ import java.util.ArrayList;
                         .setDuration(ms)
                         .addCallback(new TimelineCallback() {
                             @Override public void onTimelineStateChanged(Timeline.TimelineState timelineState, Timeline.TimelineState timelineState1, float v, float v1) {
-                                if (timelineState == Timeline.TimelineState.DONE) node.fLabel.setEnabled(true);
+                                if (timelineState == Timeline.TimelineState.DONE)
+                                {
+                                    node.fLabel.setEnabled(true);
+                                }
                             }
                             @Override public void onTimelinePulse(float v, float v1) {}
                         } )

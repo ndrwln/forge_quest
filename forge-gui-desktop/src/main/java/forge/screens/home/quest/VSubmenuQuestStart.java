@@ -60,6 +60,7 @@ public enum VSubmenuQuestStart implements IVSubmenu<CSubmenuQuestStart> {
         SNode.init_panels(main_panel);
         SNode.populate_nodes();
 
+        Platform.setImplicitExit(false);
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
