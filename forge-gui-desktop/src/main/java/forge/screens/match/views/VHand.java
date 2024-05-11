@@ -17,8 +17,6 @@
  */
 package forge.screens.match.views;
 
-import javax.swing.JPanel;
-
 import forge.game.player.PlayerView;
 import forge.gui.framework.DragCell;
 import forge.gui.framework.DragTab;
@@ -30,6 +28,9 @@ import forge.toolbox.FScrollPane;
 import forge.util.Localizer;
 import forge.view.arcane.HandArea;
 import net.miginfocom.swing.MigLayout;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * Assembles Swing components of hand area.
@@ -83,6 +84,7 @@ public class VHand implements IVDoc<CHand> {
         pnl.setLayout(new MigLayout("insets 0, gap 0"));
 
         pnl.add(scroller, "w 100%, h 100%!");
+        pnl.setBackground(new Color(0,0,0,0));
     }
 
     /* (non-Javadoc)

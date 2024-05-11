@@ -17,16 +17,6 @@
  */
 package forge.screens.match.views;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-import javax.swing.border.Border;
-import javax.swing.border.LineBorder;
-
 import forge.game.card.CounterEnumType;
 import forge.game.player.PlayerView;
 import forge.game.zone.ZoneType;
@@ -47,6 +37,13 @@ import forge.toolbox.special.PlayerDetailsPanel;
 import forge.util.Localizer;
 import forge.view.arcane.PlayArea;
 import net.miginfocom.swing.MigLayout;
+
+import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /** 
  * Assembles Swing components of a player field instance.
@@ -160,6 +157,7 @@ public class VField implements IVDoc<CField> {
         pnl.add(phaseIndicator, "w 5%!, h 100%!, span 1 2");
         pnl.add(scroller, "w 85%!, h 100%!, span 1 2, wrap");
         pnl.add(detailsPanel, "w 10%!, h 64%!, gapleft 1px");
+        pnl.setBackground(new Color(0,0,0,0));
     }
 
     @Override
