@@ -59,9 +59,15 @@ public class Locations {
             .add_action(UI_LEARN)
             .add_action(UI_GOTOPLANE);
 
+    public static final Location BLUE_AREA_HUNTING = new Location()
+            .video("blue_hunting.mp4")
+            .add_action(UI_GENERAL)
+            .add_action(UI_INFO)
+            .add_action(UI_EXPLORE);
+
     public static final Location BLUE_AREA = new Location()
             .video("blue.mp4")
-            .plane(GREEN_AREA_HUNTING)
+            .plane(BLUE_AREA_HUNTING)
             .add_action(UI_GENERAL)
             .add_action(UI_INFO)
             .add_action(UI_LEARN)
