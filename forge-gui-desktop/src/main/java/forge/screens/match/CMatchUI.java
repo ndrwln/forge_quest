@@ -87,7 +87,6 @@ import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import net.miginfocom.layout.LinkHandler;
@@ -99,13 +98,10 @@ import javax.swing.event.PopupMenuListener;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.util.List;
 import java.util.*;
 import java.util.Map.Entry;
 import java.util.concurrent.atomic.AtomicReference;
-
-import static forge.localinstance.properties.ForgeConstants.VIDEO_DIR;
 
 /**
  * Constructs instance of match UI controller, used as a single point of
@@ -1070,7 +1066,7 @@ public final class CMatchUI
             fxPanel.setBackground(Color.BLACK);
             fxPanel.setScene(scene);
 
-            MEDIA_VIEW.setMediaPlayer(new MediaPlayer(new Media(new File(VIDEO_DIR , Locations.CURRENT_LOCATION.video()).toURI().toString())));
+            MEDIA_VIEW.setMediaPlayer(Locations.CURRENT_LOCATION.player());
             MEDIA_VIEW.getMediaPlayer().setCycleCount(MediaPlayer.INDEFINITE);
             MEDIA_VIEW.getMediaPlayer().setAutoPlay(true);
             pane.getChildren().add(MEDIA_VIEW);

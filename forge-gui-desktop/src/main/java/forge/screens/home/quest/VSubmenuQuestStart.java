@@ -8,6 +8,7 @@ import forge.screens.home.EMenuGroup;
 import forge.screens.home.IVSubmenu;
 import forge.screens.home.VHomeUI;
 import forge.screens.home.quest.thos.Buttons;
+import forge.screens.home.quest.thos.Location;
 import forge.screens.home.quest.thos.Locations;
 import forge.screens.home.quest.thos.SNode;
 import forge.util.Localizer;
@@ -15,16 +16,12 @@ import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-
-import static forge.localinstance.properties.ForgeConstants.VIDEO_DIR;
 
 /**
  * Assembles Swing components of quest data submenu singleton.
@@ -57,6 +54,7 @@ public enum VSubmenuQuestStart implements IVSubmenu<CSubmenuQuestStart> {
         JFXPanel fxPanel = new JFXPanel();
         VHomeUI.SINGLETON_INSTANCE.getPnlDisplay().add(fxPanel, "pos 0 0");
 
+        Location.init_videos();
         SNode.init_panels(main_panel);
         SNode.populate_nodes();
 
@@ -72,7 +70,7 @@ public enum VSubmenuQuestStart implements IVSubmenu<CSubmenuQuestStart> {
                 fxPanel.setBackground(Color.BLACK);
                 fxPanel.setScene(scene);
 
-                MEDIA_VIEW.setMediaPlayer(new MediaPlayer(new Media(new File(VIDEO_DIR , Locations.CURRENT_LOCATION.video()).toURI().toString())));
+                MEDIA_VIEW.setMediaPlayer(Locations.CURRENT_LOCATION.player());
                 MEDIA_VIEW.getMediaPlayer().setCycleCount(MediaPlayer.INDEFINITE);
                 MEDIA_VIEW.getMediaPlayer().setAutoPlay(true);
                 MEDIA_VIEW.getMediaPlayer().setOnReady(() -> {

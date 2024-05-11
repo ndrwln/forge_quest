@@ -2,6 +2,8 @@ package forge.screens.home.quest.thos;
 
 import forge.screens.home.VHomeUI;
 import forge.screens.home.quest.VSubmenuQuestStart;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -9,10 +11,24 @@ import org.pushingpixels.radiance.animation.api.Timeline;
 import org.pushingpixels.radiance.animation.api.callback.TimelineCallback;
 
 import javax.swing.*;
+import java.io.File;
 import java.util.ArrayList;
 
-@Getter @Setter @Accessors(fluent = true, chain = true) public class Location {
+import static forge.localinstance.properties.ForgeConstants.VIDEO_DIR;
 
+@Getter @Setter @Accessors(fluent = true, chain = true) public class Location {
+    public static final ArrayList<Location> locations = new ArrayList<>();
+
+    public static void init_videos()
+    {
+        for (Location location : locations)
+        {
+            if (location.player != null) return;
+            location.player = new MediaPlayer(new Media(new File(VIDEO_DIR , location.video).toURI().toString()));
+        }
+    }
+
+    MediaPlayer player;
     String video;
     ArrayList<ArrayList<SNode>> actions = new ArrayList<>();
 
@@ -22,7 +38,7 @@ import java.util.ArrayList;
     Location plane = null;
 
 
-    public Location() {}
+    public Location() {locations.add(this);}
     public Location add_action(ArrayList<SNode> action) { actions.add(action); return this; }
 
     public void fadeOut() {fadeOut(500);}
@@ -40,7 +56,7 @@ import java.util.ArrayList;
 
     }
 
-    public void fadeIn() {fadeIn(1001);}
+    public void fadeIn() {fadeIn(500);}
     public void fadeIn(int ms)
     {
         SwingUtilities.invokeLater(() -> {

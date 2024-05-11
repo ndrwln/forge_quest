@@ -5,14 +5,11 @@ import forge.gamemodes.quest.QuestUtil;
 import forge.model.FModel;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
-import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 
-import java.io.File;
 import java.util.ArrayList;
 
-import static forge.localinstance.properties.ForgeConstants.VIDEO_DIR;
 import static forge.screens.home.quest.VSubmenuQuestStart.MEDIA_VIEW;
 import static forge.screens.home.quest.thos.Buttons.lbl_crystals;
 import static forge.screens.home.quest.thos.Buttons.lbl_life;
@@ -112,35 +109,36 @@ public class Locations {
         Platform.setImplicitExit(false);
         Platform.runLater(() -> {
             Platform.runLater(() -> {
-                MediaPlayer player = new MediaPlayer(new Media(new File(VIDEO_DIR , location.video()).toURI().toString()));
+                MediaPlayer player = location.player();
                 player.setCycleCount(MediaPlayer.INDEFINITE);
                 player.setAutoPlay(true);
-                player.setOnReady(()-> {
-                    CURRENT_LOCATION.fadeOut();
-                    FadeTransition out = new FadeTransition();
-                    out.setDuration(Duration.millis(500));
-                    out.setNode(MEDIA_VIEW);
-                    out.setFromValue(1);
-                    out.setToValue(0);
-                    out.setOnFinished(event -> {
-                        MEDIA_VIEW.setMediaPlayer(player);
 
-                        FadeTransition in = new FadeTransition();
-                        in.setDuration(Duration.millis(500));
-                        in.setNode(MEDIA_VIEW);
-                        in.setFromValue(0);
-                        in.setToValue(1);
-                        in.setOnFinished(event1 -> {
-                            update_stats();
-                            location.fadeIn();
-                            PREVIOUS_LOCATION = Locations.CURRENT_LOCATION;
-                            Locations.CURRENT_LOCATION = location;
-                        });
-                        in.play();
+                CURRENT_LOCATION.fadeOut();
+
+                FadeTransition out = new FadeTransition();
+                out.setDuration(Duration.millis(500));
+                out.setNode(MEDIA_VIEW);
+                out.setFromValue(1);
+                out.setToValue(0);
+                out.setOnFinished(event -> {
+                    MEDIA_VIEW.setMediaPlayer(player);
+
+                    FadeTransition in = new FadeTransition();
+                    in.setDuration(Duration.millis(500));
+                    in.setNode(MEDIA_VIEW);
+                    in.setFromValue(0);
+                    in.setToValue(1);
+                    in.setOnFinished(event1 -> {
+                        update_stats();
+                        location.fadeIn();
+                        PREVIOUS_LOCATION = Locations.CURRENT_LOCATION;
+                        Locations.CURRENT_LOCATION = location;
                     });
-
-                    out.play();
+                    in.play();
                 });
+
+                out.play();
+
             });
         });
 
