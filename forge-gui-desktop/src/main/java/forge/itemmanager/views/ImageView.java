@@ -159,7 +159,7 @@ public class ImageView<T extends InventoryItem> extends ItemView<T> {
         cbGroupByOptions.setMaximumRowCount(cbGroupByOptions.getItemCount());
         cbPileByOptions.setMaximumRowCount(cbPileByOptions.getItemCount());
         cbColumnCount.setMaximumRowCount(cbColumnCount.getItemCount());
-        cbColumnCount.setSelectedIndex(5 - MIN_COLUMN_COUNT);
+        cbColumnCount.setSelectedIndex(5);
 
         cbGroupByOptions.addActionListener(new ActionListener() {
             @Override
@@ -446,12 +446,12 @@ public class ImageView<T extends InventoryItem> extends ItemView<T> {
 
     @Override
     protected void onMouseWheelZoom(MouseWheelEvent e) {
-        if (e.getWheelRotation() > 0) {
-            setColumnCount(columnCount + 1);
-        }
-        else {
-            setColumnCount(columnCount - 1);
-        }
+//        if (e.getWheelRotation() > 0) {
+//            setColumnCount(columnCount + 1);
+//        }
+//        else {
+//            setColumnCount(columnCount - 1);
+//        }
     }
 
     public int getColumnCount() {

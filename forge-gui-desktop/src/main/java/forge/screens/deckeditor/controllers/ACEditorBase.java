@@ -29,6 +29,7 @@ import forge.gui.framework.*;
 import forge.item.InventoryItem;
 import forge.item.PaperCard;
 import forge.itemmanager.CardManager;
+import forge.itemmanager.ColumnDef;
 import forge.itemmanager.ItemManager;
 import forge.itemmanager.SItemManagerUtil;
 import forge.localinstance.properties.ForgePreferences.FPref;
@@ -358,6 +359,9 @@ public abstract class ACEditorBase<TItem extends InventoryItem, TModel extends D
         });
         itemManager.getPnlButtons().add(btnAdd, "w 30%!, h 30px!, h 30px!, gapx 5");
         itemManager.getPnlButtons().add(btnAdd4, "w 30%!, h 30px!, h 30px!, gapx 5");
+        itemManager.getImageView().setColumnCount(5);
+        itemManager.getImageView().setPileBy(ColumnDef.NAME);
+
     }
 
     /**

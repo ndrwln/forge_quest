@@ -17,12 +17,7 @@
  */
 package forge.screens.deckeditor.controllers;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-
+import forge.Singletons;
 import forge.deck.DeckBase;
 import forge.game.GameType;
 import forge.gamemodes.quest.QuestController;
@@ -38,16 +33,16 @@ import forge.itemmanager.SpellShopManager;
 import forge.itemmanager.views.ItemTableColumn;
 import forge.localinstance.skin.FSkinProp;
 import forge.model.FModel;
-import forge.screens.deckeditor.views.VAllDecks;
-import forge.screens.deckeditor.views.VCardCatalog;
-import forge.screens.deckeditor.views.VCurrentDeck;
-import forge.screens.deckeditor.views.VDeckgen;
-import forge.screens.deckeditor.views.VProbabilities;
+import forge.screens.deckeditor.views.*;
 import forge.screens.home.quest.CSubmenuQuestDecks;
 import forge.screens.match.controllers.CDetailPicture;
 import forge.toolbox.FLabel;
 import forge.toolbox.FSkin;
 import forge.util.ItemPool;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  * Child controller for quest card shop UI.
@@ -67,11 +62,13 @@ public final class CEditorQuestCardShop extends ACEditorBase<InventoryItem, Deck
             .fontSize(11)
             .build();
     @SuppressWarnings("serial")
-    private final FLabel fullCatalogToggle = new FLabel.Builder().text("See full catalog")
+    private final FLabel fullCatalogToggle = new FLabel.Builder()
+            .text("Quit")
+            .tooltip("Go back to the game")
             .fontSize(14).hoverable(true).cmdClick(new UiCommand() {
                 @Override
                 public void run() {
-                    toggleFullCatalog();
+                    Singletons.getView().getNavigationBar().closeTab(Singletons.getView().getNavigationBar().selectedTab.screen);
                 }
             })
             .build();
@@ -85,6 +82,7 @@ public final class CEditorQuestCardShop extends ACEditorBase<InventoryItem, Deck
     private DragCell allDecksParent = null;
     private DragCell deckGenParent = null;
     private DragCell probsParent = null;
+    private DragCell currentParent = null;
 
     // remember changed gui elements
     private String CCTabLabel = "";
@@ -233,7 +231,7 @@ public final class CEditorQuestCardShop extends ACEditorBase<InventoryItem, Deck
         VCardCatalog.SINGLETON_INSTANCE.getTabLabel().setText("Cards for sale");
 
         CCAddLabel = this.getBtnAdd().getText();
-        this.getBtnAdd().setText("Buy Card");
+        this.getBtnAdd().setText("Buy");
 
         CDTabLabel = VCurrentDeck.SINGLETON_INSTANCE.getTabLabel().getText();
         VCurrentDeck.SINGLETON_INSTANCE.getTabLabel().setText("Your Cards");
@@ -274,25 +272,17 @@ public final class CEditorQuestCardShop extends ACEditorBase<InventoryItem, Deck
         this.getDeckManager().getPnlButtons().add(creditsLabel, "gap 5px");
         updateCreditsLabel();
 
-        final double multiPercent = multiplier * 100;
-        final NumberFormat formatter = new DecimalFormat("#0.00");
-        String maxSellingPrice = "";
-        final int maxSellPrice = this.questData.getCards().getSellPriceLimit();
 
-        if (maxSellPrice < Integer.MAX_VALUE) {
-            maxSellingPrice = String.format("Maximum selling price is %d credits.", maxSellPrice);
-        }
         this.getCatalogManager().getPnlButtons().remove(this.getBtnAdd4());
         this.getCatalogManager().getPnlButtons().add(fullCatalogToggle, "w 25%, h 30!", 0);
-        this.getCatalogManager().getPnlButtons().add(sellPercentageLabel);
-        this.sellPercentageLabel.setText("<html>Selling cards at " + formatter.format(multiPercent)
-                + "% of their value.<br>" + maxSellingPrice + "</html>");
+
 
         //TODO: Add filter for SItemManagerUtil.StatTypes.PACK
 
         deckGenParent = removeTab(VDeckgen.SINGLETON_INSTANCE);
         allDecksParent = removeTab(VAllDecks.SINGLETON_INSTANCE);
-        probsParent = removeTab(VProbabilities.SINGLETON_INSTANCE);
+        currentParent = removeTab(VCurrentDeck.SINGLETON_INSTANCE);
+
     }
 
     /* (non-Javadoc)
@@ -316,7 +306,6 @@ public final class CEditorQuestCardShop extends ACEditorBase<InventoryItem, Deck
         CSubmenuQuestDecks.SINGLETON_INSTANCE.update();
 
         // undo Card Shop Specifics
-        this.getCatalogManager().getPnlButtons().remove(sellPercentageLabel);
         this.getCatalogManager().getPnlButtons().remove(fullCatalogToggle);
         this.getCatalogManager().getPnlButtons().add(this.getBtnAdd4());
 
@@ -342,6 +331,10 @@ public final class CEditorQuestCardShop extends ACEditorBase<InventoryItem, Deck
         }
         if (probsParent != null) {
             probsParent.addDoc(VProbabilities.SINGLETON_INSTANCE);
+        }
+
+        if (currentParent != null) {
+            currentParent.addDoc(VCurrentDeck.SINGLETON_INSTANCE);
         }
     }
 }

@@ -76,7 +76,6 @@ public final class CEditorQuest extends CDeckEditor<Deck> {
     private final List<DeckSection> allSections = new ArrayList<>();
     private DragCell allDecksParent = null;
     private DragCell deckGenParent = null;
-    private DragCell statisticsParent = null;
 
     private Map<PaperCard, Integer> decksUsingMyCards;
 
@@ -457,7 +456,6 @@ public final class CEditorQuest extends CDeckEditor<Deck> {
 
         deckGenParent = removeTab(VDeckgen.SINGLETON_INSTANCE);
         allDecksParent = removeTab(VAllDecks.SINGLETON_INSTANCE);
-        statisticsParent = removeTab(VStatistics.SINGLETON_INSTANCE);
         removeTab(VCommanderDecks.SINGLETON_INSTANCE);
         removeTab(VOathbreakerDecks.SINGLETON_INSTANCE);
         removeTab(VBrawlDecks.SINGLETON_INSTANCE);
@@ -496,9 +494,6 @@ public final class CEditorQuest extends CDeckEditor<Deck> {
         }
         if (allDecksParent != null) {
             allDecksParent.addDoc(VAllDecks.SINGLETON_INSTANCE);
-        }
-        if (statisticsParent != null) {
-            statisticsParent.addDoc(VStatistics.SINGLETON_INSTANCE);
         }
     }
 }

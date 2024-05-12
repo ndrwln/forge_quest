@@ -104,8 +104,8 @@ public class Locations {
 
 
     //fns
-    public static Location CURRENT_LOCATION = MAIN_MENU;
-    public static Location PREVIOUS_LOCATION = MAIN_MENU;
+    public static Location CURRENT_LOCATION = BLUE_AREA;
+    public static Location PREVIOUS_LOCATION = BLUE_AREA;
 
     public static void travelToPlane(Location location)
     {

@@ -152,6 +152,10 @@ public abstract class ItemManager<T extends InventoryItem> extends JPanel implem
         return cDetailPicture;
     }
 
+    public ImageView<T> getImageView() {
+        return imageView;
+    }
+
     public void quest_hidestuff()
     {
         this.btnViewOptions.setVisible(false);

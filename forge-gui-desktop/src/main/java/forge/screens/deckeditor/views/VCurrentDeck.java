@@ -5,6 +5,7 @@ import forge.gui.framework.DragTab;
 import forge.gui.framework.EDocID;
 import forge.gui.framework.IVDoc;
 import forge.item.InventoryItem;
+import forge.itemmanager.ColumnDef;
 import forge.itemmanager.ItemManager;
 import forge.itemmanager.ItemManagerContainer;
 import forge.localinstance.skin.FSkinProp;
@@ -67,7 +68,7 @@ public enum VCurrentDeck implements IVDoc<CCurrentDeck> {
     private final FLabel btnPrintProxies = new FLabel.Builder()
             .fontSize(14)
             .text("Quit")
-            .tooltip("Quit the deck editor, giving user option to save")
+            .tooltip("Go back to the game")
             .opaque(true).hoverable(true).build();
 
     private final FLabel btnImport = new FLabel.Builder()
@@ -154,6 +155,8 @@ public enum VCurrentDeck implements IVDoc<CCurrentDeck> {
         parentBody.setLayout(new MigLayout("insets 5, gap 0 3, wrap, hidemode 3"));
         parentBody.add(pnlHeader, "pushx, growx");
         parentBody.add(itemManagerContainer, "push, grow");
+
+
     }
 
     public ItemManager<? extends InventoryItem> getItemManager() {
@@ -162,6 +165,8 @@ public enum VCurrentDeck implements IVDoc<CCurrentDeck> {
 
     public void setItemManager(final ItemManager<? extends InventoryItem> itemManager0) {
         this.itemManager = itemManager0;
+        itemManager.getImageView().setPileBy(ColumnDef.COST);
+        itemManager.getImageView().setColumnCount(2);
         itemManagerContainer.setItemManager(itemManager0);
     }
 
@@ -194,7 +199,6 @@ public enum VCurrentDeck implements IVDoc<CCurrentDeck> {
         return btnNew;
     }
 
-    /** @return {@link forge.gui.toolbar.FTextField} */
     public FTextField getTxfTitle() {
         return txfTitle;
     }

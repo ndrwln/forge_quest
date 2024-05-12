@@ -29,7 +29,6 @@ import forge.gamemodes.quest.bazaar.QuestBazaarManager;
 import forge.gamemodes.quest.bazaar.QuestItemType;
 import forge.gamemodes.quest.bazaar.QuestPetStorage;
 import forge.gamemodes.quest.data.*;
-import forge.gamemodes.quest.data.QuestPreferences.DifficultyPrefs;
 import forge.gamemodes.quest.data.QuestPreferences.QPref;
 import forge.gamemodes.quest.io.QuestChallengeReader;
 import forge.item.PreconDeck;
@@ -284,7 +283,7 @@ public class QuestController {
         this.myCards.addDeck(startingCards);
 //        this.myCards.setupNewGameCardPool(formatStartingPool, difficulty, userPrefs);
 
-        this.getAssets().setCredits(FModel.getQuestPreferences().getPrefInt(DifficultyPrefs.STARTING_CREDITS, difficulty));
+        this.getAssets().setCredits(1000000);
 
         // Reset starting cards here.
         this.myCards.resetNewList();
