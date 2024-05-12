@@ -348,7 +348,7 @@ public enum FView {
 		}
 
 		//start background music
-		SoundSystem.instance.setBackgroundMusic(MusicPlaylist.MENUS);
+		SoundSystem.instance.setBackgroundMusic(MusicPlaylist.TITLE);
 
 	}
 

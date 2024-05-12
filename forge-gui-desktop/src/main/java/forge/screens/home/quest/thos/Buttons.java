@@ -5,6 +5,7 @@ import forge.gui.UiCommand;
 import forge.localinstance.skin.FSkinProp;
 import forge.screens.home.quest.CSubmenuQuestStart;
 import forge.screens.home.quest.DialogChoosePoolDistribution;
+import forge.screens.home.quest.VSubmenuQuestStart;
 import forge.toolbox.FLabel;
 import forge.toolbox.FSkin;
 
@@ -112,7 +113,6 @@ public class Buttons {
                     final DialogShowDecks decklist = new DialogShowDecks();
                     decklist.show((UiCommand) () -> {
 
-
                     });
                 });
 
@@ -151,6 +151,7 @@ public class Buttons {
                 .ui(UI_EXPLORE)
                 .fn((UiCommand) () -> {
                     QuestUtil.notify_start_game();
+                    VSubmenuQuestStart.is_playing_new_music = true;
 
                 });
 

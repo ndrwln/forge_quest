@@ -1,0 +1,40 @@
+[shop]
+WinsToUnlock=0
+Credits=1200
+MinDifficulty=0
+MaxDifficulty=5
+[metadata]
+Name=Tales of Vampires I - Starter
+Description=The reslience of undead, the bloodthirst of the night...
+Deck Type=constructed
+Image=abzan_siege.jpg
+[Avatar]
+
+[Main]
+4 Bloodghast|IMA|1
+2 Bond of Agony|DIS|1
+2 Champion of Dusk|RIX|1
+4 Cordial Vampire|VOC|1
+4 Feast of Blood|ZEN|1
+4 Gatekeeper of Malakir|F10|1
+4 Gifted Aetherborn|MB1|1
+2 New Blood|C17|1
+4 Nighthawk Scavenger|ZNR|1
+2 Sanguine Bond|C21|1
+4 Silversmote Ghoul|M21|1
+22 Swamp|UST|1
+2 Vampire Nighthawk|E01|1
+[Sideboard]
+2 Bond of Agony|DIS|1
+2 Champion of Dusk|RIX|1
+2 New Blood|C17|1
+2 Sanguine Bond|C21|1
+4 Swamp|UST|1
+[Planes]
+
+[Schemes]
+
+[Conspiracy]
+
+[Dungeon]
+

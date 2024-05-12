@@ -3,11 +3,14 @@ package forge.screens.home.quest.thos;
 import forge.gamemodes.quest.QuestMode;
 import forge.gamemodes.quest.QuestUtil;
 import forge.model.FModel;
+import forge.sound.MusicPlaylist;
+import forge.sound.SoundSystem;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 import static forge.screens.home.quest.VSubmenuQuestStart.MEDIA_VIEW;
@@ -101,8 +104,8 @@ public class Locations {
 
 
     //fns
-    public static Location CURRENT_LOCATION = GREEN_AREA_HUNTING;
-    public static Location PREVIOUS_LOCATION = GREEN_AREA_HUNTING;
+    public static Location CURRENT_LOCATION = MAIN_MENU;
+    public static Location PREVIOUS_LOCATION = MAIN_MENU;
 
     public static void travelToPlane(Location location)
     {
@@ -112,6 +115,7 @@ public class Locations {
 
     public static void travelTo(Location location)
     {
+        if (CURRENT_LOCATION == MAIN_MENU) SoundSystem.instance.setBackgroundMusic(MusicPlaylist.MENUS);
         Platform.setImplicitExit(false);
         Platform.runLater(() -> {
             Platform.runLater(() -> {
@@ -157,8 +161,10 @@ public class Locations {
 
     public static void update_stats()
     {
-        lbl_crystals.fLabel.setText(QuestUtil.formatCredits(FModel.getQuest().getAssets().getCredits()));
-        lbl_life.fLabel.setText(FModel.getQuest().getAssets().getLife(QuestMode.Classic) + "/" + FModel.getQuest().getAssets().getLifeMax(QuestMode.Classic));
+        SwingUtilities.invokeLater(() -> {
+            lbl_crystals.fLabel.setText(QuestUtil.formatCredits(FModel.getQuest().getAssets().getCredits()));
+            lbl_life.fLabel.setText(FModel.getQuest().getAssets().getLife(QuestMode.Classic) + "/" + FModel.getQuest().getAssets().getLifeMax(QuestMode.Classic));
+        });
     }
 
 

@@ -64,6 +64,7 @@ public class QuestWinLose extends ControlWinLose {
     public final void actionOnQuit() {
         controller.actionOnQuit();
         super.actionOnQuit();
+
     }
 
     @Override

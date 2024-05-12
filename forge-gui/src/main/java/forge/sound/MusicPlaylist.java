@@ -20,7 +20,8 @@ public enum MusicPlaylist {
     TOWN        ("town/"),
     BOSS        ("boss/"),
     MENUS       ("menus/"),
-    MATCH       ("match/");
+    MATCH       ("match/"),
+    TITLE       ("title/"),;
 
     private final String subDir;
     private int mostRecentTrackIdx = -1;

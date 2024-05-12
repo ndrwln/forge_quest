@@ -175,6 +175,7 @@ public class QuestUtil {
                 hostedMatch.startMatch(rules, new TreeSet<>(), starter, ImmutableMap.of(humanStart, gui), null);
             }
         });
+
     }
 
     /**

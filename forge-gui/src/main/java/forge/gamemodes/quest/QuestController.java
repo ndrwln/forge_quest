@@ -17,18 +17,8 @@
  */
 package forge.gamemodes.quest;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
-
 import com.google.common.collect.Lists;
 import com.google.common.eventbus.Subscribe;
-
 import forge.card.CardEdition;
 import forge.deck.Deck;
 import forge.deck.DeckGroup;
@@ -38,14 +28,9 @@ import forge.game.event.GameEventMulligan;
 import forge.gamemodes.quest.bazaar.QuestBazaarManager;
 import forge.gamemodes.quest.bazaar.QuestItemType;
 import forge.gamemodes.quest.bazaar.QuestPetStorage;
-import forge.gamemodes.quest.data.DeckConstructionRules;
-import forge.gamemodes.quest.data.GameFormatQuest;
-import forge.gamemodes.quest.data.QuestAchievements;
-import forge.gamemodes.quest.data.QuestAssets;
-import forge.gamemodes.quest.data.QuestData;
+import forge.gamemodes.quest.data.*;
 import forge.gamemodes.quest.data.QuestPreferences.DifficultyPrefs;
 import forge.gamemodes.quest.data.QuestPreferences.QPref;
-import forge.gamemodes.quest.data.StarRating;
 import forge.gamemodes.quest.io.QuestChallengeReader;
 import forge.item.PreconDeck;
 import forge.localinstance.properties.ForgeConstants;
@@ -53,6 +38,9 @@ import forge.model.FModel;
 import forge.player.GamePlayerUtil;
 import forge.util.storage.IStorage;
 import forge.util.storage.StorageBase;
+
+import java.io.File;
+import java.util.*;
 
 /**
  * TODO: Write javadoc for this type.
@@ -293,16 +281,23 @@ public class QuestController {
 
         this.load(new QuestData(name, difficulty, mode, formatPrizes, allowSetUnlocks, startingWorld, dcr)); // pass awards and unlocks here
 
-        if (startingCards != null) {
-            this.myCards.addDeck(startingCards);
-        } else {
-            this.myCards.setupNewGameCardPool(formatStartingPool, difficulty, userPrefs);
-        }
+        this.myCards.addDeck(startingCards);
+//        this.myCards.setupNewGameCardPool(formatStartingPool, difficulty, userPrefs);
 
         this.getAssets().setCredits(FModel.getQuestPreferences().getPrefInt(DifficultyPrefs.STARTING_CREDITS, difficulty));
 
         // Reset starting cards here.
         this.myCards.resetNewList();
+    }
+
+    public void add_knowledge()
+    {
+
+    }
+
+    public void add_extracards()
+    {
+
     }
 
     /**

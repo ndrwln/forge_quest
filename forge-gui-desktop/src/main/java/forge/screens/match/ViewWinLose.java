@@ -137,7 +137,8 @@ public class ViewWinLose implements IWinLoseView<FButton> {
 
         final boolean customIsPopulated = control.populateCustomPanel();
         if (customIsPopulated) {
-            overlay.add(pnlLeft, "w 40%!, h 100%!, center");
+            overlay.add(pnlLeft, "w 40%!, h 100%!");
+            overlay.add(pnlRight, "w 60%!, h 100%!");
             pnlRight.add(scrCustom, "w 100%!, h 100%!");
         } else {
             overlay.add(pnlLeft, "w 100%!, h 100%!");

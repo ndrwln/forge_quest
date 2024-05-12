@@ -9,15 +9,19 @@ import forge.gamemodes.quest.data.DeckConstructionRules;
 import forge.gamemodes.quest.data.QuestData;
 import forge.gamemodes.quest.data.QuestPreferences;
 import forge.gui.framework.ICDoc;
+import forge.item.PreconDeck;
 import forge.model.FModel;
-import forge.screens.home.CHomeUI;
+import forge.screens.home.quest.thos.Locations;
 import forge.toolbox.FOptionPane;
 import forge.util.Localizer;
+import forge.util.storage.IStorage;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static forge.screens.home.quest.thos.Locations.REST_AREA;
 
 /**
  * Controls the quest data submenu in the home UI.
@@ -41,8 +45,8 @@ public enum CSubmenuQuestStart implements ICDoc {
         String questName = input_getQuestName();
         if (questName == null) return;
 
-        //IStorage<PreconDeck> decks = QuestController.getPrecons();
-        Deck dckStartPool = QuestController.getPrecons().get("Angelic Might").getDeck(); //start with a deck
+        IStorage<PreconDeck> decks = QuestController.getPrecons();
+        Deck dckStartPool = QuestController.getPrecons().get("Tales of Vampires I - Starter").getDeck(); //start with a deck
 
         //IStorage<QuestWorld> w =  FModel.getWorlds(); //used to view worlds in debug
         //final QuestWorld startWorld = FModel.getWorlds().get("Main world"); //useful to get main world
@@ -69,12 +73,7 @@ public enum CSubmenuQuestStart implements ICDoc {
         FModel.getQuest().save();
         FModel.getQuestPreferences().setPref(QuestPreferences.QPref.CURRENT_QUEST, questName + ".dat");
         FModel.getQuestPreferences().save();
-
-        //TODO: change to main game screen
-        //TODO: create event system and event popup. Display starting event
-
-        // Change to QuestDecks screen
-        CHomeUI.SINGLETON_INSTANCE.itemClick(VSubmenuQuestDecks.SINGLETON_INSTANCE.getDocumentID());
+        Locations.travelTo(REST_AREA);
     }
 
     private String input_getQuestName()

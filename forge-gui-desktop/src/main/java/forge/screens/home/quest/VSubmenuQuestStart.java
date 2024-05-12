@@ -1,6 +1,5 @@
 package forge.screens.home.quest;
 
-import forge.Singletons;
 import forge.gui.framework.DragCell;
 import forge.gui.framework.DragTab;
 import forge.gui.framework.EDocID;
@@ -42,9 +41,15 @@ public enum VSubmenuQuestStart implements IVSubmenu<CSubmenuQuestStart> {
         main_panel.setLayout(new MigLayout("insets 0, gap 10px, fillx, wrap 2"));
     }
 
-    public static boolean lock = false;
+    public static boolean is_playing_new_music = false;
 
     @Override public void populate() {
+//        if (is_playing_new_music)
+//        {
+//            SoundSystem.instance.setBackgroundMusic(MusicPlaylist.MENUS);
+//            is_playing_new_music = false;
+//        }
+
         Platform.setImplicitExit(false);
         VHomeUI.SINGLETON_INSTANCE.getPnlDisplay().removeAll();
         VHomeUI.SINGLETON_INSTANCE.getPnlDisplay().setLayout(new MigLayout("insets 0, gap 0, wrap"));
@@ -65,7 +70,8 @@ public enum VSubmenuQuestStart implements IVSubmenu<CSubmenuQuestStart> {
                 AnchorPane pane = new AnchorPane();
                 pane.setStyle("-fx-background-color: #000000");
 
-                Scene scene = new Scene(pane, Singletons.getView().getFrame().getBounds().width, Singletons.getView().getFrame().getBounds().height);
+                Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+                Scene scene = new Scene(pane, screenSize.width, screenSize.height);
 
                 fxPanel.setBackground(Color.BLACK);
                 fxPanel.setScene(scene);
@@ -73,13 +79,8 @@ public enum VSubmenuQuestStart implements IVSubmenu<CSubmenuQuestStart> {
                 MEDIA_VIEW.setMediaPlayer(Locations.CURRENT_LOCATION.player());
                 MEDIA_VIEW.getMediaPlayer().setCycleCount(MediaPlayer.INDEFINITE);
                 MEDIA_VIEW.getMediaPlayer().setAutoPlay(true);
-                MEDIA_VIEW.getMediaPlayer().setOnReady(() -> {
-                    SwingUtilities.invokeLater(() -> {
-                        Locations.CURRENT_LOCATION.fadeIn();
-                        Locations.update_stats();
-                    });
-
-                });
+                Locations.CURRENT_LOCATION.fadeIn();
+                Locations.update_stats();
                 pane.getChildren().add(MEDIA_VIEW);
 
             }

@@ -22,7 +22,6 @@ import forge.deck.DeckGroup;
 import forge.gamemodes.quest.QuestDeckGroupMap;
 import forge.gamemodes.quest.QuestDeckMap;
 import forge.gamemodes.quest.QuestMode;
-import forge.gamemodes.quest.QuestUtilCards;
 import forge.gamemodes.quest.bazaar.QuestItemType;
 import forge.gamemodes.quest.data.QuestPreferences.QPref;
 import forge.item.InventoryItem;
@@ -183,9 +182,9 @@ public class QuestAssets {
             snowLands = 0;
         }
         // Non-snow basic lands are no longer generated (we use Add Basic Lands)
-        final ItemPool<PaperCard> lands = QuestUtilCards.generateBasicLands(
-                /*prefs.getPrefInt(QPref.STARTING_BASIC_LANDS)*/0,  snowLands, useFormat);
-        this.getCardPool().addAll(lands);
+//        final ItemPool<PaperCard> lands = QuestUtilCards.generateBasicLands(
+//                /*prefs.getPrefInt(QPref.STARTING_BASIC_LANDS)*/0,  snowLands, useFormat);
+//        this.getCardPool().addAll(lands);
     }
 
     /**
