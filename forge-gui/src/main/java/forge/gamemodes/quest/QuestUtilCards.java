@@ -32,6 +32,7 @@ import forge.deck.DeckSection;
 import forge.game.GameFormat;
 import forge.gamemodes.quest.bazaar.QuestItemType;
 import forge.gamemodes.quest.data.GameFormatQuest;
+import forge.gamemodes.quest.data.PreferencesResearch;
 import forge.gamemodes.quest.data.QuestAssets;
 import forge.gamemodes.quest.data.QuestPreferences;
 import forge.gamemodes.quest.data.QuestPreferences.DifficultyPrefs;
@@ -404,6 +405,12 @@ public final class QuestUtilCards {
         }
     }
 
+    public void buyPreconDeckCards(final PreconDeck precon, final int value) {
+        if (questAssets.getCredits() >= value) {
+            questAssets.subtractCredits(value);
+        }
+    }
+
     /**
      * Import an existing deck.
      *
@@ -416,7 +423,7 @@ public final class QuestUtilCards {
         }
         questController.getMyDecks().add(fromDeck);
         addAllCards(fromDeck.getAllCardsInASinglePool().toFlatList());
-        fromDeck.get(DeckSection.Sideboard).clear();
+        try {fromDeck.get(DeckSection.Sideboard).clear();}catch(Exception e){}
     }
 
     /**
@@ -770,27 +777,52 @@ public final class QuestUtilCards {
     private void generateCardsInShop() {
 
         // Preferences
-        final int startPacks = questPreferences.getPrefInt(QPref.SHOP_STARTING_PACKS);
-        final int winsForPack = questPreferences.getPrefInt(QPref.SHOP_WINS_FOR_ADDITIONAL_PACK);
-        final int maxPacks = questPreferences.getPrefInt(QPref.SHOP_MAX_PACKS);
-        final int minPacks = questPreferences.getPrefInt(QPref.SHOP_MIN_PACKS);
+//        final int startPacks = questPreferences.getPrefInt(QPref.SHOP_STARTING_PACKS);
+//        final int winsForPack = questPreferences.getPrefInt(QPref.SHOP_WINS_FOR_ADDITIONAL_PACK);
+//        final int maxPacks = questPreferences.getPrefInt(QPref.SHOP_MAX_PACKS);
+//        final int minPacks = questPreferences.getPrefInt(QPref.SHOP_MIN_PACKS);
+//
+//        int level = questController.getAchievements().getLevel();
+//        final int levelPacks = level > 0 ? startPacks / level : startPacks;
+//        final int winPacks = questController.getAchievements().getWin() / winsForPack;
+//        final int totalPacks = Math.min(Math.max(levelPacks + winPacks, minPacks), maxPacks);
 
-        int level = questController.getAchievements().getLevel();
-        final int levelPacks = level > 0 ? startPacks / level : startPacks;
-        final int winPacks = questController.getAchievements().getWin() / winsForPack;
-        final int totalPacks = Math.min(Math.max(levelPacks + winPacks, minPacks), maxPacks);
+//        generateSinglesInShop(totalPacks);
 
-        generateSinglesInShop(totalPacks);
+//        generateBoostersInShop(totalPacks);
+//        generateTournamentsInShop(totalPacks);
+//        generateFatPacksInShop(totalPacks);
+//        generateBoosterBoxesInShop(totalPacks);
 
-        generateBoostersInShop(totalPacks);
-        generatePreconsInShop(totalPacks);
-        generateTournamentsInShop(totalPacks);
-        generateFatPacksInShop(totalPacks);
-        generateBoosterBoxesInShop(totalPacks);
+//        if (questController.getFormat() == null || questController.getFormat().hasSnowLands()) {
+//	        // Spell shop no longer sells basic lands (we use "Add Basic Lands" instead)
+//	        questAssets.getShopList().addAllOfType(generateBasicLands(0, 5, questController.getFormat()));
+//        }
 
-        if (questController.getFormat() == null || questController.getFormat().hasSnowLands()) {
-	        // Spell shop no longer sells basic lands (we use "Add Basic Lands" instead)
-	        questAssets.getShopList().addAllOfType(generateBasicLands(0, 5, questController.getFormat()));
+
+
+//        generatePreconsInShop(0);
+    }
+
+    public boolean pref_decode(String lesson)
+    {
+        return lesson.equals("true");
+    }
+
+    private void generateCardsInShop(ArrayList<PreferencesResearch.Knowledge> lessons)
+    {
+        questAssets.getShopList().clear();
+        final List<PreconDeck> lst_lessons = new ArrayList<>();
+        for(PreferencesResearch.Knowledge lesson : lessons)
+        {
+            String press = FModel.getResearchPreferences().getPref(lesson);
+            if (pref_decode(press)) continue;
+            if (lesson.getParent() != null && !pref_decode(FModel.getResearchPreferences().getPref(lesson.getParent()))) continue;
+
+            lst_lessons.add(QuestController.getPrecons().get(lesson.getDeckName()));
+
+            //add lesson to shop
+            questAssets.getShopList().addAllOfTypeFlat(lst_lessons);
         }
 
     }
@@ -810,9 +842,16 @@ public final class QuestUtilCards {
      * @return the shop list
      */
     public ItemPool<InventoryItem> getShopList() {
-        if (questAssets.getShopList().isEmpty()) {
-            generateCardsInShop();
-        }
+//        generateCardsInShop();
+        return questAssets.getShopList();
+    }
+
+
+    ArrayList<PreferencesResearch.Knowledge> lessons;
+    public ItemPool<InventoryItem> getShopList(ArrayList<PreferencesResearch.Knowledge> lessons) {
+
+        this.lessons = lessons;
+        generateCardsInShop(this.lessons);
         return questAssets.getShopList();
     }
 

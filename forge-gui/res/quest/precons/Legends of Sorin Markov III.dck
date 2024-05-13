@@ -1,0 +1,24 @@
+[shop]
+WinsToUnlock=0
+Credits=10
+MinDifficulty=0
+MaxDifficulty=5
+[metadata]
+Name=Legends of Sorin Markov III
+Description=Occult knowledge involving a legendary planeswaker...
+Deck Type=constructed
+Image=black_sorin.jpg
+[Avatar]
+
+[Main]
+4 Sorin, Vengeful Bloodlord|WAR|1
+[Sideboard]
+
+[Planes]
+
+[Schemes]
+
+[Conspiracy]
+
+[Dungeon]
+

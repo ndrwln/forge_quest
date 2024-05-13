@@ -35,6 +35,7 @@ import forge.localinstance.skin.FSkinProp;
 import forge.model.FModel;
 import forge.screens.deckeditor.views.*;
 import forge.screens.home.quest.CSubmenuQuestDecks;
+import forge.screens.home.quest.thos.Locations;
 import forge.screens.match.controllers.CDetailPicture;
 import forge.toolbox.FLabel;
 import forge.toolbox.FSkin;
@@ -115,6 +116,7 @@ public final class CEditorQuestCardShop extends ACEditorBase<InventoryItem, Deck
 
         this.setCatalogManager(catalogManager);
         this.setDeckManager(deckManager);
+        this.cardsForSale = this.questData.getCards().getShopList(Locations.CURRENT_LOCATION.lessons());
     }
 
     private void toggleFullCatalog() {
@@ -154,6 +156,7 @@ public final class CEditorQuestCardShop extends ACEditorBase<InventoryItem, Deck
         }
 
         QuestSpellShop.buy(items, this.getCatalogManager(), this.getDeckManager(), true);
+        update();
         updateCreditsLabel();
     }
 
@@ -251,7 +254,7 @@ public final class CEditorQuestCardShop extends ACEditorBase<InventoryItem, Deck
 
         QuestSpellShop.updateDecksForEachCard();
         double multiplier = QuestSpellShop.updateMultiplier();
-        this.cardsForSale = this.questData.getCards().getShopList();
+        this.cardsForSale = this.questData.getCards().getShopList(Locations.CURRENT_LOCATION.lessons());
 
         final ItemPool<InventoryItem> ownedItems = new ItemPool<>(InventoryItem.class);
         ownedItems.addAllOfType(this.questData.getCards().getCardpool().getView());

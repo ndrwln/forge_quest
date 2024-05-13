@@ -1,38 +1,28 @@
 package forge.gamemodes.quest;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import org.apache.commons.lang3.tuple.Pair;
-
 import com.google.common.base.Function;
-
 import forge.deck.CardPool;
 import forge.deck.Deck;
 import forge.deck.DeckFormat;
 import forge.deck.DeckSection;
+import forge.gamemodes.quest.data.PreferencesResearch;
 import forge.gamemodes.quest.data.QuestPreferences.QPref;
 import forge.gamemodes.quest.io.ReadPriceList;
 import forge.gui.GuiBase;
 import forge.gui.util.SOptionPane;
-import forge.item.BoosterBox;
-import forge.item.BoosterPack;
-import forge.item.BoxedProduct;
-import forge.item.FatPack;
-import forge.item.IPaperCard;
-import forge.item.InventoryItem;
-import forge.item.PaperCard;
-import forge.item.PreconDeck;
-import forge.item.SealedProduct;
-import forge.item.TournamentPack;
+import forge.item.*;
 import forge.itemmanager.IItemManager;
 import forge.itemmanager.SItemManagerUtil;
 import forge.localinstance.properties.ForgePreferences.FPref;
 import forge.model.FModel;
 import forge.util.ItemPool;
+import org.apache.commons.lang3.tuple.Pair;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class QuestSpellShop {
     private static Map<String, Integer> mapPrices;
@@ -277,8 +267,25 @@ public class QuestSpellShop {
                 final PreconDeck deck = (PreconDeck) item;
                 for (int i = 0; i < qty; i++) {
                     FModel.getQuest().getCards().buyPreconDeck(deck, value);
-
                     itemsToAdd.addAllOfType(deck.getDeck().getMain());
+
+                    PreferencesResearch.Knowledge lesson_ = null;
+
+
+                    for (PreferencesResearch.Knowledge lesson : FModel.getResearchPreferences().getEnumValues())
+                    {
+                        if (lesson.getDeckName().equals(deck.getDeck().getName()))
+                        {
+                            lesson_ = lesson;
+                            break;
+                        }
+                    }
+
+                    if (lesson_ != null)
+                    {
+                        FModel.getResearchPreferences().setPref(lesson_, "true");
+                        FModel.getResearchPreferences().save();
+                    }
                 }
 
                 boolean one = (qty == 1);
@@ -290,8 +297,9 @@ public class QuestSpellShop {
             }
         }
 
-        shopManager.removeItems(itemsToBuy);
         inventoryManager.addItems(itemsToAdd);
+        shopManager.removeItems(itemsToBuy);
+
     }
 
     public static long getTotalSellValue(Iterable<Entry<InventoryItem, Integer>> items) {

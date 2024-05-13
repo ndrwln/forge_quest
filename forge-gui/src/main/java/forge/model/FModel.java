@@ -44,6 +44,7 @@ import forge.gamemodes.planarconquest.ConquestPreferences;
 import forge.gamemodes.planarconquest.ConquestUtil;
 import forge.gamemodes.quest.QuestController;
 import forge.gamemodes.quest.QuestWorld;
+import forge.gamemodes.quest.data.PreferencesResearch;
 import forge.gamemodes.quest.data.QuestPreferences;
 import forge.gamemodes.tournament.TournamentData;
 import forge.gui.FThreads;
@@ -76,8 +77,9 @@ import java.util.*;
 public final class FModel {
     private FModel() { } //don't allow creating instance
 
-    private static StaticData magicDb;
+    private static PreferencesResearch researchPreferences;
 
+    private static StaticData magicDb;
     private static QuestPreferences questPreferences;
     private static ConquestPreferences conquestPreferences;
     private static ForgePreferences preferences;
@@ -494,6 +496,14 @@ public final class FModel {
 
     public static QuestPreferences getQuestPreferences() {
         return questPreferences;
+    }
+
+    public static PreferencesResearch getResearchPreferences() {
+        return researchPreferences;
+    }
+
+    public static void setResearchPreferences(PreferencesResearch research) {
+        researchPreferences = research;
     }
 
     public static ConquestPreferences getConquestPreferences() {

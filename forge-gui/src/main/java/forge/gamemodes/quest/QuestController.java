@@ -41,6 +41,10 @@ import forge.util.storage.StorageBase;
 import java.io.File;
 import java.util.*;
 
+import static forge.localinstance.properties.ForgeConstants.PATH_SEPARATOR;
+import static forge.localinstance.properties.ForgeConstants.USER_PREFS_DIR;
+import static forge.model.FModel.setResearchPreferences;
+
 /**
  * TODO: Write javadoc for this type.
  *
@@ -235,8 +239,11 @@ public class QuestController {
         this.myCards = this.model == null ? null : new QuestUtilCards(this);
         this.questFormat = this.model == null ? null : this.model.getFormat();
         this.currentEvent = null;
-
         this.draftDecks = this.model == null ? null : this.model.getAssets().getDraftDeckStorage();
+
+        String PATH = USER_PREFS_DIR  + selectedQuest.getName() + PATH_SEPARATOR + "research.preferences";
+        new File(USER_PREFS_DIR  + selectedQuest.getName()).mkdirs();
+        setResearchPreferences(new PreferencesResearch(PATH));
 
         this.resetDuelsManager();
         this.resetChallengesManager();

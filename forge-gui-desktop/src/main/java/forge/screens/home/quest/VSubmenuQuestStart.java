@@ -1,8 +1,10 @@
 package forge.screens.home.quest;
 
+import forge.gamemodes.quest.data.PreferencesResearch;
 import forge.gui.framework.DragCell;
 import forge.gui.framework.DragTab;
 import forge.gui.framework.EDocID;
+import forge.model.FModel;
 import forge.screens.home.EMenuGroup;
 import forge.screens.home.IVSubmenu;
 import forge.screens.home.VHomeUI;
@@ -88,6 +90,10 @@ public enum VSubmenuQuestStart implements IVSubmenu<CSubmenuQuestStart> {
 
         VHomeUI.SINGLETON_INSTANCE.getPnlDisplay().repaintSelf();
         VHomeUI.SINGLETON_INSTANCE.getPnlDisplay().revalidate();
+
+        PreferencesResearch r = FModel.getResearchPreferences();
+        FModel.getResearchPreferences().save();
+        System.out.println();
     }
 
 

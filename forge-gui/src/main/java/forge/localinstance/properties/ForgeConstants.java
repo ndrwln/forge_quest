@@ -284,12 +284,12 @@ public final class ForgeConstants {
     public static final String CACHE_SOUND_DIR               = CACHE_DIR + "sound" + PATH_SEPARATOR;
     public static final String CACHE_MUSIC_DIR               = CACHE_DIR + "music" + PATH_SEPARATOR;
     public static final String CACHE_TOKEN_PICS_DIR          = PICS_DIR + "tokens" + PATH_SEPARATOR;
-    public static final String CACHE_ICON_PICS_DIR           = PICS_DIR + "icons" + PATH_SEPARATOR;
+    public static final String CACHE_ICON_PICS_DIR           = QUEST_DIR + "duels2_img" + PATH_SEPARATOR;
     public static final String CACHE_SYMBOLS_DIR             = PICS_DIR + "symbols" + PATH_SEPARATOR;
     public static final String CACHE_BOOSTER_PICS_DIR        = PICS_DIR + "boosters" + PATH_SEPARATOR;
     public static final String CACHE_FATPACK_PICS_DIR        = PICS_DIR + "fatpacks" + PATH_SEPARATOR;
     public static final String CACHE_BOOSTERBOX_PICS_DIR     = PICS_DIR + "boosterboxes" + PATH_SEPARATOR;
-    public static final String CACHE_PRECON_PICS_DIR         = PICS_DIR + "precons" + PATH_SEPARATOR;
+    public static final String CACHE_PRECON_PICS_DIR         = QUEST_DIR + "precons_img" + PATH_SEPARATOR;
     public static final String CACHE_TOURNAMENTPACK_PICS_DIR = PICS_DIR + "tournamentpacks" + PATH_SEPARATOR;
     public static final String CACHE_PLANECHASE_PICS_DIR     = PICS_DIR + "planechase" + PATH_SEPARATOR;
     public static final String CACHE_ACHIEVEMENTS_DIR        = PICS_DIR + "achievements" + PATH_SEPARATOR;

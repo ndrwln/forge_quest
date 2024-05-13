@@ -57,16 +57,16 @@ public class QuestWinLoseController {
         view.getBtnRestart().setVisible(false);
         final QuestController qc = FModel.getQuest();
 
-        // After the first game, reset the card shop pool to be able to buy back anted cards
-        if (lastGame.getNumPlayedGamesInMatch() == 0) {
-            try {
-                qc.getCards().clearShopList();
-                qc.getCards().getShopList();
-            } catch (Exception e) {
-                //investigate this..
-                System.err.println(e.getMessage());
-            }
-        }
+//        // After the first game, reset the card shop pool to be able to buy back anted cards
+//        if (lastGame.getNumPlayedGamesInMatch() == 0) {
+//            try {
+//                qc.getCards().clearShopList();
+//                qc.getCards().getShopList();
+//            } catch (Exception e) {
+//                //investigate this..
+//                System.err.println(e.getMessage());
+//            }
+//        }
 
         final LobbyPlayer questLobbyPlayer = GamePlayerUtil.getQuestPlayer();
         PlayerView player = null;

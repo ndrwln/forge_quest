@@ -1,5 +1,10 @@
+[shop]
+WinsToUnlock=0
+Credits=10
+MinDifficulty=0
+MaxDifficulty=5
 [metadata]
-Name=Tales of Vampires I - Starter
+Name=Tales of Vampires I
 Description=Learn the lore of the blood and the grail...
 Deck Type=constructed
 Image=black_vampires1.jpg
@@ -7,24 +12,19 @@ Image=black_vampires1.jpg
 
 [Main]
 4 Bloodghast|IMA|1
-2 Bond of Agony|DIS|1
-2 Champion of Dusk|RIX|1
+4 Bond of Agony|DIS|1
+4 Champion of Dusk|RIX|1
 4 Cordial Vampire|VOC|1
 4 Feast of Blood|ZEN|1
 4 Gatekeeper of Malakir|F10|1
 4 Gifted Aetherborn|MB1|1
-2 New Blood|C17|1
+4 New Blood|C17|1
 4 Nighthawk Scavenger|ZNR|1
-2 Sanguine Bond|C21|1
+4 Sanguine Bond|C21|1
 4 Silversmote Ghoul|M21|1
-22 Swamp|UST|1
-2 Vampire Nighthawk|E01|1
+4 Vampire Nighthawk|E01|1
 [Sideboard]
-2 Bond of Agony|DIS|1
-2 Champion of Dusk|RIX|1
-2 New Blood|C17|1
-2 Sanguine Bond|C21|1
-4 Swamp|UST|1
+
 [Planes]
 
 [Schemes]

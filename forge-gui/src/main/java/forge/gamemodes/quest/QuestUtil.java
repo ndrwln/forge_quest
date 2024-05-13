@@ -452,10 +452,6 @@ public class QuestUtil {
 
     /** */
     public static void showSpellShop() {
-        final Localizer localizer = Localizer.getInstance();
-        if (!checkActiveQuest(localizer.getMessage("lblVisitTheSpellShop"))) {
-            return;
-        }
         GuiBase.getInterface().showSpellShop();
     }
 
