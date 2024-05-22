@@ -124,6 +124,7 @@ public class Player extends GameEntity implements Comparable<Player> {
 
     private final Map<String, FCollection<String>> notes = Maps.newHashMap();
     private final Map<String, Integer> notedNum = Maps.newHashMap();
+    private final Map<String, String> draftNotes = Maps.newHashMap();
 
     private boolean revolt = false;
     private int descended = 0;
@@ -2376,6 +2377,15 @@ public class Player extends GameEntity implements Comparable<Player> {
         return getName().compareTo(o.getName());
     }
 
+    public void setDraftNotes(Map<String, String> notes) {
+        this.draftNotes.clear();
+        this.draftNotes.putAll(notes);
+    }
+
+    public Map<String, String> getDraftNotes() {
+        return draftNotes;
+    }
+
     public static class Accessors {
         public static Function<Player, String> FN_GET_NAME = new Function<Player, String>() {
             @Override
@@ -3432,7 +3442,7 @@ public class Player extends GameEntity implements Comparable<Player> {
                 radiationEffect.setSetCode(setCode);
             }
 
-            String trigStr = "Mode$ Phase | PreCombatMain$ True | ValidPlayer$ You | TriggerZones$ Command | TriggerDescription$ " +
+            String trigStr = "Mode$ Phase | Phase$ Main1 | ValidPlayer$ You | TriggerZones$ Command | TriggerDescription$ " +
             "At the beginning of your precombat main phase, if you have any rad counters, mill that many cards. For each nonland card milled this way, you lose 1 life and a rad counter.";
 
             Trigger tr = TriggerHandler.parseTrigger(trigStr, radiationEffect, true);

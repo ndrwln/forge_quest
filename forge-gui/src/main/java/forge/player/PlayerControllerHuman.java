@@ -1891,11 +1891,12 @@ public class PlayerControllerHuman extends PlayerController implements IGameCont
     }
 
     @Override
-    public ReplacementEffect chooseSingleReplacementEffect(final String prompt, final List<ReplacementEffect> possibleReplacers) {
+    public ReplacementEffect chooseSingleReplacementEffect(final List<ReplacementEffect> possibleReplacers) {
         final ReplacementEffect first = possibleReplacers.get(0);
         if (possibleReplacers.size() == 1) {
             return first;
         }
+        String prompt = localizer.getMessage("lblChooseFirstApplyReplacementEffect");
         final String firstStr = first.toString();
         for (int i = 1; i < possibleReplacers.size(); i++) {
             // prompt user if there are multiple different options
@@ -1956,12 +1957,14 @@ public class PlayerControllerHuman extends PlayerController implements IGameCont
                 String saStr = currentSa.toString();
 
                 // if current SA isn't a trigger and it uses Targeting, try to show prompt
-                if (!currentSa.isTrigger() && currentSa.usesTargeting()) {
+                if (currentSa.isTrigger()) {
+                    needPrompt |= currentSa.getTrigger().hasParam("OrderDuplicates");
+                } else if (currentSa.usesTargeting()) {
                     needPrompt = true;
                 }
-                if (!needPrompt && !saStr.equals(firstStr) && !currentSa.hasParam("OrderDuplicates")) {
-                    needPrompt = true; // prompt by default unless all abilities
-                    // are the same
+                if (!needPrompt && !saStr.equals(firstStr)) {
+                    // prompt by default unless all abilities are the same
+                    needPrompt = true;
                 }
 
                 saLookupKey.append(delim).append(saStr);
