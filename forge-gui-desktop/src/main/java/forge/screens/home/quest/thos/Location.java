@@ -45,6 +45,7 @@ import static forge.localinstance.properties.ForgeConstants.VIDEO_DIR;
     public Location add_action(ArrayList<SNode> action) { actions.add(action); return this; }
     public Location add_lesson(PreferencesResearch.Knowledge lesson) { lessons.add(lesson); return this; }
 
+
     public void fadeOut() {fadeOut(500);}
     public void fadeOut(int ms)
     {

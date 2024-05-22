@@ -8,7 +8,7 @@ public class PreferencesResearch extends PreferencesStore<PreferencesResearch.Kn
 
     public enum Knowledge {
         //Black
-        BLACK_LANDS("false", "Lore of Swamps", null),
+        BLACK_LANDS("false", "Memories of a Distant Land - Swamps", null),
 
         VAMPIRES_I("false", "Tales of Vampires I", BLACK_LANDS),
         VAMPIRES_II("false", "Tales of Vampires II", VAMPIRES_I),

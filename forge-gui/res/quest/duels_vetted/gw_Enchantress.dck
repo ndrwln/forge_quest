@@ -1,0 +1,39 @@
+[duel]
+[metadata]
+Name=Enchantress
+Title=Enchantress
+Difficulty=medium
+Description=Enchants hexproof monsters
+Icon=enchantras_gw.png
+Deck Type=constructed
+[Avatar]
+
+[Main]
+4 Daybreak Coronet|MM2|1
+1 Dryad Arbor|V12|1
+4 Ethereal Armor|Q06|1
+1 Forest|UST|1
+4 Gladecover Scout|M14|1
+3 Horizon Canopy|WHO|1
+4 Hyena Umbra|2X2|1
+4 Kor Spiritdancer|JMP|1
+2 Mana Tithe|STA|2
+2 Misty Rainforest|MH2|1
+4 Path to Exile|CMM|2
+4 Rancor|2X2|1
+4 Razorverge Thicket|ONE|1
+4 Slippery Bogle|UMA|1
+3 Spider Umbra|UMA|1
+4 Spirit Mantle|CMR|1
+4 Temple Garden|UNF|1
+4 Verdant Catacombs|MH2|1
+[Sideboard]
+
+[Planes]
+
+[Schemes]
+
+[Conspiracy]
+
+[Dungeon]
+

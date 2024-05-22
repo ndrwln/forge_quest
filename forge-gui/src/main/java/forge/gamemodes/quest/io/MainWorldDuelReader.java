@@ -1,21 +1,5 @@
 package forge.gamemodes.quest.io;
 
-import java.io.File;
-import java.io.FilenameFilter;
-import java.io.IOException;
-import java.nio.file.FileVisitResult;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.SimpleFileVisitor;
-import java.nio.file.attribute.BasicFileAttributes;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.NoSuchElementException;
-import java.util.TreeMap;
-
-import org.apache.commons.lang3.StringUtils;
-
 import forge.ImageKeys;
 import forge.deck.Deck;
 import forge.deck.DeckProxy;
@@ -28,6 +12,17 @@ import forge.util.FileSection;
 import forge.util.FileUtil;
 import forge.util.TextUtil;
 import forge.util.storage.StorageReaderFolder;
+import org.apache.commons.lang3.StringUtils;
+
+import java.io.File;
+import java.io.FilenameFilter;
+import java.io.IOException;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.util.*;
 
 public class MainWorldDuelReader extends StorageReaderFolder<QuestEventDuel> {
 
@@ -60,13 +55,13 @@ public class MainWorldDuelReader extends StorageReaderFolder<QuestEventDuel> {
                         if (result.containsKey(newKey)) {
                             System.err.println("StorageReaderFolder: an object with key " + newKey + " is already present - skipping new entry");
                         } else {
-                            result.put(newKey, newDeck);                       
+                            result.put(newKey, newDeck);
                         }
                     } catch (final NoSuchElementException ex) {
                         final String message = TextUtil.concatWithSpace( actualFile.getName(),"failed to load because ----", ex.getMessage());
                         objectsThatFailedToLoad.add(message);
                     }
-                    
+
                     return FileVisitResult.CONTINUE;
                 }
             });
@@ -86,15 +81,15 @@ public class MainWorldDuelReader extends StorageReaderFolder<QuestEventDuel> {
             if (result.containsKey(newKey)) {
                 System.err.println("StorageReaderFolder: an object with key " + newKey + " is already present - skipping new entry");
             } else {
-                result.put(newKey, newDeck);                       
-            }            
+                result.put(newKey, newDeck);
+            }
         }
         
         return result;
     }
 
     @Override
-    protected QuestEventDuel read(File file) {
+    public QuestEventDuel read(File file) {
         final Map<String, List<String>> contents = FileSection.parseSections(FileUtil.readFile(file));
         final QuestEventDuel qc = new QuestEventDuel();
 

@@ -1,0 +1,41 @@
+[duel]
+[metadata]
+Name=Re-Vengevine
+Title=Re-Vengevine
+Difficulty=medium
+Description=Zombie vines
+Icon=revengevine.png
+Deck Type=constructed
+[Avatar]
+
+[Main]
+4 Abrupt Decay|WMC|1
+4 Bloodghast|IMA|1
+2 Bloodthrone Vampire|DDP|1
+2 Cavern of Souls|LTC|2
+4 Dark Confidant|2XM|2
+4 Deathrite Shaman|GK1|1
+2 Forest|UST|1
+4 Gravecrawler|PDKA|1
+4 Grisly Salvage|CMA|1
+4 Lotleth Troll|2X2|1
+2 Marsh Flats|MH2|1
+2 Misty Rainforest|MH2|1
+3 Overgrown Tomb|UNF|1
+2 Slitherhead|RTR|1
+2 Swamp|UST|1
+4 Tarmogoyf|UMA|1
+1 Urborg, Tomb of Yawgmoth|LTC|1
+4 Vengevine|PUMA|1
+4 Verdant Catacombs|ZNE|1
+2 Woodland Cemetery|LTC|1
+[Sideboard]
+
+[Planes]
+
+[Schemes]
+
+[Conspiracy]
+
+[Dungeon]
+

@@ -1,0 +1,46 @@
+[duel]
+[metadata]
+Name=Vampires I
+Title=Vampire
+Difficulty=easy
+Description=Mono-black vampire tribal theme deck  -"The weak tremble before me, and the strong bow to my will. Such is the way of darkness."
+Icon=vampire_elder_b.png
+Deck Type=constructed
+[Avatar]
+
+[Main]
+4 Castle Locthwain|ELD|2
+2 Champion of Dusk|LCC|1
+3 Dusk Legion Zealot|LCC|1
+4 Fatal Push|SLP|1
+4 Gifted Aetherborn|GN3|1
+2 Heartless Act|IKO|1
+2 Kalitas, Traitor of Ghet|OGW|1
+4 Knight of the Ebon Legion|M20|1
+2 Murderous Rider|MOC|1
+4 Mutavault|PCMP|1
+1 Nykthos, Shrine to Nyx|PLIST|1
+1 Silversmote Ghoul|C21|1
+4 Sorin, Imperious Bloodlord|M20|1
+15 Swamp|UST|1
+4 Thoughtseize|2XM|2
+1 Urborg, Tomb of Yawgmoth|LTC|1
+3 Vein Ripper|MKM|2
+[Sideboard]
+3 Agonizing Remorse|STA|1
+2 Ashiok, Dream Render|SLD|1
+2 Duress|ONE|1
+2 Grafdigger's Cage|SLD|1
+1 Kalitas, Traitor of Ghet|OGW|1
+1 Legion's End|M20|1
+2 Liliana, Waker of the Dead|M21|1
+1 Murderous Rider|MOC|1
+1 Noxious Grasp|M20|1
+[Planes]
+
+[Schemes]
+
+[Conspiracy]
+
+[Dungeon]
+

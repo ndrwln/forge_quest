@@ -2,7 +2,6 @@ package forge.screens.home.quest.thos;
 
 import forge.gamemodes.quest.QuestMode;
 import forge.gamemodes.quest.QuestUtil;
-import forge.gamemodes.quest.data.PreferencesResearch;
 import forge.model.FModel;
 import forge.sound.MusicPlaylist;
 import forge.sound.SoundSystem;
@@ -94,12 +93,7 @@ public class Locations {
     public static final Location BLACK_AREA = new Location()
             .video("black.mp4")
             .plane(BLACK_AREA_HUNTING)
-            .add_lesson(PreferencesResearch.Knowledge.BLACK_LANDS)
-            .add_lesson(PreferencesResearch.Knowledge.VAMPIRES_I)
-            .add_lesson(PreferencesResearch.Knowledge.VAMPIRES_II)
-            .add_lesson(PreferencesResearch.Knowledge.SORIN_I)
-            .add_lesson(PreferencesResearch.Knowledge.SORIN_II)
-            .add_lesson(PreferencesResearch.Knowledge.SORIN_III)
+
             .add_action(UI_GENERAL)
             .add_action(UI_INFO)
             .add_action(UI_LEARN)
