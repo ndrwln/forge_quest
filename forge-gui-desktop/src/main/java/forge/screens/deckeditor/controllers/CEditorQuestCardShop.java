@@ -158,6 +158,7 @@ public final class CEditorQuestCardShop extends ACEditorBase<InventoryItem, Deck
         QuestSpellShop.buy(items, this.getCatalogManager(), this.getDeckManager(), true);
         update();
         updateCreditsLabel();
+        Singletons.getView().getNavigationBar().closeTab(Singletons.getView().getNavigationBar().selectedTab.screen);
     }
 
     /* (non-Javadoc)

@@ -1,14 +1,5 @@
 package forge.screens.deckeditor.views;
 
-import java.awt.Font;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.List;
-
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-
 import forge.deck.DeckBase;
 import forge.gui.framework.DragCell;
 import forge.gui.framework.DragTab;
@@ -24,6 +15,12 @@ import forge.toolbox.FScrollPane;
 import forge.toolbox.FSkin;
 import forge.util.Localizer;
 import net.miginfocom.swing.MigLayout;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.List;
 
 /**
  * Assembles Swing components of deck editor analysis tab.
@@ -59,22 +56,22 @@ public enum VProbabilities implements IVDoc<CProbabilities> {
     VProbabilities() {
         pnlContent.setOpaque(false);
         pnlHand.setOpaque(false);
-        pnlLibrary.setOpaque(false);
+//        pnlLibrary.setOpaque(false);
         scroller.getViewport().setBorder(null);
 
         lblSampleHand.setBorder(new FSkin.MatteSkinBorder(1, 0, 1, 0, FSkin.getColor(FSkin.Colors.CLR_BORDERS)));
         lblSampleHand.setBackground(FSkin.getColor(FSkin.Colors.CLR_THEME2));
 
-        lblRemainingDraws.setBorder(new FSkin.MatteSkinBorder(1, 0, 1, 0, FSkin.getColor(FSkin.Colors.CLR_BORDERS)));
-        lblRemainingDraws.setBackground(FSkin.getColor(FSkin.Colors.CLR_THEME2));
+//        lblRemainingDraws.setBorder(new FSkin.MatteSkinBorder(1, 0, 1, 0, FSkin.getColor(FSkin.Colors.CLR_BORDERS)));
+//        lblRemainingDraws.setBackground(FSkin.getColor(FSkin.Colors.CLR_THEME2));
 
         // Core layout
         pnlContent.add(lblReshuffle, "w 96%!, h 29px!, gap 2% 0 5px 5px");
         pnlContent.add(lblSampleHand, "w 96%!, h 25px!, gap 2% 0 0 0");
         // pnlContent.add(lblExplanation, "w 96%!, h 25px!, gap 2% 0 0 0");
         pnlContent.add(pnlHand, "w 96%!, gap 2% 0 0 5px");
-        pnlContent.add(lblRemainingDraws, "w 96%!, h 25px!, gap 2% 0 0 0");
-        pnlContent.add(pnlLibrary, "w 96%!, gap 2% 0 5px 0");
+//        pnlContent.add(lblRemainingDraws, "w 96%!, h 25px!, gap 2% 0 0 0");
+//        pnlContent.add(pnlLibrary, "w 96%!, gap 2% 0 5px 0");
     }
 
     //========== Overridden methods
@@ -138,7 +135,7 @@ public enum VProbabilities implements IVDoc<CProbabilities> {
     /** @param shuffledVals &emsp; A map of card names and their positional probability. */
     public void rebuildLabels(final List<String> shuffledVals) {
         pnlHand.removeAll();
-        pnlLibrary.removeAll();
+//        pnlLibrary.removeAll();
 
         JLabel lbl;
         final String constraints = "w 96%, h 25px!, gap 2% 0 0 0";
@@ -148,11 +145,11 @@ public enum VProbabilities implements IVDoc<CProbabilities> {
             lbl.setText(shuffledVals.get(i));
 
             if (i < 7) { pnlHand.add(lbl, constraints);  }
-            else { pnlLibrary.add(lbl, constraints); }
+//            else { pnlLibrary.add(lbl, constraints); }
         }
 
         pnlHand.validate();
-        pnlLibrary.validate();
+//        pnlLibrary.validate();
     }
 
     private static <T extends InventoryItem, TModel extends DeckBase> JLabel buildLabel(final boolean zebra) {

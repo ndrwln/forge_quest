@@ -1,0 +1,17 @@
+[shop]
+WinsToUnlock=0
+Credits=40
+MinDifficulty=0
+MaxDifficulty=5
+[metadata]
+Name=Tales of Vampires - Spirits and Scrying
+Description=The bloodghast
+Deck Type=constructed
+Image=black_vampires_bloodghast.jpg
+[Avatar]
+
+[Main]
+4 Bloodghast|IMA|1
+4 Viscera Seer|CMR|1
+
+

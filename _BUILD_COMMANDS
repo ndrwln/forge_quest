@@ -1,3 +1,0 @@
-mvn scm:update
-mvn -U -B clean -P windows-linux install -Dcheckstyle.skip -DskipTests
-pause

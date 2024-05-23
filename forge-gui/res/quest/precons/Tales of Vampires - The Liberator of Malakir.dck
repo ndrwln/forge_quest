@@ -1,0 +1,14 @@
+[shop]
+WinsToUnlock=0
+Credits=40
+MinDifficulty=0
+MaxDifficulty=5
+[metadata]
+Name=Tales of Vampires - The Liberator of Malakir
+Description=Harness the myth of the liberator of malakir...
+Deck Type=constructed
+Image=black_vampires_drana.jpg
+[Avatar]
+
+[Main]
+4 Drana, Liberator of Malakir|DMC|1

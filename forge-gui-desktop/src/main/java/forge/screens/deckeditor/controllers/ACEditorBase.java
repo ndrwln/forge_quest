@@ -74,7 +74,7 @@ import java.util.Map.Entry;
  */
 public abstract class ACEditorBase<TItem extends InventoryItem, TModel extends DeckBase> implements IMenuProvider {
     public boolean listenersHooked;
-    private final FScreen screen;
+    public final FScreen screen;
     private ItemManager<TItem> catalogManager;
     private ItemManager<TItem> deckManager;
     protected DeckSection sectionMode = DeckSection.Main;

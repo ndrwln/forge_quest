@@ -120,7 +120,7 @@ public final class FModel {
                 ForgeConstants.CACHE_TOKEN_PICS_DIR, ForgeConstants.CACHE_ICON_PICS_DIR,
                 ForgeConstants.CACHE_BOOSTER_PICS_DIR, ForgeConstants.CACHE_FATPACK_PICS_DIR,
                 ForgeConstants.CACHE_BOOSTERBOX_PICS_DIR, ForgeConstants.CACHE_PRECON_PICS_DIR,
-                ForgeConstants.CACHE_TOURNAMENTPACK_PICS_DIR);
+                ForgeConstants.CACHE_TOURNAMENTPACK_PICS_DIR, ForgeConstants._DEFAULTS_DIR);
 
         // Instantiate preferences: quest and regular
         // Preferences are initialized first so that the splash screen can be translated.

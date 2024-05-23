@@ -8,11 +8,10 @@ public class Research {
 
     public Research()
     {
-        BLACK_AREA.add_lesson(PreferencesResearch.Knowledge.BLACK_LANDS);
+        BLACK_AREA.add_lesson(PreferencesResearch.Knowledge.THE_PALE_LORE);
         BLACK_AREA.add_lesson(PreferencesResearch.Knowledge.VAMPIRES_I);
         BLACK_AREA.add_lesson(PreferencesResearch.Knowledge.VAMPIRES_II);
         BLACK_AREA.add_lesson(PreferencesResearch.Knowledge.SORIN_I);
         BLACK_AREA.add_lesson(PreferencesResearch.Knowledge.SORIN_II);
-        BLACK_AREA.add_lesson(PreferencesResearch.Knowledge.SORIN_III);
     }
 }

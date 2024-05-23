@@ -267,7 +267,7 @@ public final class ForgeConstants {
     public static final String CLOSE_CONN_COMMAND   = "<<_EM_ESOLC_<<";
 
     // data that has defaults in the program dir but overrides/additions in the user dir
-    private static final String _DEFAULTS_DIR = RES_DIR + "defaults" + PATH_SEPARATOR;
+    public static final String _DEFAULTS_DIR = RES_DIR + "defaults" + PATH_SEPARATOR;
     public static final String NO_CARD_FILE   = _DEFAULTS_DIR + "no_card.jpg";
     public static final FileLocation WINDOW_LAYOUT_FILE      = new FileLocation(_DEFAULTS_DIR, USER_PREFS_DIR, "window.xml");
     public static final FileLocation MATCH_LAYOUT_FILE       = new FileLocation(BASE_SKINS_DIR, USER_PREFS_DIR, "match.xml");

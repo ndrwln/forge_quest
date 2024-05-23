@@ -48,8 +48,7 @@ public enum CSubmenuQuestStart implements ICDoc {
         String questName = input_getQuestName();
         if (questName == null) return;
 
-//        IStorage<PreconDeck> decks = QuestController.getPrecons();
-        Deck dckStartPool = QuestController.getPrecons().get("Tales of Vampires I - Starter").getDeck(); //start with a deck
+        Deck dckStartPool = QuestController.getPrecons().get("Tales of Vampires - Starter").getDeck(); //start with a deck
 
         //IStorage<QuestWorld> w =  FModel.getWorlds(); //used to view worlds in debug
         //final QuestWorld startWorld = FModel.getWorlds().get("Main world"); //useful to get main world

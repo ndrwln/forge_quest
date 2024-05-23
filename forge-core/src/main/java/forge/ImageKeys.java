@@ -36,7 +36,7 @@ public final class ImageKeys {
     public static final String SPECFACE_G = "$gspec";
 
     private static String CACHE_CARD_PICS_DIR, CACHE_TOKEN_PICS_DIR, CACHE_ICON_PICS_DIR, CACHE_BOOSTER_PICS_DIR,
-        CACHE_FATPACK_PICS_DIR, CACHE_BOOSTERBOX_PICS_DIR, CACHE_PRECON_PICS_DIR, CACHE_TOURNAMENTPACK_PICS_DIR;
+        CACHE_FATPACK_PICS_DIR, CACHE_BOOSTERBOX_PICS_DIR, CACHE_PRECON_PICS_DIR, CACHE_TOURNAMENTPACK_PICS_DIR, DEFAULTS_DIR;
     public static String ADVENTURE_CARD_PICS_DIR;
     private static Map<String, String> CACHE_CARD_PICS_SUBDIR;
 
@@ -57,7 +57,7 @@ public final class ImageKeys {
         isLibGDXPort = value;
     }
     public static void initializeDirs(String cards, Map<String, String> cardsSub, String tokens, String icons, String boosters,
-            String fatPacks, String boosterBoxes, String precons, String tournamentPacks) {
+            String fatPacks, String boosterBoxes, String precons, String tournamentPacks, String defaults) {
         CACHE_CARD_PICS_DIR = cards;
         CACHE_CARD_PICS_SUBDIR = cardsSub;
         CACHE_TOKEN_PICS_DIR = tokens;
@@ -67,6 +67,7 @@ public final class ImageKeys {
         CACHE_BOOSTERBOX_PICS_DIR = boosterBoxes;
         CACHE_PRECON_PICS_DIR = precons;
         CACHE_TOURNAMENTPACK_PICS_DIR = tournamentPacks;
+        DEFAULTS_DIR = defaults;
     }
 
     // image file extensions for various formats in order of likelihood
@@ -100,7 +101,10 @@ public final class ImageKeys {
         final String filename;
         if (key.startsWith(ImageKeys.TOKEN_PREFIX)) {
             filename = key.substring(ImageKeys.TOKEN_PREFIX.length());
-            dir = CACHE_TOKEN_PICS_DIR;
+            if (filename.equals("hidden"))
+                dir = DEFAULTS_DIR;
+            else
+                dir = CACHE_TOKEN_PICS_DIR;
         } else if (key.startsWith(ImageKeys.ICON_PREFIX)) {
             filename = key.substring(ImageKeys.ICON_PREFIX.length());
             dir = CACHE_ICON_PICS_DIR;

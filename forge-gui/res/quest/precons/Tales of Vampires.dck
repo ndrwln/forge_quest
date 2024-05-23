@@ -1,0 +1,25 @@
+[shop]
+WinsToUnlock=0
+Credits=40
+MinDifficulty=0
+MaxDifficulty=5
+[metadata]
+Name=Tales of Vampires
+Description=Harness the power of the bloodthirsty rulers of the night\n\nUnlock lore rewards from defeating vampires
+Deck Type=constructed
+Image=black_vampires.jpg
+[Avatar]
+
+[Main]
+4 Champion of Dusk|RIX|1
+4 Exsanguinate|CMM|1
+4 Feast of Blood|ZEN|1
+4 Gatekeeper of Malakir|F10|1
+4 Gifted Aetherborn|MB1|1
+4 Knight of the Ebon Legion|M20|1
+4 Malakir Bloodwitch|C17|1
+4 New Blood|C17|1
+4 Nighthawk Scavenger|ZNR|1
+4 Sanguine Bond|C21|1
+4 Silversmote Ghoul|M21|1
+4 Vampire Nighthawk|E01|1

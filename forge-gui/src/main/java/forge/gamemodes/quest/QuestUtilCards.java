@@ -401,7 +401,9 @@ public final class QuestUtilCards {
     public void buyPreconDeck(final PreconDeck precon, final int value) {
         if (questAssets.getCredits() >= value) {
             questAssets.subtractCredits(value);
-            addDeck(precon.getDeck());
+            Deck d = precon.getDeck();
+            d.setName("_" + d.getName());
+            addDeck(d);
         }
     }
 
@@ -817,7 +819,23 @@ public final class QuestUtilCards {
         {
             String press = FModel.getResearchPreferences().getPref(lesson);
             if (pref_decode(press)) continue;
-            if (lesson.getParent() != null && !pref_decode(FModel.getResearchPreferences().getPref(lesson.getParent()))) continue;
+
+            //if (lesson.getRequirements() != null && !pref_decode(FModel.getResearchPreferences().getPref(lesson.getRequirements()))) continue;
+            boolean learned = false;
+            if (lesson.getRequirements() != null)
+            {
+                for (PreferencesResearch.Knowledge req : lesson.getRequirements())
+                {
+                    if (!pref_decode(FModel.getResearchPreferences().getPref(req)))
+                    {
+                        learned = true;
+                        break;
+                    }
+
+                }
+
+                if (learned) continue;
+            }
 
             lst_lessons.add(QuestController.getPrecons().get(lesson.getDeckName()));
 

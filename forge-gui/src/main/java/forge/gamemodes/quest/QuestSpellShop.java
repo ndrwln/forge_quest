@@ -187,12 +187,11 @@ public class QuestSpellShop {
 
         long creditsShort = totalCost - FModel.getQuest().getAssets().getCredits();
         if (creditsShort > 0) {
-            SOptionPane.showMessageDialog("You need " + creditsShort + " more credits to purchase the following " + suffix.toLowerCase() + ".\n" + displayList, title);
+            SOptionPane.showMessageDialog("You need " + creditsShort + " more crystals to purchase this knowledge " + suffix.toLowerCase() + ".\n" + displayList, title);
             return;
         }
 
-        if (confirmPurchase && !SOptionPane.showConfirmDialog("Pay " + totalCost + " credits to purchase the following " +
-                suffix.toLowerCase() + "?\n" + displayList, title, "Buy", "Cancel")) {
+        if (confirmPurchase && !SOptionPane.showConfirmDialog("Pay " + totalCost + " crystals to purchase the following knowledge?\n" + displayList, title, "Buy", "Cancel")) {
             return;
         }
 
@@ -288,12 +287,12 @@ public class QuestSpellShop {
                     }
                 }
 
-                boolean one = (qty == 1);
-                SOptionPane.showMessageDialog(String.format(
-                        "%s '%s' %s added to your decklist.%n%n%s cards were also added to your pool.",
-                        one ? "Deck" : String.format("%d copies of deck", qty),
-                        deck.getName(), one ? "was" : "were", one ? "Its" : "Their"),
-                        "Thanks for purchasing!", SOptionPane.INFORMATION_ICON);
+                CardPool pool =  deck.getDeck().getMain();
+                List<PaperCard> lst = new ArrayList<>();
+                for(int i = 0; i < pool.countAll(); i++) if (!lst.contains(pool.get(i))) lst.add(pool.get(i));
+
+                GuiBase.getInterface().showCardList(deck.getName(), "You have acquired the following lore:", lst);
+
             }
         }
 
