@@ -20,7 +20,7 @@ import java.util.List;
 
 public class MainWorldEventDuelManager implements QuestEventDuelManagerInterface {
 
-    protected final MapOfLists<DuelBucket, QuestEventDuel> sortedDuels = new EnumMapOfLists<>(DuelBucket.class, CollectionSuppliers.arrayLists());
+    public final MapOfLists<DuelBucket, QuestEventDuel> sortedDuels = new EnumMapOfLists<>(DuelBucket.class, CollectionSuppliers.arrayLists());
     protected final IStorage<QuestEventDuel> allDuels;
 
     /**
@@ -243,11 +243,10 @@ public class MainWorldEventDuelManager implements QuestEventDuelManagerInterface
     protected void assembleDuelDifficultyLists() {
 
         sortedDuels.clear();
-        sortedDuels.put(DuelBucket.EASY, new ArrayList<>());
-        sortedDuels.put(DuelBucket.MEDIUM, new ArrayList<>());
-        sortedDuels.put(DuelBucket.HARD, new ArrayList<>());
-        sortedDuels.put(DuelBucket.EXPERT, new ArrayList<>());
-        sortedDuels.put(DuelBucket.WILD, new ArrayList<>());
+
+        for (DuelBucket bucket : DuelBucket.values()) {
+            sortedDuels.put(bucket, new ArrayList<>());
+        }
 
         for (final QuestEventDuel qd : allDuels) {
             sortedDuels.add(qd.getDifficulty(), qd);

@@ -1,16 +1,12 @@
 package forge.screens.home.quest;
 
 import forge.gamemodes.quest.QuestController;
-import forge.gamemodes.quest.QuestEventDuel;
 import forge.gamemodes.quest.QuestUtil;
 import forge.gamemodes.quest.bazaar.QuestPetController;
 import forge.gui.UiCommand;
 import forge.gui.framework.ICDoc;
 import forge.model.FModel;
-import forge.toolbox.JXButtonPanel;
-import forge.util.Localizer;
 
-import javax.swing.*;
 import java.awt.event.*;
 import java.util.List;
 
@@ -159,41 +155,6 @@ public enum CSubmenuDuels implements ICDoc {
 	@Override
 	public void update() {
 		QuestUtil.updateQuestView(VSubmenuDuels.SINGLETON_INSTANCE);
-
-		final VSubmenuDuels view = VSubmenuDuels.SINGLETON_INSTANCE;
-
-		if (FModel.getQuest().getAchievements() != null) {
-			final Localizer localizer = Localizer.getInstance();
-			view.getLblTitle().setText(localizer.getMessage("lblDuels") + ": " + FModel.getQuest().getRank());
-
-			view.getPnlDuels().removeAll();
-			final List<QuestEventDuel> duels = FModel.getQuest().getDuelsManager().generateDuels();
-
-			final JXButtonPanel grpPanel = new JXButtonPanel();
-
-			assert duels != null;
-			for (int i = 0; i < duels.size(); i++) {
-				final PnlEvent temp = new PnlEvent(duels.get(i));
-				final JRadioButton rad = temp.getRad();
-				if (i == 0) {
-					rad.setSelected(true);
-					SwingUtilities.invokeLater(new Runnable() {
-						@Override
-						public void run() {
-							rad.requestFocusInWindow();
-						}
-					});
-				}
-				temp.addKeyListener(startOnEnter);
-				temp.addMouseListener(mouseClickListener);
-				grpPanel.add(temp, rad, "w 100%!, h 95px!, gapy 8px");
-			}
-			view.getPnlDuels().add(grpPanel, "w 100%!");
-
-			StringBuilder sb = new StringBuilder();
-			sb.append(localizer.getMessage("lblMatchBestof")).append(" ").append(FModel.getQuest().getMatchLength());
-			view.getCbxMatchLength().setSelectedItem(sb.toString());
-		}
 	}
 
 }

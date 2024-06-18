@@ -44,13 +44,11 @@ import forge.localinstance.skin.FSkinProp;
 import forge.model.FModel;
 import forge.player.GamePlayerUtil;
 import forge.util.Localizer;
+import forge.util.maps.MapOfLists;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.TreeSet;
+import java.util.*;
 
 /**
  * <p>
@@ -113,7 +111,8 @@ public class QuestUtil {
         final QuestController qData = FModel.getQuest();
         Random rand = new Random();
 
-        final List<QuestEventDuel> duels = FModel.getQuest().getDuelsManager().generateDuels();
+        MapOfLists<DuelBucket, QuestEventDuel> duels_map =  ((MainWorldEventDuelManager) FModel.getQuest().getDuelsManager()).sortedDuels;
+        List<QuestEventDuel> duels = (List<QuestEventDuel>) duels_map.get(QuestUtilCards.I);
         event = duels.get(rand.nextInt(duels.size()));
 
         FThreads.invokeInBackgroundThread(new Runnable() {

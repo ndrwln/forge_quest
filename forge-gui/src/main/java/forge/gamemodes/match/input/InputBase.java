@@ -17,8 +17,6 @@
  */
 package forge.gamemodes.match.input;
 
-import java.util.List;
-
 import forge.game.Game;
 import forge.game.card.Card;
 import forge.game.card.CardView;
@@ -28,11 +26,11 @@ import forge.game.player.PlayerView;
 import forge.game.spellability.SpellAbility;
 import forge.game.spellability.SpellAbilityView;
 import forge.gui.GuiBase;
-import forge.localinstance.properties.ForgePreferences;
-import forge.model.FModel;
 import forge.player.PlayerControllerHuman;
 import forge.util.ITriggerEvent;
 import forge.util.Localizer;
+
+import java.util.List;
 
 /**
  * <p>
@@ -160,12 +158,11 @@ public abstract class InputBase implements java.io.Serializable, Input {
         } else {
             sb.append(localizer.getMessage("lblEmpty"));
         }
-        if (FModel.getPreferences().getPrefBoolean(ForgePreferences.FPref.UI_SHOW_STORM_COUNT_IN_PROMPT)) {
-            int stormCount = game.getView().getStormCount();
-            if (stormCount > 0) {
-                sb.append("\n").append(localizer.getMessage("lblStormCount")).append(": ").append(stormCount);
-            }
-        }
+
+        int stormCount = game.getView().getStormCount();
+        if (stormCount > 0) sb.append("\n").append(localizer.getMessage("lblStormCount")).append(": ").append(stormCount);
+
+        sb.append("\nCtrl + Q to concede the round");
 
         if (controller.macros() != null) {
             boolean isRecording = controller.macros().isRecording();

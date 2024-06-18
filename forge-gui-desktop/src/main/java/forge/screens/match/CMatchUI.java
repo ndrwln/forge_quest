@@ -50,6 +50,7 @@ import forge.game.player.PlayerView;
 import forge.game.spellability.*;
 import forge.game.zone.ZoneType;
 import forge.gamemodes.match.AbstractGuiGame;
+import forge.gamemodes.quest.QuestUtilCards;
 import forge.gui.*;
 import forge.gui.framework.*;
 import forge.gui.util.SOptionPane;
@@ -1066,7 +1067,11 @@ public final class CMatchUI
             fxPanel.setBackground(Color.BLACK);
             fxPanel.setScene(scene);
 
-            MEDIA_VIEW.setMediaPlayer(Locations.CURRENT_LOCATION.player());
+            if (QuestUtilCards.is_plane)
+                MEDIA_VIEW.setMediaPlayer(Locations.CURRENT_LOCATION.plane().player());
+            else
+                MEDIA_VIEW.setMediaPlayer(Locations.CURRENT_LOCATION.player());
+
             MEDIA_VIEW.getMediaPlayer().setCycleCount(MediaPlayer.INDEFINITE);
             MEDIA_VIEW.getMediaPlayer().setAutoPlay(true);
             pane.getChildren().add(MEDIA_VIEW);

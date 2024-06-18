@@ -1,5 +1,6 @@
 package forge.screens.home.quest.thos;
 
+import forge.gamemodes.quest.DuelBucket;
 import forge.gamemodes.quest.data.PreferencesResearch;
 import forge.screens.home.VHomeUI;
 import forge.screens.home.quest.VSubmenuQuestStart;
@@ -33,6 +34,9 @@ import static forge.localinstance.properties.ForgeConstants.VIDEO_DIR;
     String video;
     ArrayList<ArrayList<SNode>> actions = new ArrayList<>();
     ArrayList<PreferencesResearch.Knowledge> lessons = new ArrayList<>();
+    DuelBucket I;
+    DuelBucket II;
+    DuelBucket III;
 
 
     ArrayList<ArrayList<SNode>> event_hunting = new ArrayList<>();

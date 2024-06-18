@@ -1,6 +1,7 @@
 package forge.screens.home.quest.thos;
 
 import forge.gamemodes.quest.QuestUtil;
+import forge.gamemodes.quest.QuestUtilCards;
 import forge.gui.UiCommand;
 import forge.localinstance.skin.FSkinProp;
 import forge.model.FModel;
@@ -152,6 +153,7 @@ public class Buttons {
                 .constraints("w 75px!, h 75px!, pos 0% 60% n n")
                 .ui(UI_EXPLORE)
                 .fn((UiCommand) () -> {
+                    QuestUtilCards.is_plane = true;
                     QuestUtil.notify_start_game();
                     VSubmenuQuestStart.is_playing_new_music = true;
 
@@ -235,7 +237,7 @@ public class Buttons {
                 .constraints("w 300px!, h 30px!, pos 1% 18% n n")
                 .ui(UI_MAP)
                 .fn((UiCommand) () -> {
-                    travelTo(BLACK_AREA);
+                    travelTo(ABYSSAL_BONE_FOREST);
                 });
 
         btn_map_rest = new SNode()

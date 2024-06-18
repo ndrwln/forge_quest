@@ -70,6 +70,11 @@ public final class QuestUtilCards {
     private final QuestPreferences questPreferences;
     private final QuestAssets      questAssets;
 
+    public static DuelBucket I = null;
+    public static DuelBucket II = null;
+    public static DuelBucket III = null;
+    public static boolean is_plane = false;
+
     public QuestUtilCards(final QuestController questController) {
         this.questController = questController;
         questAssets = questController.getAssets();

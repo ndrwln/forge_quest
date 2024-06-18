@@ -1,7 +1,6 @@
 package forge.screens.home.quest.thos;
 
-import forge.gamemodes.quest.QuestMode;
-import forge.gamemodes.quest.QuestUtil;
+import forge.gamemodes.quest.*;
 import forge.model.FModel;
 import forge.sound.MusicPlaylist;
 import forge.sound.SoundSystem;
@@ -40,6 +39,29 @@ public class Locations {
     public static final Location MAP_AREA = new Location()
             .video("map.mp4")
             .add_action(UI_MAP);
+
+
+
+    public static final Location ABYSSAL_BONE_FOREST_PLANE = new Location()
+            .video("black_hunting.mp4")
+            ;
+
+    public static final Location ABYSSAL_BONE_FOREST = new Location()
+            .video("black.mp4")
+            .plane(ABYSSAL_BONE_FOREST_PLANE)
+
+            .add_action(UI_GENERAL)
+            .add_action(UI_INFO)
+            .add_action(UI_LEARN)
+            .add_action(UI_EXPLORE)
+
+            .I(DuelBucket.ABYSSAL_BONE_FOREST_I)
+            .II(DuelBucket.ABYSSAL_BONE_FOREST_II)
+            .III(DuelBucket.ABYSSAL_BONE_FOREST_III)
+
+            ;
+
+
 
     public static final Location GREEN_AREA_HUNTING = new Location()
             .video("green_hunting.mp4")
@@ -85,20 +107,7 @@ public class Locations {
             .add_action(UI_LEARN)
             .add_action(UI_GOTOPLANE);
 
-    public static final Location BLACK_AREA_HUNTING = new Location()
-            .video("black_hunting.mp4")
-            .add_action(UI_GENERAL)
-            .add_action(UI_INFO)
-            .add_action(UI_EXPLORE);
 
-    public static final Location BLACK_AREA = new Location()
-            .video("black.mp4")
-            .plane(BLACK_AREA_HUNTING)
-
-            .add_action(UI_GENERAL)
-            .add_action(UI_INFO)
-            .add_action(UI_LEARN)
-            .add_action(UI_GOTOPLANE);
 
 
 
@@ -109,9 +118,21 @@ public class Locations {
     public static Location CURRENT_LOCATION = MAIN_MENU;
     public static Location PREVIOUS_LOCATION = MAIN_MENU;
 
+
+
     public static void travelToPlane(Location location)
     {
         if (location.plane != null) travelTo(location.plane);
+
+    }
+
+    public static void set_CURRENT_LOCATION(Location location)
+    {
+        PREVIOUS_LOCATION = Locations.CURRENT_LOCATION;
+        Locations.CURRENT_LOCATION = location;
+        QuestUtilCards.I = Locations.CURRENT_LOCATION.I;
+        QuestUtilCards.II = Locations.CURRENT_LOCATION.II;
+        QuestUtilCards.III = Locations.CURRENT_LOCATION.III;
 
     }
 
@@ -134,8 +155,7 @@ public class Locations {
             in.setOnFinished(event1 -> {
                 update_stats();
                 location.fadeIn();
-                PREVIOUS_LOCATION = Locations.CURRENT_LOCATION;
-                Locations.CURRENT_LOCATION = location;
+                set_CURRENT_LOCATION(location);
             });
 
 
