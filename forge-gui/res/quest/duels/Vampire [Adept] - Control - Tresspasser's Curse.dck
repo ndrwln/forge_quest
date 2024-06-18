@@ -1,0 +1,21 @@
+[duel]
+[metadata]
+Name=Vampire [Adept] - Control - Tresspasser's Curse
+Title=Vampire
+Difficulty=ABYSSAL_BONE_FOREST_II
+Description=Mono Black control deck built around Trespasser's Curse
+Icon=vampire_I.jpg
+Deck Type=constructed
+[main]
+4 Clackbridge Troll|ELD|1
+4 Gatekeeper of Malakir|F10|1
+4 Gifted Aetherborn|AER|1
+4 Go for the Throat|F11|1
+4 Massacre Wurm|MOC|1
+2 Mox Jet|VMA|1
+2 Panharmonicon|2X2|2
+4 Sign in Blood|MM2|1
+22 Swamp|UST|1
+4 Trespasser's Curse|MB1|1
+4 Vampire Nighthawk|E01|1
+2 Vampiric Tutor|PLIST|1
