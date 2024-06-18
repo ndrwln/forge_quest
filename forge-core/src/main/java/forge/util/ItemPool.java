@@ -17,21 +17,15 @@
  */
 package forge.util;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.concurrent.ConcurrentHashMap;
-
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
-
 import com.google.common.collect.Maps;
 import forge.item.InventoryItem;
+
+import java.io.Serializable;
+import java.util.*;
+import java.util.Map.Entry;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * <p>
@@ -108,7 +102,7 @@ public class ItemPool<T extends InventoryItem> implements Iterable<Entry<T, Inte
     }
 
     // Data members
-    protected final Map<T, Integer> items;
+    public final Map<T, Integer> items;
 
     private final Class<T> myClass; //class does not keep this in runtime by itself
 

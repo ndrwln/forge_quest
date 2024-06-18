@@ -1,9 +1,5 @@
 package forge.player;
 
-import java.util.Set;
-
-import org.apache.commons.lang3.StringUtils;
-
 import forge.LobbyPlayer;
 import forge.ai.AIOption;
 import forge.ai.AiProfileUtil;
@@ -14,6 +10,9 @@ import forge.localinstance.properties.ForgePreferences.FPref;
 import forge.model.FModel;
 import forge.util.GuiDisplayUtil;
 import forge.util.MyRandom;
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.Set;
 
 public final class GamePlayerUtil {
     private GamePlayerUtil() { }
@@ -100,22 +99,13 @@ public final class GamePlayerUtil {
 
         String newPlayerName;
         try {
-            if (StringUtils.isBlank(oldPlayerName)) {
-                newPlayerName = getVerifiedPlayerName(getPlayerNameUsingFirstTimePrompt(), oldPlayerName);
-            } else {
-                newPlayerName = getVerifiedPlayerName(getPlayerNameUsingStandardPrompt(oldPlayerName), oldPlayerName);
-            }
+            newPlayerName = FModel.getQuest().getName();
         } catch (final IllegalStateException ise){
-            //now is not a good time for this...
             newPlayerName = StringUtils.isBlank(oldPlayerName) ? "Human" : oldPlayerName;
         }
 
         FModel.getPreferences().setPref(FPref.PLAYER_NAME, newPlayerName);
         FModel.getPreferences().save();
-
-        if (StringUtils.isBlank(oldPlayerName) && !newPlayerName.equals("Human")) {
-            showThankYouPrompt(newPlayerName);
-        }
     }
 
     private static void showThankYouPrompt(final String playerName) {

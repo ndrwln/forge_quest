@@ -9,7 +9,7 @@ import forge.deck.Deck;
 import forge.game.GameType;
 import forge.game.GameView;
 import forge.gamemodes.planarconquest.ConquestPreferences.CQPref;
-import forge.gamemodes.quest.QuestEventDifficulty;
+import forge.gamemodes.quest.DuelBucket;
 import forge.gamemodes.quest.QuestEventDuel;
 import forge.gamemodes.quest.QuestEventDuelManager;
 import forge.gamemodes.quest.QuestWorld;
@@ -32,20 +32,20 @@ public class ConquestChaosBattle extends ConquestBattle {
 
         //use a random quest event duel for Chaos battle
         //using Chaos battle record to determine difficulty
-        QuestEventDifficulty prefferedDifficulty;
+        DuelBucket prefferedDifficulty;
         ConquestPreferences prefs = FModel.getConquestPreferences();
         int chaosBattleWins = FModel.getConquest().getModel().getChaosBattleRecord().getWins();
         if (chaosBattleWins < prefs.getPrefInt(CQPref.CHAOS_BATTLE_WINS_MEDIUMAI)) {
-            prefferedDifficulty = QuestEventDifficulty.EASY;
+            prefferedDifficulty = DuelBucket.EASY;
         }
         else if (chaosBattleWins < prefs.getPrefInt(CQPref.CHAOS_BATTLE_WINS_HARDAI)) {
-            prefferedDifficulty = QuestEventDifficulty.MEDIUM;
+            prefferedDifficulty = DuelBucket.MEDIUM;
         }
         else if (chaosBattleWins < prefs.getPrefInt(CQPref.CHAOS_BATTLE_WINS_EXPERTAI)) {
-            prefferedDifficulty = QuestEventDifficulty.HARD;
+            prefferedDifficulty = DuelBucket.HARD;
         }
         else {
-            prefferedDifficulty = QuestEventDifficulty.EXPERT;
+            prefferedDifficulty = DuelBucket.EXPERT;
         }
 
         QuestWorld world0 = null;
@@ -57,20 +57,20 @@ public class ConquestChaosBattle extends ConquestBattle {
             String worldDir = world0 != null && world0.isCustom() ? ForgeConstants.USER_QUEST_WORLD_DIR : ForgeConstants.QUEST_WORLD_DIR;
             String path = world0 == null || world0.getDuelsDir() == null ? ForgeConstants.DEFAULT_DUELS_DIR : worldDir + world0.getDuelsDir();
             QuestEventDuelManager duelManager = new QuestEventDuelManager(new File(path));
-            QuestEventDifficulty difficulty = prefferedDifficulty;
+            DuelBucket difficulty = prefferedDifficulty;
             duel0 = Aggregates.random(duelManager.getDuels(difficulty));
 
             //if can't find duel at preferred difficulty, try lower difficulty
-            while (duel0 == null && difficulty != QuestEventDifficulty.EASY) {
+            while (duel0 == null && difficulty != DuelBucket.EASY) {
                 switch (difficulty) {
                 case EXPERT:
-                    difficulty = QuestEventDifficulty.HARD;
+                    difficulty = DuelBucket.HARD;
                     break;
                 case HARD:
-                    difficulty = QuestEventDifficulty.MEDIUM;
+                    difficulty = DuelBucket.MEDIUM;
                     break;
                 case MEDIUM:
-                    difficulty = QuestEventDifficulty.EASY;
+                    difficulty = DuelBucket.EASY;
                     break;
                 default:
                     continue;

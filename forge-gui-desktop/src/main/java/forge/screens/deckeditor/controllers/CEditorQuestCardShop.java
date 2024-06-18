@@ -64,8 +64,8 @@ public final class CEditorQuestCardShop extends ACEditorBase<InventoryItem, Deck
             .build();
     @SuppressWarnings("serial")
     private final FLabel fullCatalogToggle = new FLabel.Builder()
-            .text("Quit")
-            .tooltip("Go back to the game")
+            .text("Exit")
+            .tooltip("Return to the game")
             .fontSize(14).hoverable(true).cmdClick(new UiCommand() {
                 @Override
                 public void run() {
@@ -117,6 +117,7 @@ public final class CEditorQuestCardShop extends ACEditorBase<InventoryItem, Deck
         this.setCatalogManager(catalogManager);
         this.setDeckManager(deckManager);
         this.cardsForSale = this.questData.getCards().getShopList(Locations.CURRENT_LOCATION.lessons());
+        for (Map.Entry<InventoryItem, Integer>  item : cardsForSale.items.entrySet()) item.setValue(1);
     }
 
     private void toggleFullCatalog() {
@@ -256,6 +257,7 @@ public final class CEditorQuestCardShop extends ACEditorBase<InventoryItem, Deck
         QuestSpellShop.updateDecksForEachCard();
         double multiplier = QuestSpellShop.updateMultiplier();
         this.cardsForSale = this.questData.getCards().getShopList(Locations.CURRENT_LOCATION.lessons());
+        for (Map.Entry<InventoryItem, Integer>  item : cardsForSale.items.entrySet()) item.setValue(1);
 
         final ItemPool<InventoryItem> ownedItems = new ItemPool<>(InventoryItem.class);
         ownedItems.addAllOfType(this.questData.getCards().getCardpool().getView());

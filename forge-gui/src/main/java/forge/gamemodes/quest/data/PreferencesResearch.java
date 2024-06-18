@@ -9,17 +9,57 @@ public class PreferencesResearch extends PreferencesStore<PreferencesResearch.Kn
     public enum Knowledge {
 
         //Black
-        THE_PALE_LORE("false", "The Pale Lore I", null),
-        THE_PALE_LORE_II("false", "The Pale Lore II", new Knowledge[] {THE_PALE_LORE}),
+        THE_PALE_LORE_I("false", "The Pale Lore I", null),
+        THE_PALE_LORE_II("false", "The Pale Lore II", new Knowledge[] {THE_PALE_LORE_I}),
         THE_PALE_LORE_III("false", "The Pale Lore III", new Knowledge[] {THE_PALE_LORE_II}),
 
+        THE_FLOWING_LORE_I("false", "The Flowing Lore I", null),
+        THE_FLOWING_LORE_II("false", "The Flowing Lore II", new Knowledge[] {THE_FLOWING_LORE_I}),
+        THE_FLOWING_LORE_III("false", "The Flowing Lore III", new Knowledge[] {THE_FLOWING_LORE_II}),
+
+        THE_SPROUTING_LORE_I("false", "The Sprouting Lore I", null),
+        THE_SPROUTING_LORE_II("false", "The Sprouting Lore II", new Knowledge[] {THE_SPROUTING_LORE_I}),
+        THE_SPROUTING_LORE_III("false", "The Sprouting Lore III", new Knowledge[] {THE_SPROUTING_LORE_II}),
+
+        THE_FURNACE_LORE_I("false", "The Furnace Lore I", null),
+        THE_FURNACE_LORE_II("false", "The Furnace Lore II", new Knowledge[] {THE_FURNACE_LORE_I}),
+        THE_FURNACE_LORE_III("false", "The Furnace Lore III", new Knowledge[] {THE_FURNACE_LORE_II}),
+
+        THE_MERCILESS_LORE_I("false", "The Merciless Lore I", null),
+        THE_MERCILESS_LORE_II("false", "The Merciless Lore II", new Knowledge[] {THE_MERCILESS_LORE_I}),
+        THE_MERCILESS_LORE_III("false", "The Merciless Lore III", new Knowledge[] {THE_MERCILESS_LORE_II}),
 
 
-        VAMPIRES_I("false", "Tales of Vampires", new Knowledge[] {THE_PALE_LORE}),
-        VAMPIRES_II("false", "Tales of Vampires II", new Knowledge[] { VAMPIRES_I }),
+        //BLACK
+        VAMPIRES("false", "Tales of Vampires", new Knowledge[] {THE_PALE_LORE_I}, "Tales of Vampires - Starter"),
+        VAMPIRES_I("false", "Tales of Vampires - Vampire Nighthawk", new Knowledge[] {VAMPIRES}),
+        VAMPIRES_II("false", "Tales of Vampires - Bloodghast", new Knowledge[] {VAMPIRES}),
+        VAMPIRES_III("false", "Tales of Vampires - Master of Dark Rites", new Knowledge[] {VAMPIRES}),
+        VAMPIRES_IV("false", "Tales of Vampires - The Liberator of Malakir", new Knowledge[] {VAMPIRES}),
 
-        SORIN_I("false", "Sorin Markov I", new Knowledge[] { VAMPIRES_I }),
-        SORIN_II("false", "Sorin Markov II", new Knowledge[] { VAMPIRES_I })
+        ZOMBIES("false", "Tales of Zombies", new Knowledge[] {THE_PALE_LORE_I}, "Tales of Zombies - Starter"),
+        ZOMBIES_I("false", "Tales of Zombies - Diregraf Colossus", new Knowledge[] {ZOMBIES}),
+        ZOMBIES_II("false", "Tales of Zombies - Geralf's Messenger", new Knowledge[] {ZOMBIES}),
+        ZOMBIES_III("false", "Tales of Zombies - Stitcher's Supplier", new Knowledge[] {ZOMBIES}),
+
+        DARKNESS("false", "Tales of Darkness...", new Knowledge[] {THE_PALE_LORE_I}, "Tales of Darkness - Starter"),
+        DARKNESS_I("false", "Tales of Darkness - Dauthi Voidwalker", new Knowledge[] {DARKNESS}),
+        DARKNESS_II("false", "Tales of Darkness - Painful Quandary", new Knowledge[] {DARKNESS}),
+        DARKNESS_III("false", "Tales of Darkness - The Arena", new Knowledge[] {DARKNESS}),
+
+        SORIN_I("false", "Tales of Sorin Markov I", new Knowledge[] {VAMPIRES, THE_PALE_LORE_II}),
+        SORIN_II("false", "Tales of Sorin Markov II", new Knowledge[] {SORIN_I, THE_PALE_LORE_II}),
+
+        //GREEN
+        FOREST("false", "Tales of the Forest", new Knowledge[] {THE_SPROUTING_LORE_I}),
+        FOREST_I("false", "Tales of the Forest - Tyrranax Rex", new Knowledge[] {FOREST}),
+        FOREST_II("false", "Tales of the Forest - Traproot Kami", new Knowledge[] {FOREST}),
+        FOREST_III("false", "Tales of the Forest - Huatli, the Sun's Heart", new Knowledge[] {FOREST}),
+        FOREST_IV("false", "Tales of the Forest - Shaper's Sanctuary", new Knowledge[] {FOREST}),
+
+
+
+
 
         ;
 
@@ -37,12 +77,24 @@ public class PreferencesResearch extends PreferencesStore<PreferencesResearch.Kn
         private final String strDefaultVal;
         private final Knowledge[] requirements;
         private final String deckName;
+        private final String add_alternate_deckName;
+        private final boolean addDeck;
 
 
         Knowledge(final String s0, String deckName, Knowledge[] parent) {
             this.strDefaultVal = s0;
             this.requirements = parent;
             this.deckName = deckName;
+            this.add_alternate_deckName = null;
+            this.addDeck = false;
+        }
+
+        Knowledge(final String s0, String deckName, Knowledge[] parent, String add_alternate_deckName) {
+            this.strDefaultVal = s0;
+            this.requirements = parent;
+            this.deckName = deckName;
+            this.add_alternate_deckName = add_alternate_deckName;
+            this.addDeck = true;
         }
 
         public String getDefault() {

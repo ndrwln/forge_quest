@@ -61,6 +61,7 @@ import static forge.localinstance.properties.ForgeConstants.VIDEO_DIR;
 
     }
 
+    public void fadeIn_long() {fadeIn(1000);}
     public void fadeIn() {fadeIn(500);}
     public void fadeIn(int ms)
     {

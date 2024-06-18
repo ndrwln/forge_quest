@@ -1,0 +1,20 @@
+[shop]
+Credits=45
+[metadata]
+Name=Tales of Elves
+Description=Once upon a time there was a race blessed by nature... [Unlocks lore rewards from defeating elves] (45 Crystals)
+Deck Type=constructed
+Image=green_forest.jpg
+[Avatar]
+
+[Main]
+4 Bramblewood Paragon|MOR|1
+4 Canopy Tactician|KHM|1
+4 Collected Company|DTK|1
+4 Elvish Archers|30A|1
+4 Elvish Vanguard|DDU|1
+24 Forest|DMU|4
+4 Jagged-Scar Archers|DDU|1
+4 Joraga Warcaller|CMA|1
+4 Llanowar Elves|MB1|1
+4 Thorn Lieutenant|M19|1

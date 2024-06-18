@@ -1,6 +1,5 @@
 package forge.screens.home.quest;
 
-import forge.gamemodes.quest.data.PreferencesResearch;
 import forge.gui.framework.DragCell;
 import forge.gui.framework.DragTab;
 import forge.gui.framework.EDocID;
@@ -42,12 +41,16 @@ public enum VSubmenuQuestStart implements IVSubmenu<CSubmenuQuestStart> {
     public static JPanel MAIN_PANEL;
     public static final MediaView MEDIA_VIEW = new MediaView();
 
+    public static JFXPanel jfxPanel;
+
     @SuppressWarnings("unchecked") VSubmenuQuestStart() {
         main_panel.setOpaque(false);
         main_panel.setLayout(new MigLayout("insets 0, gap 10px, fillx, wrap 2"));
     }
 
     public static boolean is_playing_new_music = false;
+
+    boolean is_initial = true;
 
     @Override public void populate() {
 //        if (is_playing_new_music)
@@ -63,13 +66,13 @@ public enum VSubmenuQuestStart implements IVSubmenu<CSubmenuQuestStart> {
         MAIN_PANEL = main_panel;
         VHomeUI.SINGLETON_INSTANCE.getPnlDisplay().add(main_panel, "w 98%!, growy, pushy, gap 1% 0 0 0");
         JFXPanel fxPanel = new JFXPanel();
+        jfxPanel = fxPanel;
         VHomeUI.SINGLETON_INSTANCE.getPnlDisplay().add(fxPanel, "pos 0 0");
 
         Location.init_videos();
         SNode.init_panels(main_panel);
         SNode.populate_nodes();
 
-        Platform.setImplicitExit(false);
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -79,14 +82,22 @@ public enum VSubmenuQuestStart implements IVSubmenu<CSubmenuQuestStart> {
                 Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
                 Scene scene = new Scene(pane, screenSize.width, screenSize.height);
 
+                scene.setFill(javafx.scene.paint.Color.BLACK);
+
                 fxPanel.setBackground(Color.BLACK);
                 fxPanel.setScene(scene);
 
-                MEDIA_VIEW.setMediaPlayer(Locations.CURRENT_LOCATION.player());
-                MEDIA_VIEW.getMediaPlayer().setCycleCount(MediaPlayer.INDEFINITE);
-                MEDIA_VIEW.getMediaPlayer().setAutoPlay(true);
-                Locations.CURRENT_LOCATION.fadeIn();
+                if (is_initial)
+                {
+                    MEDIA_VIEW.setMediaPlayer(Locations.CURRENT_LOCATION.player());
+                    MEDIA_VIEW.getMediaPlayer().setCycleCount(MediaPlayer.INDEFINITE);
+                    MEDIA_VIEW.getMediaPlayer().setAutoPlay(true);
+                    is_initial = false;
+                }
+
+                Locations.CURRENT_LOCATION.fadeIn_long();
                 Locations.update_stats();
+
                 pane.getChildren().add(MEDIA_VIEW);
 
             }
@@ -95,8 +106,10 @@ public enum VSubmenuQuestStart implements IVSubmenu<CSubmenuQuestStart> {
         VHomeUI.SINGLETON_INSTANCE.getPnlDisplay().repaintSelf();
         VHomeUI.SINGLETON_INSTANCE.getPnlDisplay().revalidate();
 
-        PreferencesResearch r = FModel.getResearchPreferences();
-        FModel.getResearchPreferences().save();
+        try
+        {
+            FModel.getResearchPreferences().save();
+        }catch (Exception e) {}
         System.out.println();
     }
 

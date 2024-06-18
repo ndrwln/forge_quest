@@ -58,6 +58,11 @@ public class QuestController {
     // complex
     private QuestUtilCards myCards;
 
+    public boolean is_quest_existing()
+    {
+        return myCards != null;
+    }
+
     private GameFormatQuest questFormat;
 
     private QuestEvent currentEvent;
@@ -241,13 +246,19 @@ public class QuestController {
         this.currentEvent = null;
         this.draftDecks = this.model == null ? null : this.model.getAssets().getDraftDeckStorage();
 
-        String PATH = USER_PREFS_DIR  + selectedQuest.getName() + PATH_SEPARATOR + "research.preferences";
-        new File(USER_PREFS_DIR  + selectedQuest.getName()).mkdirs();
-        setResearchPreferences(new PreferencesResearch(PATH));
+        try
+        {
+            String PATH = USER_PREFS_DIR  + selectedQuest.getName() + PATH_SEPARATOR + "research.preferences";
+            new File(USER_PREFS_DIR  + selectedQuest.getName()).mkdirs();
+            setResearchPreferences(new PreferencesResearch(PATH));
 
-        this.resetDuelsManager();
-        this.resetChallengesManager();
-        this.getDuelsManager().randomizeOpponents();
+            this.resetDuelsManager();
+            this.resetChallengesManager();
+            this.getDuelsManager().randomizeOpponents();
+
+        } catch (Exception e) {
+            System.out.println("Failed to load quest");
+        }
     }
 
     /**
@@ -425,6 +436,7 @@ public class QuestController {
         if (this.duelManager == null) {
             resetDuelsManager();
         }
+
         return this.duelManager;
     }
 

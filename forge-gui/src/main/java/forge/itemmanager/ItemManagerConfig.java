@@ -34,14 +34,20 @@ public enum ItemManagerConfig {
             null, null, 4, 0),
     SEALED_POOL(SColumnUtil.getCatalogDefaultColumns(false), false, false, false,
             GroupDef.COLOR, ColumnDef.CMC, 4, 1),
-    SPELL_SHOP(SColumnUtil.getSpellShopDefaultColumns(), false, false, false,
-            null, null, 4, 0),
-    QUEST_INVENTORY(SColumnUtil.getQuestInventoryDefaultColumns(), false, false, false,
-            null, null, 4, 0),
+
+
+
+    SPELL_SHOP(SColumnUtil.getSpellShopDefaultColumns(), false, false, true,
+            GroupDef.CARD_TYPE, ColumnDef.NAME, 5, 1),
+    QUEST_INVENTORY(SColumnUtil.getQuestInventoryDefaultColumns(), false, true, false,
+            GroupDef.CARD_TYPE, ColumnDef.NAME, 5, 1),
     QUEST_EDITOR_POOL(SColumnUtil.getQuestEditorPoolDefaultColumns(), false, false, false,
-            null, null, 4, 0),
-    QUEST_DECK_EDITOR(SColumnUtil.getQuestDeckEditorDefaultColumns(), false, false, false,
-            GroupDef.DEFAULT, ColumnDef.CMC, 4, 1),
+            GroupDef.CARD_TYPE, ColumnDef.NAME, 5, 1),
+    QUEST_DECK_EDITOR(SColumnUtil.getQuestDeckEditorDefaultColumns(), false, false, true,
+            GroupDef.CARD_TYPE, ColumnDef.CMC, 4, 1),
+
+
+
     QUEST_DRAFT_DECK_VIEWER(SColumnUtil.getDeckViewerDefaultColumns(), false, false, true,
             GroupDef.DEFAULT, ColumnDef.CMC, 4, 1),
     CONQUEST_AETHER(SColumnUtil.getConquestAEtherDefaultColumns(), false, false, false,

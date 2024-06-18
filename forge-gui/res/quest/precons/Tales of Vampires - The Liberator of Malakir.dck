@@ -1,11 +1,8 @@
 [shop]
-WinsToUnlock=0
-Credits=40
-MinDifficulty=0
-MaxDifficulty=5
+Credits=20
 [metadata]
 Name=Tales of Vampires - The Liberator of Malakir
-Description=Harness the myth of the liberator of malakir...
+Description=A qualified general to lead the vampires (20 Crystals)
 Deck Type=constructed
 Image=black_vampires_drana.jpg
 [Avatar]

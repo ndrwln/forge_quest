@@ -1,6 +1,8 @@
+[shop]
+Credits=500
 [metadata]
 Name=The Pale Lore III
-Description=Six are gone. Five came from Stone and one from Light. All went to Nowhere. Still their memories have power, and now we call upon it.\n\nCompress this cold energy into crystalline runes in your soul, increasing the explosiveness of your spells\n\nUnlocks more potent magic
+Description=Six are gone. Five came from Stone and one from Light. All went to Nowhere. Still their memories have power, and now we call upon it.\n\nCompress this freezing energy into crystalline runes in your soul, increasing the explosiveness of your spells\n\nPromotes you to an quasi wizard level apprentice. Unlocks more potent magic (500 Crystals)
 Deck Type=constructed
 Image=black_pale_lore_II.jpg
 [Avatar]

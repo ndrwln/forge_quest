@@ -1,20 +1,14 @@
 package forge.gamemodes.quest;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import com.google.common.base.Predicate;
-
 import forge.deck.DeckgenUtil;
 import forge.game.GameFormat;
 import forge.item.PaperCard;
 import forge.model.FModel;
 import forge.util.MyRandom;
 import forge.util.storage.IStorage;
+
+import java.util.*;
 
 public class QuestChallengeGenerator {
 
@@ -39,7 +33,7 @@ public class QuestChallengeGenerator {
             qc.setId(Integer.valueOf(id).toString());
             qc.setCreditsReward(1000);
             qc.setWinsReqd(MyRandom.getRandom().nextInt(5));
-            qc.setDifficulty(QuestEventDifficulty.MEDIUM);
+            qc.setDifficulty(DuelBucket.MEDIUM);
             qc.setCardReward("1 multicolor rare");
             challenges.put(Integer.toString(id),qc);
             id++;
@@ -50,7 +44,7 @@ public class QuestChallengeGenerator {
             qc.setCreditsReward(1000);
             qc.setCardReward("1 multicolor rare");
             qc.setWinsReqd(MyRandom.getRandom().nextInt(5));
-            qc.setDifficulty(QuestEventDifficulty.EASY);
+            qc.setDifficulty(DuelBucket.EASY);
             challenges.put(Integer.toString(id),qc);
             id++;
         }
@@ -60,7 +54,7 @@ public class QuestChallengeGenerator {
             qc.setCreditsReward(5000);
             qc.setCardReward("2 multicolor rares");
             qc.setWinsReqd(MyRandom.getRandom().nextInt(25));
-            qc.setDifficulty(QuestEventDifficulty.HARD);
+            qc.setDifficulty(DuelBucket.HARD);
             challenges.put(Integer.toString(id),qc);
             id++;
         }
@@ -70,7 +64,7 @@ public class QuestChallengeGenerator {
             qc.setCreditsReward(5000);
             qc.setCardReward("2 multicolor rares");
             qc.setWinsReqd(MyRandom.getRandom().nextInt(25));
-            qc.setDifficulty(QuestEventDifficulty.MEDIUM);
+            qc.setDifficulty(DuelBucket.MEDIUM);
             challenges.put(Integer.toString(id),qc);
             id++;
         }
@@ -80,7 +74,7 @@ public class QuestChallengeGenerator {
             qc.setCreditsReward(10000);
             qc.setCardReward("3 multicolor rares");
             qc.setWinsReqd(MyRandom.getRandom().nextInt(50));
-            qc.setDifficulty(QuestEventDifficulty.EXPERT);
+            qc.setDifficulty(DuelBucket.EXPERT);
             challenges.put(Integer.toString(id),qc);
             id++;
         }
@@ -90,7 +84,7 @@ public class QuestChallengeGenerator {
             qc.setCreditsReward(10000);
             qc.setCardReward("3 multicolor rares");
             qc.setWinsReqd(MyRandom.getRandom().nextInt(50));
-            qc.setDifficulty(QuestEventDifficulty.HARD);
+            qc.setDifficulty(DuelBucket.HARD);
             challenges.put(Integer.toString(id),qc);
             id++;
         }

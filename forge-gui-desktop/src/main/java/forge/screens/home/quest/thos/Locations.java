@@ -14,6 +14,7 @@ import javax.swing.*;
 import java.util.ArrayList;
 
 import static forge.screens.home.quest.VSubmenuQuestStart.MEDIA_VIEW;
+import static forge.screens.home.quest.VSubmenuQuestStart.jfxPanel;
 import static forge.screens.home.quest.thos.Buttons.lbl_crystals;
 import static forge.screens.home.quest.thos.Buttons.lbl_life;
 
@@ -119,38 +120,35 @@ public class Locations {
         if (CURRENT_LOCATION == MAIN_MENU) SoundSystem.instance.setBackgroundMusic(MusicPlaylist.MENUS);
         Platform.setImplicitExit(false);
         Platform.runLater(() -> {
-            Platform.runLater(() -> {
-                MediaPlayer player = location.player();
-                player.setCycleCount(MediaPlayer.INDEFINITE);
-                player.setAutoPlay(true);
+            MediaPlayer player = location.player();
+            player.setCycleCount(MediaPlayer.INDEFINITE);
+            player.setAutoPlay(true);
 
-                CURRENT_LOCATION.fadeOut();
+            CURRENT_LOCATION.fadeOut();
 
-                FadeTransition out = new FadeTransition();
-                out.setDuration(Duration.millis(500));
-                out.setNode(MEDIA_VIEW);
-                out.setFromValue(1);
-                out.setToValue(0);
-                out.setOnFinished(event -> {
-                    MEDIA_VIEW.setMediaPlayer(player);
-
-                    FadeTransition in = new FadeTransition();
-                    in.setDuration(Duration.millis(500));
-                    in.setNode(MEDIA_VIEW);
-                    in.setFromValue(0);
-                    in.setToValue(1);
-                    in.setOnFinished(event1 -> {
-                        update_stats();
-                        location.fadeIn();
-                        PREVIOUS_LOCATION = Locations.CURRENT_LOCATION;
-                        Locations.CURRENT_LOCATION = location;
-                    });
-                    in.play();
-                });
-
-                out.play();
-
+            FadeTransition in = new FadeTransition();
+            in.setDuration(Duration.millis(500));
+            in.setNode(jfxPanel.getScene().getRoot());
+            in.setFromValue(0);
+            in.setToValue(1);
+            in.setOnFinished(event1 -> {
+                update_stats();
+                location.fadeIn();
+                PREVIOUS_LOCATION = Locations.CURRENT_LOCATION;
+                Locations.CURRENT_LOCATION = location;
             });
+
+
+            FadeTransition out = new FadeTransition();
+            out.setDuration(Duration.millis(250));
+            out.setNode(jfxPanel.getScene().getRoot());
+            out.setFromValue(1);
+            out.setToValue(0);
+            out.setOnFinished(event -> {
+                MEDIA_VIEW.setMediaPlayer(player);
+                in.play();
+            });
+            out.play();
         });
 
 
@@ -163,8 +161,12 @@ public class Locations {
     public static void update_stats()
     {
         SwingUtilities.invokeLater(() -> {
-            lbl_crystals.fLabel.setText(QuestUtil.formatCredits(FModel.getQuest().getAssets().getCredits()));
-            lbl_life.fLabel.setText(FModel.getQuest().getAssets().getLife(QuestMode.Classic) + "/" + FModel.getQuest().getAssets().getLifeMax(QuestMode.Classic));
+            try {
+                lbl_crystals.fLabel.setText(QuestUtil.formatCredits(FModel.getQuest().getAssets().getCredits()));
+                lbl_life.fLabel.setText(FModel.getQuest().getAssets().getLife(QuestMode.Classic) + "/" + FModel.getQuest().getAssets().getLifeMax(QuestMode.Classic));
+            }
+            catch (Exception e) {}
+
         });
     }
 

@@ -17,26 +17,8 @@
  */
 package forge.control;
 
-import java.awt.*;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.io.File;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
-
-import javax.swing.ImageIcon;
-import javax.swing.JLayeredPane;
-import javax.swing.SwingUtilities;
-import javax.swing.WindowConstants;
-
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
-
 import forge.ImageCache;
 import forge.LobbyPlayer;
 import forge.Singletons;
@@ -45,11 +27,7 @@ import forge.gamemodes.quest.data.QuestPreferences.QPref;
 import forge.gamemodes.quest.io.QuestDataIO;
 import forge.gui.GuiBase;
 import forge.gui.SOverlayUtils;
-import forge.gui.framework.FScreen;
-import forge.gui.framework.InvalidLayoutFileException;
-import forge.gui.framework.SLayoutIO;
-import forge.gui.framework.SOverflowUtil;
-import forge.gui.framework.SResizingUtil;
+import forge.gui.framework.*;
 import forge.gui.util.SOptionPane;
 import forge.localinstance.properties.ForgeConstants;
 import forge.localinstance.properties.ForgePreferences;
@@ -65,6 +43,14 @@ import forge.util.Localizer;
 import forge.util.RestartUtil;
 import forge.view.FFrame;
 import forge.view.FView;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.io.File;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * <p>
@@ -126,33 +112,8 @@ public enum FControl implements KeyEventDispatcher {
         Singletons.getView().getFrame().addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(final WindowEvent e) {
-                switch (closeAction) {
-                case NONE: //prompt user for close action if not previously specified
-                    final List<String> options = ImmutableList.of(localizer.getMessage("lblCloseScreen"), localizer.getMessage("lblExitForge"), localizer.getMessage("lblCancel"));
-                    final int reply = FOptionPane.showOptionDialog(
-                            localizer.getMessage("txCloseAction1") + "\n\n" + localizer.getMessage("txCloseAction2"),
-                            localizer.getMessage("titCloseAction"),
-                            FOptionPane.INFORMATION_ICON,
-                            options,
-                            2);
-                    switch (reply) {
-                    case 0: //Close Screen
-                        setCloseAction(CloseAction.CLOSE_SCREEN);
-                        windowClosing(e); //call again to apply chosen close action
-                        return;
-                    case 1: //Exit Forge
-                        setCloseAction(CloseAction.EXIT_FORGE);
-                        windowClosing(e); //call again to apply chosen close action
-                        return;
-                    }
-                    break;
-                case CLOSE_SCREEN:
-                    Singletons.getView().getNavigationBar().closeSelectedTab();
-                    break;
-                case EXIT_FORGE:
-                    if (exitForge()) { return; }
-                    break;
-                }
+                if (exitForge()) return;
+
                 //prevent closing Forge if we reached this point
                 Singletons.getView().getFrame().setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
             }

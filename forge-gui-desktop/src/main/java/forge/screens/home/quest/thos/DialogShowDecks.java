@@ -78,6 +78,7 @@ public class DialogShowDecks {
 
 			CEditorQuest childController0 = new CEditorQuest(FModel.getQuest(), CDeckEditorUI.SINGLETON_INSTANCE.getCDetailPicture());
 			CDeckEditorUI.SINGLETON_INSTANCE.setEditorController(childController0);
+
         });
 
 

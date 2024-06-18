@@ -204,11 +204,11 @@ public class QuestAssets {
      * @return the life
      */
     public int getLife(final QuestMode mode) {
-        return Math.max(1, 10 + this.getItemLevel(QuestItemType.ELIXIR_OF_LIFE) - this.getItemLevel(QuestItemType.POUND_FLESH));
+        return Math.max(1, getLifeMax(mode) - this.getItemLevel(QuestItemType.POUND_FLESH));
     }
 
     public int getLifeMax(final QuestMode mode) {
-        return 10 + this.getItemLevel(QuestItemType.ELIXIR_OF_LIFE);
+        return 20 + this.getItemLevel(QuestItemType.ELIXIR_OF_LIFE);
     }
 
     /**

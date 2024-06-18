@@ -67,7 +67,7 @@ public enum VCurrentDeck implements IVDoc<CCurrentDeck> {
 
     private final FLabel btnPrintProxies = new FLabel.Builder()
             .fontSize(14)
-            .text("Quit")
+            .text("Exit")
             .tooltip("Go back to the game")
             .opaque(true).hoverable(true).build();
 
@@ -100,7 +100,7 @@ public enum VCurrentDeck implements IVDoc<CCurrentDeck> {
 //
 //        pnlHeader.add(btnLoad, "w 26px!, h 26px!");
 //        pnlHeader.add(btnSaveAs, "w 26px!, h 26px!");
-        pnlHeader.add(btnPrintProxies, "w 61px!, h 26px!");
+//        pnlHeader.add(btnPrintProxies, "w 61px!, h 26px!");
         pnlHeader.add(btnImport, "w 61px!, h 26px!");
     }
 

@@ -1,6 +1,8 @@
+[shop]
+Credits=100
 [metadata]
 Name=The Pale Lore II
-Description=This invokes, acknowledges and welcomes the passage to silence\n\nCompress this cold energy into crystalline runes in your soul, increasing the explosiveness of your spells\n\nUnlocks more potent magic
+Description=This invokes, acknowledges and welcomes the passage to silence... Compress this freezing energy into crystalline runes in your soul, increasing the explosiveness of your spells... Promotes you to an adept level apprentice. Unlocks more potent magic (100 Crystals)
 Deck Type=constructed
 Image=black_pale_lore_II.jpg
 [Avatar]

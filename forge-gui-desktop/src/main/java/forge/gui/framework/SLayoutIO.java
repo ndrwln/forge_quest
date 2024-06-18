@@ -3,7 +3,6 @@ package forge.gui.framework;
 import forge.Singletons;
 import forge.gui.FThreads;
 import forge.gui.SOverlayUtils;
-import forge.gui.util.SOptionPane;
 import forge.localinstance.properties.FileLocation;
 import forge.localinstance.properties.ForgeConstants;
 import forge.toolbox.FAbsolutePositioner;
@@ -415,27 +414,8 @@ public final class SLayoutIO {
                 else {
                     File userSetting = new File(file.defaultLoc);
                     if (userSetting.exists()) {
-                        defaultLayoutSerial = getLayoutSerial(file.defaultLoc);
-                        userLayoutSerial = getLayoutSerial(file.userPrefLoc);
-                        if (defaultLayoutSerial.compareTo(userLayoutSerial) > 0) {
-                            // prompt the user that their saved layout is older
-                            resetLayout = SOptionPane.showConfirmDialog(
-                                    String.format("Your %s layout file is from an older template.",
-                                            screen.getTabCaption()
-                                    ),
-                                    "Reset Layout?",
-                                    "Reset",
-                                    "Keep");
-                        }
-                        if (resetLayout) {
-                            // delete the old layout file
-                            screen.deleteLayoutFile();
-                            fis = new FileInputStream(file.defaultLoc);
-                        } else {
-                            fis = new FileInputStream(userSetting);
-                            usedCustomPrefsFile = true;
-                        }
-
+                        screen.deleteLayoutFile();
+                        fis = new FileInputStream(file.defaultLoc);
                     }
                     else {
                         fis = new FileInputStream(file.defaultLoc);

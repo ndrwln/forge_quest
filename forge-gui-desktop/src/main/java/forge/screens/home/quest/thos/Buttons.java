@@ -3,6 +3,7 @@ package forge.screens.home.quest.thos;
 import forge.gamemodes.quest.QuestUtil;
 import forge.gui.UiCommand;
 import forge.localinstance.skin.FSkinProp;
+import forge.model.FModel;
 import forge.screens.home.quest.CSubmenuQuestStart;
 import forge.screens.home.quest.DialogChoosePoolDistribution;
 import forge.screens.home.quest.VSubmenuQuestStart;
@@ -66,7 +67,8 @@ public class Buttons {
                 .constraints("w 300px!, h 30px!, ax center, span 2")
                 .ui(UI_MAIN)
                 .fn((UiCommand) () -> {
-                    Locations.travelTo(REST_AREA);
+                    if (FModel.getQuest().is_quest_existing())
+                        Locations.travelTo(REST_AREA);
                 });
 
         //UI Info

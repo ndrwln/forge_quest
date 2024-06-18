@@ -17,14 +17,13 @@
  */
 package forge.gamemodes.quest;
 
+import com.google.common.base.Function;
+import forge.deck.Deck;
+import forge.item.InventoryItem;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import com.google.common.base.Function;
-
-import forge.deck.Deck;
-import forge.item.InventoryItem;
 
 /**
  * <p>
@@ -39,7 +38,7 @@ public abstract class QuestEvent implements IQuestEvent {
     protected Deck eventDeck = null;
     private String title = "Mystery Event";
     private String description = "";
-    private QuestEventDifficulty difficulty = QuestEventDifficulty.MEDIUM;
+    private DuelBucket difficulty = DuelBucket.EASY;
     private boolean showDifficulty = true;
     private String imageKey = "";
     private String name = "Noname";
@@ -76,7 +75,7 @@ public abstract class QuestEvent implements IQuestEvent {
         this.opponentName = newName;
     }
 
-    public final QuestEventDifficulty getDifficulty() {
+    public final DuelBucket getDifficulty() {
         return difficulty;
     }
 
@@ -113,7 +112,7 @@ public abstract class QuestEvent implements IQuestEvent {
         title = title0;
     }
 
-    public void setDifficulty(final QuestEventDifficulty difficulty0) {
+    public void setDifficulty(final DuelBucket difficulty0) {
         difficulty = difficulty0;
     }
 

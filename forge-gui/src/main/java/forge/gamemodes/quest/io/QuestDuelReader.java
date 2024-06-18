@@ -9,7 +9,7 @@ import forge.ImageKeys;
 import forge.deck.io.DeckSerializer;
 import forge.deck.io.DeckStorage;
 import forge.gamemodes.quest.QuestEvent;
-import forge.gamemodes.quest.QuestEventDifficulty;
+import forge.gamemodes.quest.DuelBucket;
 import forge.gamemodes.quest.QuestEventDuel;
 import forge.util.FileSection;
 import forge.util.FileUtil;
@@ -30,7 +30,7 @@ public class QuestDuelReader extends StorageReaderFolder<QuestEventDuel> {
         FileSection sectionMeta = FileSection.parse(contents.get("metadata"), FileSection.EQUALS_KV_SEPARATOR);
         qc.setTitle(sectionMeta.get("Title"));
         qc.setName(sectionMeta.get("Name")); // Challenges have unique titles
-        qc.setDifficulty(QuestEventDifficulty.fromString(sectionMeta.get("Difficulty")));
+        qc.setDifficulty(DuelBucket.fromString(sectionMeta.get("Difficulty")));
         qc.setDescription(sectionMeta.get("Description", "").replace("\\n", "\n"));
         qc.setCardReward(sectionMeta.get("Card Reward"));
         qc.setIconImageKey(ImageKeys.ICON_PREFIX + sectionMeta.get("Icon"));

@@ -420,7 +420,6 @@ public class ImageView<T extends InventoryItem> extends ItemView<T> {
         if (pileBy == pileBy0) { return; }
         pileBy = pileBy0;
 
-        cbPileByOptions.setSelectedItem(ColumnDef.NAME);
 
         if (!forSetup) {
             if (itemManager.getConfig() != null) {

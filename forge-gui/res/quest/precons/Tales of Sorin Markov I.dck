@@ -1,0 +1,15 @@
+[shop]
+Credits=10
+[metadata]
+Name=Tales of Sorin Markov I
+Description=Legends of a master of sangromancy, Sorin Markov... (X Crystals)
+Deck Type=constructed
+Image=black_sorin_I.jpg
+[Avatar]
+
+[Main]
+4 Sorin Markov|PLIST|1
+4 Sorin the Mirthless|VOW|3
+4 Sorin, Lord of Innistrad|LCC|1
+4 Sorin, Imperious Bloodlord|M20|1
+4 Vein Ripper|MKM|2

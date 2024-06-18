@@ -6,7 +6,7 @@ import forge.deck.DeckProxy;
 import forge.deck.io.DeckSerializer;
 import forge.deck.io.DeckStorage;
 import forge.gamemodes.quest.QuestEvent;
-import forge.gamemodes.quest.QuestEventDifficulty;
+import forge.gamemodes.quest.DuelBucket;
 import forge.gamemodes.quest.QuestEventDuel;
 import forge.util.FileSection;
 import forge.util.FileUtil;
@@ -100,7 +100,7 @@ public class MainWorldDuelReader extends StorageReaderFolder<QuestEventDuel> {
         boolean difficultySpecified = !StringUtils.isEmpty(sectionMeta.get("Difficulty"));
         if(difficultySpecified) {
             qc.setTitle(sectionMeta.get("Title"));
-            qc.setDifficulty(QuestEventDifficulty.fromString(sectionMeta.get("Difficulty")));
+            qc.setDifficulty(DuelBucket.fromString(sectionMeta.get("Difficulty")));
             qc.setDescription(sectionMeta.get("Description", "").replace("\\n", "\n"));
             qc.setCardReward(sectionMeta.get("Card Reward"));
             qc.setIconImageKey(ImageKeys.ICON_PREFIX + sectionMeta.get("Icon"));
@@ -108,7 +108,7 @@ public class MainWorldDuelReader extends StorageReaderFolder<QuestEventDuel> {
                 qc.setProfile(sectionMeta.get("Profile"));
             }            
         } else {
-            qc.setDifficulty(QuestEventDifficulty.WILD);
+            qc.setDifficulty(DuelBucket.WILD);
             qc.setTitle(sectionMeta.get("Title") != null ? sectionMeta.get("Title") : qc.getName());
             qc.setDescription(sectionMeta.get("Description") != null ? sectionMeta.get("Description") : "Wild opponent");
             qc.setIconImageKey(ImageKeys.ICON_PREFIX + (sectionMeta.get("Icon") != null ? sectionMeta.get("Icon") : WILD_DEFAULT_ICON_NAME));           
@@ -123,7 +123,7 @@ public class MainWorldDuelReader extends StorageReaderFolder<QuestEventDuel> {
         final QuestEventDuel qc = new QuestEventDuel();
         qc.setName(deck.getName());
         qc.setTitle(deck.getName());
-        qc.setDifficulty(QuestEventDifficulty.WILD);
+        qc.setDifficulty(DuelBucket.WILD);
         qc.setDescription("Wild opponent");
         qc.setIconImageKey(ImageKeys.ICON_PREFIX + WILD_DEFAULT_ICON_NAME);        
         qc.setEventDeck(deck);

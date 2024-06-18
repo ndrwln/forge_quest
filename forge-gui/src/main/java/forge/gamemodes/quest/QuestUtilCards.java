@@ -401,9 +401,7 @@ public final class QuestUtilCards {
     public void buyPreconDeck(final PreconDeck precon, final int value) {
         if (questAssets.getCredits() >= value) {
             questAssets.subtractCredits(value);
-            Deck d = precon.getDeck();
-            d.setName("_" + d.getName());
-            addDeck(d);
+            addDeck(precon.getDeck());
         }
     }
 

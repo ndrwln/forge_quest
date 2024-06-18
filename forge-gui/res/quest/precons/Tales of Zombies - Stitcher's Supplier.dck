@@ -1,0 +1,11 @@
+[shop]
+Credits=10
+[metadata]
+Name=Tales of Zombies - Stitcher's Supplier
+Description=The supplier will keeped you will stocked on parts... (10 crystals)
+Deck Type=constructed
+Image=black_zombies_supplier.jpg
+[Avatar]
+
+[Main]
+4 Stitcher's Supplier|PLIST|1

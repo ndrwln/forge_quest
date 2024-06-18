@@ -1,18 +1,14 @@
 package forge.gamemodes.quest;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import forge.deck.CardPool;
-import forge.deck.CommanderDeckGenerator;
-import forge.deck.Deck;
-import forge.deck.DeckFormat;
-import forge.deck.DeckProxy;
+import forge.deck.*;
 import forge.gamemodes.quest.data.QuestPreferences;
 import forge.item.PaperCard;
 import forge.model.FModel;
 import forge.util.MyRandom;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Manages the creation of random Commander duels for a Commander variant quest. Random generation is handled via
@@ -54,7 +50,7 @@ public class QuestEventCommanderDuelManager implements QuestEventDuelManagerInte
             duel.setName(dp.getName());
             duel.setTitle(dp.getName());
             duel.setOpponentName(dp.getName());
-            duel.setDifficulty(QuestEventDifficulty.EASY);
+            duel.setDifficulty(DuelBucket.EASY);
             duel.setDeckProxy(dp);
 
             //Setting a blank deck avoids a null pointer exception. The deck is generated in generateDuels() to avoid long load times.
@@ -77,7 +73,7 @@ public class QuestEventCommanderDuelManager implements QuestEventDuelManagerInte
      * @param difficulty Currently unused
      * @return ArrayList containing all possible Commander duels.
      */
-    public Iterable<QuestEventDuel> getDuels(QuestEventDifficulty difficulty){
+    public Iterable<QuestEventDuel> getDuels(DuelBucket difficulty){
         return commanderDuels;
     }
 
@@ -161,18 +157,18 @@ public class QuestEventCommanderDuelManager implements QuestEventDuelManagerInte
         if (numberOfWins >= questPreferences.getPrefInt(QuestPreferences.DifficultyPrefs.WINS_EXPERTAI, index)) {
             //At expert, the deck is replaced with the entire expert deck, and we can return immediately
             duel.setEventDeck(expertDeck);
-            duel.setDifficulty(QuestEventDifficulty.EXPERT);
+            duel.setDifficulty(DuelBucket.EXPERT);
             return;
         }
 
         if (numberOfWins >= questPreferences.getPrefInt(QuestPreferences.DifficultyPrefs.WINS_MEDIUMAI, index)) {
             difficultyReplacementPercent += 30;
-            duel.setDifficulty(QuestEventDifficulty.MEDIUM);
+            duel.setDifficulty(DuelBucket.MEDIUM);
         } else return; //return early here since it would be an easy opponent with no changes
 
         if (numberOfWins >= questPreferences.getPrefInt(QuestPreferences.DifficultyPrefs.WINS_HARDAI, index)) {
             difficultyReplacementPercent += 30;
-            duel.setDifficulty(QuestEventDifficulty.HARD);
+            duel.setDifficulty(DuelBucket.HARD);
         }
 
         CardPool easyMain = duel.getEventDeck().getMain();

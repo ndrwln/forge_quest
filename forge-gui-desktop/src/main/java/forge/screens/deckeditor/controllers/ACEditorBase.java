@@ -19,6 +19,7 @@ package forge.screens.deckeditor.controllers;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
+import forge.Singletons;
 import forge.deck.*;
 import forge.game.GameType;
 import forge.gui.GuiBase;
@@ -29,7 +30,6 @@ import forge.gui.framework.*;
 import forge.item.InventoryItem;
 import forge.item.PaperCard;
 import forge.itemmanager.CardManager;
-import forge.itemmanager.ColumnDef;
 import forge.itemmanager.ItemManager;
 import forge.itemmanager.SItemManagerUtil;
 import forge.localinstance.properties.ForgePreferences.FPref;
@@ -90,12 +90,12 @@ public abstract class ACEditorBase<TItem extends InventoryItem, TModel extends D
             .tooltip(localizer.getMessage("ttAddcard"))
             .icon(FSkin.getIcon(FSkinProp.ICO_PLUS))
             .iconScaleAuto(false).hoverable().build();
+
     private final FLabel btnAdd4 = new FLabel.Builder()
             .fontSize(14)
-            .text(localizer.getMessage("lblAdd4ofcard"))
-            .tooltip(localizer.getMessage("ttAdd4ofcard"))
-            .icon(FSkin.getIcon(FSkinProp.ICO_PLUS))
-            .iconScaleAuto(false).hoverable().build();
+            .text("Exit")
+            .tooltip("Return to the game")
+            .opaque(true).hoverable(true).build();
 
     private final FLabel btnRemove = new FLabel.Builder()
             .fontSize(14)
@@ -354,13 +354,11 @@ public abstract class ACEditorBase<TItem extends InventoryItem, TModel extends D
         });
         btnAdd4.setCommand(new UiCommand() {
             @Override public void run() {
-                CDeckEditorUI.SINGLETON_INSTANCE.addSelectedCards(false, 4);
+                Singletons.getView().getNavigationBar().closeTab(Singletons.getView().getNavigationBar().selectedTab.screen);
             }
         });
-        itemManager.getPnlButtons().add(btnAdd, "w 30%!, h 30px!, h 30px!, gapx 5");
-        itemManager.getPnlButtons().add(btnAdd4, "w 30%!, h 30px!, h 30px!, gapx 5");
-        itemManager.getImageView().setColumnCount(5);
-        itemManager.getImageView().setPileBy(ColumnDef.NAME);
+//        itemManager.getPnlButtons().add(btnAdd, "w 30%!, h 30px!, h 30px!, gapx 5");
+        itemManager.getPnlButtons().add(btnAdd4, "w 20%!, h 30px!, h 30px!, gapx 5");
 
     }
 

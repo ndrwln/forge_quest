@@ -164,7 +164,7 @@ public final class SItemManagerUtil {
     }
 
     private static final GroupDef[] CARD_GROUPBY_OPTIONS = {GroupDef.CARD_TYPE};
-    private static final ColumnDef[] CARD_PILEBY_OPTIONS = {ColumnDef.NAME, ColumnDef.COST};
+    private static final ColumnDef[] CARD_PILEBY_OPTIONS = {ColumnDef.NAME, ColumnDef.CMC};
 
     private static final GroupDef[] DECK_GROUPBY_OPTIONS = {GroupDef.COLOR, GroupDef.COLOR_IDENTITY, GroupDef.SET};
     private static final ColumnDef[] DECK_PILEBY_OPTIONS = {ColumnDef.DECK_COLOR, ColumnDef.DECK_FOLDER,

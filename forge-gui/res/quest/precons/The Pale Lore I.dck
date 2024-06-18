@@ -1,6 +1,8 @@
+[shop]
+Credits=50
 [metadata]
 Name=The Pale Lore I
-Description=When I speak it, my lips don't crisp with frost. Each time, this is surprising... Siphon the festering mana of swamps... Cost: 50 Crystals
+Description=When I speak it, my lips don't crisp with frost. Each time, this is surprising... Siphon the festering mana of swamps... (50 Crystals)
 Deck Type=constructed
 Image=black_pale_lore.jpg
 [Avatar]
