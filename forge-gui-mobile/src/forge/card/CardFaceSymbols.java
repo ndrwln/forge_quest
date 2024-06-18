@@ -75,10 +75,12 @@ public class CardFaceSymbols {
 
         Forge.getAssets().manaImages().put("commander", FSkinImage.IMG_ABILITY_COMMANDER);
         Forge.getAssets().manaImages().put("ringbearer", FSkinImage.IMG_ABILITY_RINGBEARER);
+        Forge.getAssets().manaImages().put("annihilator", FSkinImage.IMG_ABILITY_ANNIHILATOR);
         Forge.getAssets().manaImages().put("toxic", FSkinImage.IMG_ABILITY_TOXIC);
         Forge.getAssets().manaImages().put("deathtouch", FSkinImage.IMG_ABILITY_DEATHTOUCH);
         Forge.getAssets().manaImages().put("defender", FSkinImage.IMG_ABILITY_DEFENDER);
         Forge.getAssets().manaImages().put("doublestrike", FSkinImage.IMG_ABILITY_DOUBLE_STRIKE);
+        Forge.getAssets().manaImages().put("exalted", FSkinImage.IMG_ABILITY_EXALTED);
         Forge.getAssets().manaImages().put("firststrike", FSkinImage.IMG_ABILITY_FIRST_STRIKE);
         Forge.getAssets().manaImages().put("fear", FSkinImage.IMG_ABILITY_FEAR);
         Forge.getAssets().manaImages().put("flash", FSkinImage.IMG_ABILITY_FLASH);
@@ -95,6 +97,8 @@ public class CardFaceSymbols {
         Forge.getAssets().manaImages().put("shadow", FSkinImage.IMG_ABILITY_SHADOW);
         Forge.getAssets().manaImages().put("shroud", FSkinImage.IMG_ABILITY_SHROUD);
         Forge.getAssets().manaImages().put("trample", FSkinImage.IMG_ABILITY_TRAMPLE);
+        Forge.getAssets().manaImages().put("ward", FSkinImage.IMG_ABILITY_WARD);
+        Forge.getAssets().manaImages().put("wither", FSkinImage.IMG_ABILITY_WITHER);
         Forge.getAssets().manaImages().put("vigilance", FSkinImage.IMG_ABILITY_VIGILANCE);
         //hexproof from
         Forge.getAssets().manaImages().put("hexproofR", FSkinImage.IMG_ABILITY_HEXPROOF_R);

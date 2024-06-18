@@ -282,11 +282,12 @@ public class HumanPlay {
                 CostExile costExile = (CostExile) part;
 
                 if ("All".equals(part.getType())) {
-                    if (!p.getController().confirmPayment(part, Localizer.getInstance().getMessage("lblDoYouWantExileAllCardYouGraveyard"), sourceAbility)) {
-                        return false;
-                    }
-
-                    costExile.payAsDecided(p, PaymentDecision.card(p.getCardsIn(ZoneType.Graveyard)), sourceAbility, hcd.isEffect());
+                    ZoneType zone = costExile.getFrom().get(0);
+                    prompt = ZoneType.Graveyard.equals(zone) ? "lblDoYouWantExileAllCardYouGraveyard" :
+                        "lblDoYouWantExileAllCardHand";
+                    if (!p.getController().confirmPayment(part, Localizer.getInstance().getMessage(prompt), 
+                        sourceAbility)) return false;
+                    costExile.payAsDecided(p, PaymentDecision.card(p.getCardsIn(zone)), sourceAbility, hcd.isEffect());
                 } else {
                     CardCollection list = new CardCollection();
                     List<ZoneType> fromZones = costExile.getFrom();
@@ -557,13 +558,13 @@ public class HumanPlay {
         final Card source = ability.getHostCard();
         ManaCostBeingPaid toPay = new ManaCostBeingPaid(realCost);
 
-        String xInCard = ability.getSVar("X");
+        String xInCard = ability.getParamOrDefault("XAlternative", ability.getSVar("X"));
         String xColor = ability.getXColor();
         if (source.hasKeyword("Spend only colored mana on X. No more than one mana of each color may be spent this way.")) {
             xColor = "WUBRGX";
         }
         if (mc.getAmountOfX() > 0 && !"Count$xPaid".equals(xInCard)) { // announce X will overwrite whatever was in card script
-            int xPaid = AbilityUtils.calculateAmount(source, "X", ability);
+            int xPaid = AbilityUtils.calculateAmount(source, xInCard, ability);
             toPay.setXManaCostPaid(xPaid, xColor);
             ability.setXManaCostPaid(xPaid);
         }

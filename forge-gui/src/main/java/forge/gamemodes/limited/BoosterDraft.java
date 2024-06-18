@@ -17,22 +17,9 @@
  */
 package forge.gamemodes.limited;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.NoSuchElementException;
-import java.util.Stack;
-import java.util.TreeMap;
-
-import org.apache.commons.lang3.ArrayUtils;
-
 import com.google.common.base.Predicate;
 import com.google.common.base.Supplier;
 import com.google.common.collect.Iterables;
-
 import forge.StaticData;
 import forge.card.CardEdition;
 import forge.deck.CardPool;
@@ -53,6 +40,10 @@ import forge.util.ItemPool;
 import forge.util.Localizer;
 import forge.util.TextUtil;
 import forge.util.storage.IStorage;
+import org.apache.commons.lang3.ArrayUtils;
+
+import java.io.File;
+import java.util.*;
 
 /**
  * Booster Draft Format.
@@ -294,6 +285,16 @@ public class BoosterDraft implements IBoosterDraft {
         return draftLog;
     }
 
+    @Override
+    public int getRound() {
+        return nextBoosterGroup;
+    }
+
+    @Override
+    public LimitedPlayer getNeighbor(LimitedPlayer player, boolean left) {
+        return players.get((player.order + (left ? 1 : -1) + N_PLAYERS) % N_PLAYERS);
+    }
+
     private void setupCustomDraft(final CustomLimited draft) {
         final ItemPool<PaperCard> dPool = draft.getCardPool();
         if (dPool == null) {
@@ -416,6 +417,15 @@ public class BoosterDraft implements IBoosterDraft {
         return this.localPlayer;
     }
 
+    @Override
+    public LimitedPlayer getPlayer(int i) {
+        if (i == 0) {
+            return this.localPlayer;
+        }
+
+        return this.players.get(i - 1);
+    }
+
     public void passPacks() {
         // Alternate direction of pack passing
         int adjust = this.nextBoosterGroup % 2 == 1 ? 1 : -1;
@@ -423,6 +433,7 @@ public class BoosterDraft implements IBoosterDraft {
             adjust = 0;
         } else if (currentBoosterPick % 2 == 1 && "Always".equals(this.doublePickDuringDraft)) {
             // This may not work with Conspiracy cards that mess with the draft
+            // But it probably doesn't matter since Conspiracy doesn't have double pick?
             adjust = 0;
         }
 
@@ -451,6 +462,7 @@ public class BoosterDraft implements IBoosterDraft {
         // Loop through players 1-7 to draft their current pack
         for (int i = 1; i < N_PLAYERS; i++) {
             LimitedPlayer pl = this.players.get(i);
+            // TODO Agent of Acquisitions activation to loop the entire pack?
             pl.draftCard(pl.chooseCard());
         }
     }
@@ -482,6 +494,8 @@ public class BoosterDraft implements IBoosterDraft {
         }
 
         recordDraftPick(thisBooster, c);
+
+        // TODO Agent of Acquisitions activation to loop the entire pack?
 
         this.localPlayer.draftCard(c);
         this.currentBoosterPick++;
