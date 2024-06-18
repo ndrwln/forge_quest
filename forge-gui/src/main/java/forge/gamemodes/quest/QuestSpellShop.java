@@ -265,26 +265,20 @@ public class QuestSpellShop {
             else if (item instanceof PreconDeck) {
                 final PreconDeck deck = (PreconDeck) item;
                 for (int i = 0; i < qty; i++) {
-                    FModel.getQuest().getCards().buyPreconDeck(deck, value);
-                    itemsToAdd.addAllOfType(deck.getDeck().getMain());
-
                     PreferencesResearch.Knowledge lesson_ = null;
-
-
                     for (PreferencesResearch.Knowledge lesson : FModel.getResearchPreferences().getEnumValues())
                     {
-                        if (lesson.getDeckName().equals(deck.getDeck().getName()))
-                        {
-                            lesson_ = lesson;
-                            break;
-                        }
+                        if (!lesson.getDeckName().equals(deck.getDeck().getName())) continue;
+                        lesson_ = lesson;
+                        break;
                     }
 
-                    if (lesson_ != null)
-                    {
-                        FModel.getResearchPreferences().setPref(lesson_, "true");
-                        FModel.getResearchPreferences().save();
-                    }
+                    if (lesson_ == null) break;
+                    FModel.getResearchPreferences().setPref(lesson_, "true");
+                    FModel.getResearchPreferences().save();
+
+                    FModel.getQuest().getCards().buyPreconDeck(deck, value, lesson_);
+                    itemsToAdd.addAllOfType(deck.getDeck().getMain());
                 }
 
                 CardPool pool =  deck.getDeck().getMain();

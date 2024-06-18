@@ -410,6 +410,20 @@ public final class QuestUtilCards {
         }
     }
 
+    public void buyPreconDeck(final PreconDeck precon, final int value, PreferencesResearch.Knowledge lesson) {
+        if (questAssets.getCredits() >= value) {
+            questAssets.subtractCredits(value);
+
+            Deck deck = precon.getDeck();
+            addAllCards(deck.getAllCardsInASinglePool().toFlatList());
+
+            if (!lesson.add_decklist()) return;
+            if (lesson.getAlternateDeckName() != null) deck = QuestController.getPrecons().get(lesson.getAlternateDeckName()).getDeck();
+            questController.getMyDecks().add(deck);
+            try {deck.get(DeckSection.Sideboard).clear();}catch(Exception e){}
+        }
+    }
+
     public void buyPreconDeckCards(final PreconDeck precon, final int value) {
         if (questAssets.getCredits() >= value) {
             questAssets.subtractCredits(value);

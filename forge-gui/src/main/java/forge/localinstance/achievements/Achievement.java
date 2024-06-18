@@ -159,63 +159,7 @@ public abstract class Achievement {
     }
 
     public int update(final Player player) {
-        final int value = evaluate(player, player.getGame());
-        if (checkGreaterThan) {
-            if (value <= best) { return value; }
-        }
-        else if (value >= best) { return value; }
-
-        final boolean hadEarnedSpecial = earnedSpecial();
-        final boolean hadEarnedMythic = earnedMythic();
-        final boolean hadEarnedRare = earnedRare();
-        final boolean hadEarnedUncommon = earnedUncommon();
-        final boolean hadEarnedCommon = earnedCommon();
-
-        best = value;
-        timestamp = new Date().getTime();
-
-        if (earnedSpecial()) {
-            if (!hadEarnedSpecial) {
-                updateTrophyImage();
-                GuiBase.getInterface().showImageDialog(image, displayName + "\n" + sharedDesc + "\n" + mythicDesc, "Achievement Earned");
-            }
-            return value;
-        }
-
-        String type = null;
-        String desc = null;
-        if (earnedMythic()) {
-            if (!hadEarnedMythic) {
-                type = Localizer.getInstance().getMessage("lblMythic");
-                desc = mythicDesc;
-            }
-        }
-        else if (earnedRare()) {
-            if (!hadEarnedRare) {
-                type = Localizer.getInstance().getMessage("lblRare");
-                desc = rareDesc;
-            }
-        }
-        else if (earnedUncommon()) {
-            if (!hadEarnedUncommon) {
-                type = Localizer.getInstance().getMessage("lblUncommon");
-                desc = uncommonDesc;
-            }
-        }
-        else if (earnedCommon()) {
-            if (!hadEarnedCommon) {
-                type = Localizer.getInstance().getMessage("lblCommon");
-                desc = commonDesc;
-            }
-        }
-        if (type != null) {
-            updateTrophyImage();
-            if (sharedDesc != null) {
-                desc = sharedDesc + " " + desc;
-            }
-            GuiBase.getInterface().showImageDialog(image, displayName + " (" + type + ")\n" + desc, Localizer.getInstance().getMessage("lblAchievementEarned"));
-        }
-        return value;
+        return evaluate(player, player.getGame());
     }
 
     public final boolean needSave() {

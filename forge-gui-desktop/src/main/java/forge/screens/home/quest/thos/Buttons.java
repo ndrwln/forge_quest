@@ -84,7 +84,7 @@ public class Buttons {
                 .fLabel(new FLabel.Builder()
                         .icon(FSkin.getIcon(FSkinProp.ICO_QUEST_BIG_BOOTS))
                         .fontSize(15).build())
-                .constraints("w 300px!, h 30px!, pos 84% 1% n n")
+                .constraints("w 300px!, h 30px!, pos 84.5% 1% n n")
                 .ui(UI_INFO);
 
 
