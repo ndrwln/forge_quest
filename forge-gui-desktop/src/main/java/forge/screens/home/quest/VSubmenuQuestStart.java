@@ -8,8 +8,6 @@ import forge.screens.home.EMenuGroup;
 import forge.screens.home.IVSubmenu;
 import forge.screens.home.VHomeUI;
 import forge.screens.home.quest.thos.*;
-import forge.screens.home.quest.thos.Duels.Duels;
-import forge.screens.home.quest.thos.Duels.DuelsBlack;
 import forge.util.Localizer;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
@@ -32,10 +30,6 @@ public enum VSubmenuQuestStart implements IVSubmenu<CSubmenuQuestStart> {
 
     public static Buttons b = new Buttons();
     public static Research r = new Research();
-    public static DuelsBlack db = new DuelsBlack();
-
-    public static Duels d = new Duels();
-
 
     private final JPanel main_panel = new JPanel();
     public static JPanel MAIN_PANEL;
