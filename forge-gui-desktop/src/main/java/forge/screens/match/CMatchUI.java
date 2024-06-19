@@ -1074,6 +1074,7 @@ public final class CMatchUI
 
             MEDIA_VIEW.getMediaPlayer().setCycleCount(MediaPlayer.INDEFINITE);
             MEDIA_VIEW.getMediaPlayer().setAutoPlay(true);
+            MEDIA_VIEW.getMediaPlayer().setMute(true);
             pane.getChildren().add(MEDIA_VIEW);
 
         });

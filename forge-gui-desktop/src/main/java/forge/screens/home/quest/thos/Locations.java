@@ -144,6 +144,7 @@ public class Locations {
             MediaPlayer player = location.player();
             player.setCycleCount(MediaPlayer.INDEFINITE);
             player.setAutoPlay(true);
+            player.setMute(true);
 
             CURRENT_LOCATION.fadeOut();
 
@@ -165,7 +166,10 @@ public class Locations {
             out.setFromValue(1);
             out.setToValue(0);
             out.setOnFinished(event -> {
+                MEDIA_VIEW.getMediaPlayer().pause();
                 MEDIA_VIEW.setMediaPlayer(player);
+                MEDIA_VIEW.getMediaPlayer().play();
+
                 in.play();
             });
             out.play();

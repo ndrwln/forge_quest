@@ -92,6 +92,7 @@ public enum VSubmenuQuestStart implements IVSubmenu<CSubmenuQuestStart> {
                     MEDIA_VIEW.setMediaPlayer(Locations.CURRENT_LOCATION.player());
                     MEDIA_VIEW.getMediaPlayer().setCycleCount(MediaPlayer.INDEFINITE);
                     MEDIA_VIEW.getMediaPlayer().setAutoPlay(true);
+                    MEDIA_VIEW.getMediaPlayer().setMute(true);
                     is_initial = false;
                 }
 
@@ -99,18 +100,14 @@ public enum VSubmenuQuestStart implements IVSubmenu<CSubmenuQuestStart> {
                 Locations.update_stats();
 
                 pane.getChildren().add(MEDIA_VIEW);
-
             }
         });
+
 
         VHomeUI.SINGLETON_INSTANCE.getPnlDisplay().repaintSelf();
         VHomeUI.SINGLETON_INSTANCE.getPnlDisplay().revalidate();
 
-        try
-        {
-            FModel.getResearchPreferences().save();
-        }catch (Exception e) {}
-        System.out.println();
+        try {FModel.getResearchPreferences().save();} catch (Exception ignored) {}
     }
 
 
