@@ -50,7 +50,7 @@ import static forge.localinstance.properties.ForgeConstants.CACHE_ICON_PICS_DIR;
 
 		//text
 		FTextPane prompt = new FTextPane(text);
-		prompt.setFont(FSkin.getFont(14));
+		prompt.setFont(FSkin.getFont(16));
 		content.add(prompt, "w 100%, h 100%");
 
 
@@ -59,7 +59,7 @@ import static forge.localinstance.properties.ForgeConstants.CACHE_ICON_PICS_DIR;
 		{
 			FButton button = new FButton(option.getKey());
 			button.setCommand(option.getValue());
-			mainPanel.add(button, "w 95%!, h 30px!");
+			mainPanel.add(button, "w 40.85sp:40.85sp, h 30px!");
 		}
 	}
 
@@ -77,7 +77,7 @@ import static forge.localinstance.properties.ForgeConstants.CACHE_ICON_PICS_DIR;
 	}
 
 	final Localizer localizer = Localizer.getInstance();
-	private final FPanel mainPanel = new FPanel(new MigLayout("w 43sp:43sp, insets 20, gap 5, center, flowy"));
+	private final FPanel mainPanel = new FPanel(new MigLayout("w 43sp:43sp, insets 20, gap 6, center, flowy"));
 	private final FButton btnOk = new FButton(localizer.getMessage("lblOK"));
 	private Runnable callback;
 
