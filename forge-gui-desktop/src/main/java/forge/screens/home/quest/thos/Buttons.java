@@ -1,13 +1,12 @@
 package forge.screens.home.quest.thos;
 
 import forge.gamemodes.quest.QuestUtil;
-import forge.gamemodes.quest.QuestUtilCards;
 import forge.gui.UiCommand;
 import forge.localinstance.skin.FSkinProp;
 import forge.model.FModel;
 import forge.screens.home.quest.CSubmenuQuestStart;
 import forge.screens.home.quest.DialogChoosePoolDistribution;
-import forge.screens.home.quest.VSubmenuQuestStart;
+import forge.screens.home.quest.thos.Events._Triggered.EventExplore;
 import forge.toolbox.FLabel;
 import forge.toolbox.FSkin;
 
@@ -153,9 +152,12 @@ public class Buttons {
                 .constraints("w 75px!, h 75px!, pos 0% 60% n n")
                 .ui(UI_EXPLORE)
                 .fn((UiCommand) () -> {
-                    QuestUtilCards.is_plane = true;
-                    QuestUtil.notify_start_game();
-                    VSubmenuQuestStart.is_playing_new_music = true;
+
+                    EventExplore e = new EventExplore();
+                    e.display();
+//                    QuestUtilCards.is_plane = true;
+//                    QuestUtil.notify_start_game();
+//                    VSubmenuQuestStart.is_playing_new_music = true;
 
                 });
 
