@@ -85,18 +85,18 @@ public abstract class ItemManager<T extends InventoryItem> extends JPanel implem
     private final SkinnedPanel pnlButtons = new SkinnedPanel(new MigLayout("insets 0, gap 0, ax center, hidemode 3"));
 
     private static final SkinIcon SEARCH_ICON = FSkin.getIcon(FSkinProp.ICO_SEARCH).resize(20, 20);
-    private final FLabel btnFilters = new FLabel.ButtonBuilder()
+    public final FLabel btnFilters = new FLabel.ButtonBuilder()
         .icon(SEARCH_ICON).iconScaleAuto(false)
         .tooltip(Localizer.getInstance().getMessage("lblClickToconfigureFilters"))
         .reactOnMouseDown()
         .build();
 
-    private final FLabel lblCaption = new FLabel.Builder()
+    public final FLabel lblCaption = new FLabel.Builder()
         .fontAlign(SwingConstants.LEFT)
         .fontSize(12)
         .build();
 
-    private final FLabel lblRatio = new FLabel.Builder()
+    public final FLabel lblRatio = new FLabel.Builder()
         .tooltip(Localizer.getInstance().getMessage("lblShownOfTotalCards"))
         .fontAlign(SwingConstants.LEFT)
         .fontSize(12)
@@ -159,17 +159,29 @@ public abstract class ItemManager<T extends InventoryItem> extends JPanel implem
     public void quest_hidestuff()
     {
         this.btnViewOptions.setVisible(false);
+        this.lblRatio.setVisible(false);
+        this.lblCaption.setVisible(false);
         this.pnlButtons.setVisible(false);
         this.btnFilters.setVisible(false);
-        this.btnFilters.setVisible(false);
         this.lblEmpty.setVisible(false);
-        this.cbxSection.setVisible(false);
         this.cbxSection.setVisible(false);
         for (final ItemView<T> view : this.views) {
             view.getButton().setVisible(false);
         }
+        getCurrentView().getPnlOptions().setVisible(false);
+    }
 
-
+    public void shop_hidestuff()
+    {
+        this.btnViewOptions.setVisible(false);
+        this.lblRatio.setVisible(false);
+//        this.pnlButtons.setVisible(false);
+        this.btnFilters.setVisible(false);
+        this.lblEmpty.setVisible(false);
+        this.cbxSection.setVisible(false);
+        for (final ItemView<T> view : this.views) {
+            view.getButton().setVisible(false);
+        }
     }
 
     /**

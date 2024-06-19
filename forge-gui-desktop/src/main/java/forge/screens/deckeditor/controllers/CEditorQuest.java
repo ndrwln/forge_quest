@@ -122,7 +122,7 @@ public final class CEditorQuest extends CDeckEditor<Deck> {
         final CardManager catalogManager = new CardManager(cDetailPicture0, false, true, false);
         final CardManager deckManager = new CardManager(cDetailPicture0, false, true, false);
 
-        catalogManager.setCaption("Quest Inventory");
+        catalogManager.setCaption("Lore");
 
         catalogManager.setAlwaysNonUnique(true);
         deckManager.setAlwaysNonUnique(true);

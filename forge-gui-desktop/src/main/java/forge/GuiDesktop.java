@@ -1,6 +1,8 @@
 package forge;
 
 import com.google.common.base.Function;
+import forge.deck.Deck;
+import forge.deckchooser.FDeckViewer;
 import forge.download.GuiDownloader;
 import forge.error.BugReportDialog;
 import forge.gamemodes.match.HostedMatch;
@@ -178,9 +180,14 @@ public class GuiDesktop implements IGuiBase {
 
     @Override
     public void showCardList(final String title, final String message, final List<PaperCard> list) {
-        final CardListViewer cardView = new CardListViewer(title, message, list);
-        cardView.setVisible(true);
-        cardView.dispose();
+//        final CardListViewer cardView = new CardListViewer(title, message, list);
+//        cardView.setVisible(true);
+//        cardView.dispose();
+
+        final Deck deck = new Deck(title + " - " + message);
+        deck.getMain().addAllFlat(list);
+        deck.setName(message);
+        FDeckViewer.show(deck);
     }
 
     @Override

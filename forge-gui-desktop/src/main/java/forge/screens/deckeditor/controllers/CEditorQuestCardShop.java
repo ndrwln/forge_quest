@@ -108,8 +108,8 @@ public final class CEditorQuestCardShop extends ACEditorBase<InventoryItem, Deck
         final SpellShopManager catalogManager = new SpellShopManager(cDetailPicture0, false);
         final SpellShopManager deckManager = new SpellShopManager(cDetailPicture0, false);
 
-        catalogManager.setCaption("Spell Shop");
-        deckManager.setCaption("Quest Inventory");
+        catalogManager.setCaption("Knowledge Infusion - " + QuestUtil.formatCredits(FModel.getQuest().getAssets().getCredits()) + " magic crystals");
+        deckManager.setCaption("Lore");
 
         catalogManager.setAlwaysNonUnique(true);
         deckManager.setAlwaysNonUnique(true);
@@ -118,6 +118,8 @@ public final class CEditorQuestCardShop extends ACEditorBase<InventoryItem, Deck
         this.setDeckManager(deckManager);
         this.cardsForSale = this.questData.getCards().getShopList(Locations.CURRENT_LOCATION.lessons());
         for (Map.Entry<InventoryItem, Integer>  item : cardsForSale.items.entrySet()) item.setValue(1);
+
+        catalogManager.shop_hidestuff();
     }
 
     private void toggleFullCatalog() {
@@ -282,12 +284,12 @@ public final class CEditorQuestCardShop extends ACEditorBase<InventoryItem, Deck
         this.getCatalogManager().getPnlButtons().remove(this.getBtnAdd4());
         this.getCatalogManager().getPnlButtons().add(fullCatalogToggle, "w 25%, h 30!", 0);
 
-
-        //TODO: Add filter for SItemManagerUtil.StatTypes.PACK
-
         deckGenParent = removeTab(VDeckgen.SINGLETON_INSTANCE);
         allDecksParent = removeTab(VAllDecks.SINGLETON_INSTANCE);
         currentParent = removeTab(VCurrentDeck.SINGLETON_INSTANCE);
+
+        this.getCatalogManager().getCurrentView().getPnlOptions().setVisible(false);
+
 
     }
 

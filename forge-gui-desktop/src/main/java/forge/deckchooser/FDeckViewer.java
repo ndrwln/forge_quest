@@ -149,12 +149,16 @@ public class FDeckViewer extends FDialog {
         buttonPanel.add(this.btnChangeSection, "w 200px!, h 26px!");
 
         this.add(new ItemManagerContainer(this.cardManager), "push, grow, gapright 10px, gapbottom 10px");
-        this.add(cardPanel, "wrap");
-        this.add(buttonPanel);
-        this.add(this.btnClose, "w 120px!, h 26px!, ax right");
+//        this.add(cardPanel, "wrap");
+//        this.add(buttonPanel);
+//        this.add(this.btnClose, "w 120px!, h 26px!, ax right");
 
         this.cardManager.setup(ItemManagerConfig.DECK_VIEWER);
         this.setDefaultFocus(this.cardManager.getCurrentView().getComponent());
+
+//        this.cardManager.
+        this.cardManager.quest_hidestuff();
+//        this.cardManager.lblRatio.setVisible(false);
     }
 
     private void changeSection() {

@@ -38,13 +38,15 @@ public enum ItemManagerConfig {
 
 
     SPELL_SHOP(SColumnUtil.getSpellShopDefaultColumns(), false, false, true,
-            GroupDef.CARD_TYPE, ColumnDef.NAME, 5, 1),
+            null, ColumnDef.NAME, 5, 1),
     QUEST_INVENTORY(SColumnUtil.getQuestInventoryDefaultColumns(), false, true, false,
             GroupDef.CARD_TYPE, ColumnDef.NAME, 5, 1),
     QUEST_EDITOR_POOL(SColumnUtil.getQuestEditorPoolDefaultColumns(), false, false, false,
             GroupDef.CARD_TYPE, ColumnDef.NAME, 5, 1),
     QUEST_DECK_EDITOR(SColumnUtil.getQuestDeckEditorDefaultColumns(), false, false, true,
             GroupDef.CARD_TYPE, ColumnDef.CMC, 4, 1),
+    DECK_VIEWER(SColumnUtil.getDeckViewerDefaultColumns(), false, false, true,
+            null, ColumnDef.NAME, 4, 1),
 
 
 
@@ -80,8 +82,6 @@ public enum ItemManagerConfig {
             null, null, 2, 1),
     WORKSHOP_CATALOG(SColumnUtil.getCatalogDefaultColumns(true), true, true, false,
             null, null, 4, 0),
-    DECK_VIEWER(SColumnUtil.getDeckViewerDefaultColumns(), false, false, false,
-            GroupDef.DEFAULT, ColumnDef.CMC, 4, 1),
     CONSTRUCTED_DECKS(SColumnUtil.getDecksDefaultColumns(true, true), false, false, false,
             null, null, 3, 0),
     COMMANDER_DECKS(SColumnUtil.getDecksDefaultColumns(true, false), false, false, false,
