@@ -1067,7 +1067,7 @@ public final class CMatchUI
             fxPanel.setBackground(Color.BLACK);
             fxPanel.setScene(scene);
 
-            if (QuestUtilCards.is_plane)
+            if (QuestUtilCards.is_using_plane_mediaplayer)
                 MEDIA_VIEW.setMediaPlayer(Locations.CURRENT_LOCATION.plane().player());
             else
                 MEDIA_VIEW.setMediaPlayer(Locations.CURRENT_LOCATION.player());

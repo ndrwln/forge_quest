@@ -1,16 +1,15 @@
 package forge.screens.match;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-
 import forge.Singletons;
 import forge.game.GameView;
 import forge.gamemodes.match.NextGameDecision;
 import forge.gui.SOverlayUtils;
 import forge.gui.framework.FScreen;
 import forge.interfaces.IGameController;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /** 
  * Default controller for a ViewWinLose object. This class can
@@ -69,6 +68,11 @@ public class ControlWinLose {
 
     /** Action performed when "quit" button is pressed in default win/lose UI. */
     public void actionOnQuit() {
+        nextGameAction(NextGameDecision.QUIT);
+        Singletons.getControl().setCurrentScreen(FScreen.HOME_SCREEN);
+    }
+
+    public void actionOnQuit_real() {
         nextGameAction(NextGameDecision.QUIT);
         Singletons.getControl().setCurrentScreen(FScreen.HOME_SCREEN);
     }

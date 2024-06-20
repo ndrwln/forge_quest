@@ -3,6 +3,7 @@ package forge.screens.match;
 import forge.game.GameLogEntry;
 import forge.game.GameLogEntryType;
 import forge.game.GameView;
+import forge.gamemodes.quest.QuestWinLoseController;
 import forge.gui.SOverlayUtils;
 import forge.gui.UiCommand;
 import forge.gui.interfaces.IWinLoseView;
@@ -10,6 +11,8 @@ import forge.item.PaperCard;
 import forge.localinstance.properties.ForgePreferences.FPref;
 import forge.localinstance.skin.FSkinProp;
 import forge.model.FModel;
+import forge.screens.home.quest.thos.Events.EventManager;
+import forge.screens.home.quest.thos.Events._Interface.IMatchHandler;
 import forge.toolbox.*;
 import forge.toolbox.FSkin.*;
 import forge.util.Localizer;
@@ -20,6 +23,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;
 import java.util.List;
+
+import static forge.gui.SOverlayUtils.hideOverlay;
 
 public class ViewWinLose implements IWinLoseView<FButton> {
     private final ControlWinLose control;
@@ -35,11 +40,11 @@ public class ViewWinLose implements IWinLoseView<FButton> {
     /**
      * String constraint parameters for title blocks and cardviewer blocks.
      */
-    private static final SkinColor FORE_COLOR = FSkin.getColor(Colors.CLR_TEXT);
-    private static final String CONSTRAINTS_TITLE = "w 95%!, gap 0 0 20px 10px";
-    private static final String CONSTRAINTS_TEXT = "w 95%!, h 220px!, gap 0 0 0 20px";
-    private static final String CONSTRAINTS_CARDS = "w 95%!, h 330px!, gap 0 0 0 20px";
-    private static final String CONSTRAINTS_CARDS_LARGE = "w 95%!, h 600px!, gap 0 0 0 20px";
+    public static final SkinColor FORE_COLOR = FSkin.getColor(Colors.CLR_TEXT);
+    public static final String CONSTRAINTS_TITLE = "w 95%!, gap 0 0 20px 10px";
+    public static final String CONSTRAINTS_TEXT = "w 95%!, h 220px!, gap 0 0 0 20px";
+    public static final String CONSTRAINTS_CARDS = "w 95%!, h 330px!, gap 0 0 0 20px";
+    public static final String CONSTRAINTS_CARDS_LARGE = "w 95%!, h 600px!, gap 0 0 0 20px";
 
     private final GameView game;
 
@@ -135,18 +140,30 @@ public class ViewWinLose implements IWinLoseView<FButton> {
         pnlRight.setLayout(new MigLayout("insets 0, wrap"));
         pnlCustom.setLayout(new MigLayout("insets 0, wrap, ax center, ay center"));
 
+
+
         final boolean customIsPopulated = control.populateCustomPanel();
-        if (customIsPopulated) {
+
+        boolean is_match_over = false;
+        if (control instanceof QuestWinLose)
+        {
+            QuestWinLoseController c = ((QuestWinLose) control).controller;
+            is_match_over = c.lastGame.isMatchOver();;
+        }
+
+        if (is_match_over)
+        {
             overlay.add(pnlLeft, "w 40%!, h 100%!");
             overlay.add(pnlRight, "w 60%!, h 100%!");
             pnlRight.add(scrCustom, "w 100%!, h 100%!");
-        } else {
+        }
+        else {
             overlay.add(pnlLeft, "w 100%!, h 100%!");
         }
 
+
+
         pnlOutcomes.setOpaque(false);
-        pnlLeft.add(lblTitle, "h 60px!, center");
-        pnlLeft.add(pnlOutcomes, "center");
         pnlLeft.add(lblStats, "h 60px!, center");
 
         // A container must be made to ensure proper centering.
@@ -155,7 +172,6 @@ public class ViewWinLose implements IWinLoseView<FButton> {
 
         final String constraints = "w 300px!, h 50px!, gap 0 0 20px 0";
         pnlButtons.add(btnContinue, constraints);
-        pnlButtons.add(btnRestart, constraints);
         pnlButtons.add(btnQuit, constraints);
         pnlLeft.add(pnlButtons, "w 100%!");
 
@@ -163,15 +179,17 @@ public class ViewWinLose implements IWinLoseView<FButton> {
         scrLog = new FScrollPane(txtLog, false);
         pnlLog.setOpaque(false);
 
-        pnlLog.add(
-                new FLabel.Builder().text(localizer.getMessage("lblGameLog")).fontAlign(SwingConstants.CENTER).fontSize(18)
-                        .fontStyle(Font.BOLD).build(), "w 300px!, h 28px!, gaptop 20px");
+        ///
 
-        pnlLog.add(scrLog, "w 300px!, h 100px!, gap 0 0 10 10");
-        pnlLog.add(btnCopyLog, "center, w pref+16, h pref+8");
-        pnlLeft.add(pnlLog, "w 100%!");
+        if (is_match_over)
+        {
+            if (EventManager.CURRENT_EVENT instanceof IMatchHandler)
+            {
+                hideOverlay();
+                ((IMatchHandler) EventManager.CURRENT_EVENT).handle_postmatch();
+            }
 
-        lblTitle.setText(composeTitle(game0));
+        }
     }
 
     public final void show() {
@@ -300,7 +318,7 @@ public class ViewWinLose implements IWinLoseView<FButton> {
      * JLabel header between reward sections.
      */
     @SuppressWarnings("serial")
-    private class TitleLabel extends SkinnedLabel {
+    public class TitleLabel extends SkinnedLabel {
         TitleLabel(final String msg) {
             super(msg);
             setFont(FSkin.getRelativeFont(16));

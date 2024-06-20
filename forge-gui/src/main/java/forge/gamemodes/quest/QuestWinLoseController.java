@@ -37,9 +37,9 @@ import java.util.List;
 import java.util.Map.Entry;
 
 public class QuestWinLoseController {
-    private final GameView lastGame;
+    public final GameView lastGame;
     private final IWinLoseView<? extends IButton> view;
-    private final transient boolean wonMatch;
+    public final transient boolean wonMatch;
     private final transient boolean isAnte;
     private final transient QuestController qData;
     private final transient QuestEvent qEvent;
@@ -57,17 +57,6 @@ public class QuestWinLoseController {
         view.getBtnRestart().setVisible(false);
         final QuestController qc = FModel.getQuest();
 
-//        // After the first game, reset the card shop pool to be able to buy back anted cards
-//        if (lastGame.getNumPlayedGamesInMatch() == 0) {
-//            try {
-//                qc.getCards().clearShopList();
-//                qc.getCards().getShopList();
-//            } catch (Exception e) {
-//                //investigate this..
-//                System.err.println(e.getMessage());
-//            }
-//        }
-
         final LobbyPlayer questLobbyPlayer = GamePlayerUtil.getQuestPlayer();
         PlayerView player = null;
         for (final PlayerView p : lastGame.getPlayers()) {
@@ -75,7 +64,6 @@ public class QuestWinLoseController {
                 player = p;
             }
         }
-        final PlayerView questPlayer = player;
 
         final boolean matchIsNotOver = !lastGame.isMatchOver();
         if (matchIsNotOver) {
@@ -97,15 +85,18 @@ public class QuestWinLoseController {
             public void run() {
                 if (matchIsNotOver) { return; } //skip remaining logic if match isn't over yet
 
-                final int difficulty = qData.getAchievements().getDifficulty();
-                final int wins = qData.getAchievements().getWin();
-
                 if (wonMatch)
                 {
                     awardEventCredits();
-                    awardBooster();
+//                    awardBooster();
                 }
-                else penalizeLoss();
+                else
+                {
+                    penalizeLoss();
+                }
+                QuestUtil_MatchData.NUM_PROGRESS += wonMatch ? 1 : 100;
+                QuestUtil_MatchData.MATCH_RESULT = wonMatch ? QuestUtil_MatchData.MatchResult.WIN : QuestUtil_MatchData.MatchResult.LOSS;
+
             }
         });
     }
@@ -339,7 +330,8 @@ public class QuestWinLoseController {
         sb.append(TextUtil.concatWithSpace(String.valueOf(credTotal), "credits in total."));
         qData.getAssets().addCredits(credTotal);
 
-        view.showMessage(sb.toString(), Localizer.getInstance().getMessage("lblGameplayResults"), FSkinProp.ICO_QUEST_GOLD);
+//        view.showMessage(sb.toString(), Localizer.getInstance().getMessage("lblGameplayResults"), FSkinProp.ICO_QUEST_GOLD);
+        QuestUtil_MatchData.STR_CRYSTALS = sb.toString();
     }
 
     /**
@@ -634,7 +626,7 @@ public class QuestWinLoseController {
 
     private void penalizeLoss() {
         final int x = FModel.getQuestPreferences().getPrefInt(QPref.PENALTY_LOSS);
-        view.showMessage(Localizer.getInstance().getMessage("lblYouHaveLostNCredits", String.valueOf(x)), Localizer.getInstance().getMessage("lblGameplayResults"), FSkinProp.ICO_QUEST_HEART);
+        QuestUtil_MatchData.STR_CRYSTALS_LOSS = Localizer.getInstance().getMessage("lblYouHaveLostNCredits", String.valueOf(x));
     }
 
     /**

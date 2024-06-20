@@ -1,12 +1,7 @@
 package forge.screens.match.winlose;
 
-import java.util.List;
-
-import org.apache.commons.lang3.StringUtils;
-
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.utils.Align;
-
 import forge.Forge;
 import forge.assets.FSkinColor;
 import forge.assets.FSkinColor.Colors;
@@ -20,75 +15,39 @@ import forge.gui.util.SGuiChoose;
 import forge.gui.util.SOptionPane;
 import forge.item.PaperCard;
 import forge.localinstance.skin.FSkinProp;
-import forge.menu.FMagnifyView;
 import forge.model.FModel;
-import forge.toolbox.FButton;
-import forge.toolbox.FContainer;
-import forge.toolbox.FDisplayObject;
-import forge.toolbox.FEvent;
-import forge.toolbox.FEvent.FEventHandler;
-import forge.toolbox.FLabel;
-import forge.toolbox.FOverlay;
-import forge.toolbox.FTextArea;
+import forge.toolbox.*;
 import forge.util.Utils;
+
+import java.util.List;
 
 public class ViewWinLose extends FOverlay implements IWinLoseView<FButton> {
     private static final float INSETS_FACTOR = 0.025f;
     private static final float GAP_Y_FACTOR = 0.02f;
 
-    private final FButton btnContinue, btnRestart, btnQuit;
-    private final FLabel lblTitle, lblLog, lblStats, btnCopyLog, btnShowBattlefield;
-    private final FTextArea txtLog;
-    private final OutcomesPanel pnlOutcomes;
+    private FButton btnContinue, btnRestart, btnQuit;
+    private FLabel lblTitle, lblLog, lblStats, btnCopyLog, btnShowBattlefield;
+    private FTextArea txtLog;
+    private OutcomesPanel pnlOutcomes;
     private final GameView game;
 
     public ViewWinLose(final GameView game0) {
         super(FSkinColor.get(Colors.CLR_OVERLAY).alphaColor(0.75f));
 
         game = game0;
-
-        lblTitle = add(new FLabel.Builder().font(FSkinFont.get(30)).align(Align.center).build());
         lblStats = add(new FLabel.Builder().font(FSkinFont.get(26)).align(Align.center).build());
-        pnlOutcomes = add(new OutcomesPanel());
-
         btnContinue = add(new FButton());
-        btnRestart = add(new FButton());
         btnQuit = add(new FButton());
 
         btnContinue.setText(Forge.getLocalizer().getMessage("btnNextGame"));
         btnContinue.setFont(FSkinFont.get(22));
-        btnRestart.setText(Forge.getLocalizer().getMessage("btnStartNewMatch"));
-        btnRestart.setFont(btnContinue.getFont());
-        btnQuit.setText(Forge.getLocalizer().getMessage("btnQuitMatch"));
-        btnQuit.setFont(btnContinue.getFont());
         btnContinue.setEnabled(!game0.isMatchOver());
 
-        lblLog = add(new FLabel.Builder().text(Forge.getLocalizer().getMessage("lblGameLog")).align(Align.center).font(FSkinFont.get(18)).build());
-        txtLog = add(new FTextArea(true, StringUtils.join(game.getGameLog().getLogEntries(null), "\r\n").replace("[COMPUTER]", "[AI]")) {
-            @Override
-            public boolean tap(float x, float y, int count) {
-                if (txtLog.getMaxScrollTop() > 0) {
-                    FMagnifyView.show(txtLog, txtLog.getText(), txtLog.getTextColor(), ViewWinLose.this.getBackColor(), txtLog.getFont(), true);
-                }
-                return true;
-            }
-        });
-        txtLog.setFont(FSkinFont.get(12));
 
-        btnCopyLog = add(new FLabel.ButtonBuilder().text(Forge.getLocalizer().getMessage("btnCopyToClipboard")).selectable().command(new FEventHandler() {
-            @Override
-            public void handleEvent(FEvent e) {
-                Forge.getClipboard().setContents(txtLog.getText());
-            }
-        }).build());
+        btnQuit.setText(Forge.getLocalizer().getMessage("btnQuitMatch"));
+        btnQuit.setFont(btnContinue.getFont());
 
-        btnShowBattlefield = add(new FLabel.ButtonBuilder().text(Forge.getLocalizer().getMessage("lblShowBattlefield")).font(FSkinFont.get(12)).selectable().command(new FEventHandler() {
-            @Override
-            public void handleEvent(FEvent e) {
-                hide();
-            }
-        }).build());
-        lblTitle.setText(composeTitle(game0));
+
 
         // Control of the win/lose is handled differently for various game
         // modes.
@@ -127,7 +86,7 @@ public class ViewWinLose extends FOverlay implements IWinLoseView<FButton> {
             control = new ControlWinLose(this, game0);
         }
 
-        showGameOutcomeSummary();
+//        showGameOutcomeSummary();
         showPlayerScores();
         control.showRewards();
     }

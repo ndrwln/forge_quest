@@ -17,9 +17,15 @@
 package forge.screens.match;
 
 import forge.game.GameView;
+import forge.gamemodes.quest.QuestUtil_MatchData;
 import forge.gamemodes.quest.QuestWinLoseController;
-import forge.screens.home.quest.CSubmenuChallenges;
-import forge.screens.home.quest.CSubmenuDuels;
+import forge.gamemodes.quest.data.QuestPreferences;
+import forge.model.FModel;
+import forge.screens.home.quest.thos.Events.EventManager;
+import forge.screens.home.quest.thos.Events._Interface.IMatchHandler;
+import forge.util.Localizer;
+
+import static forge.gui.SOverlayUtils.hideOverlay;
 
 /**
  * <p>
@@ -31,7 +37,8 @@ import forge.screens.home.quest.CSubmenuDuels;
  *
  */
 public class QuestWinLose extends ControlWinLose {
-    private final QuestWinLoseController controller;
+    public static QuestWinLose INSTANCE;
+    public final QuestWinLoseController controller;
 
     /**
      * Instantiates a new quest win lose handler.
@@ -41,6 +48,7 @@ public class QuestWinLose extends ControlWinLose {
     public QuestWinLose(final ViewWinLose view0, final GameView game0, final CMatchUI matchUI) {
         super(view0, game0, matchUI);
         controller = new QuestWinLoseController(game0, view0);
+        INSTANCE = this;
     }
 
 
@@ -70,8 +78,14 @@ public class QuestWinLose extends ControlWinLose {
     @Override
     public final void actionOnQuit() {
         controller.actionOnQuit();
-        CSubmenuDuels.SINGLETON_INSTANCE.update();
-        CSubmenuChallenges.SINGLETON_INSTANCE.update();
-        super.actionOnQuit();
+//        super.actionOnQuit();
+        if (EventManager.CURRENT_EVENT instanceof IMatchHandler)
+        {
+            hideOverlay();
+            final int x = FModel.getQuestPreferences().getPrefInt(QuestPreferences.QPref.PENALTY_LOSS);
+            QuestUtil_MatchData.STR_CRYSTALS_LOSS = Localizer.getInstance().getMessage("lblYouHaveLostNCredits", String.valueOf(x));
+            ((IMatchHandler) EventManager.CURRENT_EVENT).handle_postmatch();
+        }
     }
+
 }

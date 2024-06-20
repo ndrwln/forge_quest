@@ -42,17 +42,9 @@ public enum VSubmenuQuestStart implements IVSubmenu<CSubmenuQuestStart> {
         main_panel.setLayout(new MigLayout("insets 0, gap 10px, fillx, wrap 2"));
     }
 
-    public static boolean is_playing_new_music = false;
-
     boolean is_initial = true;
 
     @Override public void populate() {
-//        if (is_playing_new_music)
-//        {
-//            SoundSystem.instance.setBackgroundMusic(MusicPlaylist.MENUS);
-//            is_playing_new_music = false;
-//        }
-
         Platform.setImplicitExit(false);
         VHomeUI.SINGLETON_INSTANCE.getPnlDisplay().removeAll();
         VHomeUI.SINGLETON_INSTANCE.getPnlDisplay().setLayout(new MigLayout("insets 0, gap 0, wrap"));

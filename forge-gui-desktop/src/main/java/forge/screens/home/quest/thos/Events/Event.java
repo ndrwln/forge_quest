@@ -1,6 +1,7 @@
 package forge.screens.home.quest.thos.Events;
 
 import forge.gui.SOverlayUtils;
+import forge.screens.match.QuestWinLose;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +14,7 @@ public class Event {
      * display the first screen
      */
     public void display(){
-        screens.get(0).show();
+        display(screens.get(0));
     }
 
     public void display(String id){
@@ -25,11 +26,35 @@ public class Event {
             to_display = screen;
             break;
         }
-        to_display.show();
+        display(to_display);
     }
+
+    private void display(Screen screen)
+    {
+        EventManager.CURRENT_EVENT = this;
+        screen.show();
+    }
+
+    public Screen getScreen(String id){
+        Screen to_display = null;
+        for (Screen screen : screens)
+        {
+            if (!screen.id().equals(id)) continue;
+            to_display = screen;
+            break;
+        }
+        return to_display;
+    }
+
+    //Helper
 
     public void close() {
         SOverlayUtils.hideOverlay();
+    }
+
+    public void close_match_screen()
+    {
+        QuestWinLose.INSTANCE.actionOnQuit_real();
     }
 
     public void onClose() {
@@ -41,6 +66,8 @@ public class Event {
      * Functional events like the enemy encounter event is always false to be out of the pool
      */
     public boolean isValid() {return false;}
+
+
 
 
 }

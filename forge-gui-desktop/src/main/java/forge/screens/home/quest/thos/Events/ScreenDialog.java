@@ -3,6 +3,7 @@ package forge.screens.home.quest.thos.Events;
 import forge.gui.SOverlayUtils;
 import forge.gui.UiCommand;
 import forge.localinstance.skin.FSkinProp;
+import forge.screens.match.ViewWinLose;
 import forge.toolbox.*;
 import forge.util.Localizer;
 import lombok.Getter;
@@ -12,6 +13,7 @@ import net.miginfocom.swing.MigLayout;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -29,7 +31,7 @@ import static forge.localinstance.properties.ForgeConstants.CACHE_ICON_PICS_DIR;
 	String image_key;
 	String text;
 	HashMap<String, UiCommand> options;
-
+	boolean show_extra;
 
 	@SuppressWarnings("serial")
 	public ScreenDialog() {}
@@ -39,7 +41,7 @@ import static forge.localinstance.properties.ForgeConstants.CACHE_ICON_PICS_DIR;
 		mainPanel.setOpaque(false);
 		mainPanel.setBackgroundTexture(FSkin.getIcon(FSkinProp.BG_TEXTURE));
 
-		final FPanel content = new FPanel(new MigLayout("w 40.85sp:40.85sp, h 50sp:50sp, insets 10 10 10 10, wrap 2"));
+		final FPanel content = new FPanel(new MigLayout("w 40.85sp:40.85sp, hmax 50sp, insets 10 10 10 10, wrap 2"));
 		content.setOpaque(false);
 		mainPanel.add(content);
 
@@ -53,6 +55,12 @@ import static forge.localinstance.properties.ForgeConstants.CACHE_ICON_PICS_DIR;
 		prompt.setFont(FSkin.getFont(16));
 		content.add(prompt, "w 100%, h 100%");
 
+		//extra
+		if (show_extra)
+		{
+			extra.setOpaque(false);
+			mainPanel.add(extra);
+		}
 
 		//options
 		for (Map.Entry<String, UiCommand> option : options.entrySet())
@@ -63,22 +71,62 @@ import static forge.localinstance.properties.ForgeConstants.CACHE_ICON_PICS_DIR;
 		}
 	}
 
-	public BufferedImage getImage() throws IOException {
-		return ImageIO.read(new File(CACHE_ICON_PICS_DIR + image_key));
-	}
-
 	public void show(final Runnable callback) {
 		this.callback = callback;
 		final JPanel overlay = FOverlay.SINGLETON_INSTANCE.getPanel();
 		overlay.setLayout(new MigLayout("insets 30, gap 15, wrap, ax center, ay center"));
 		overlay.add(mainPanel);
-		mainPanel.getRootPane().setDefaultButton(btnOk);
+//		mainPanel.getRootPane().setDefaultButton(btnOk);
 		SOverlayUtils.showOverlay();
 	}
 
+
+
+
+
+
+	//Helper
+	public void push_extra(String msg, final FSkinProp icon) {
+		final FSkin.SkinIcon icoTemp = FSkin.getIcon(icon).scale(0.5);
+
+		if (msg.contains("\n")) { /*ensure new line characters are encoded*/ msg = "<html>" + msg.replace("\n", "<br>") + "</html>";}
+		final FSkin.SkinnedLabel lblMessage = new FSkin.SkinnedLabel(msg);
+		lblMessage.setFont(FSkin.getRelativeFont(14));
+		lblMessage.setForeground(ViewWinLose.FORE_COLOR);
+		lblMessage.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMessage.setIconTextGap(50);
+		lblMessage.setIcon(icoTemp);
+
+		extra.add(lblMessage, ViewWinLose.CONSTRAINTS_TEXT);
+	}
+
+	public BufferedImage getImage() throws IOException {
+		return ImageIO.read(new File(CACHE_ICON_PICS_DIR + image_key));
+	}
+
+	public class TitleLabel extends FSkin.SkinnedLabel {
+		TitleLabel(final String msg) {
+			super(msg);
+			setFont(FSkin.getRelativeFont(16));
+			setPreferredSize(new Dimension(200, 40));
+			setHorizontalAlignment(CENTER);
+			setForeground(ViewWinLose.FORE_COLOR);
+			setBorder(new FSkin.MatteSkinBorder(1, 0, 1, 0, ViewWinLose.FORE_COLOR));
+		}
+	}
+
+
+
+
+
+
+	//UI declarations
+
 	final Localizer localizer = Localizer.getInstance();
+
 	private final FPanel mainPanel = new FPanel(new MigLayout("w 43sp:43sp, insets 20, gap 6, center, flowy"));
-	private final FButton btnOk = new FButton(localizer.getMessage("lblOK"));
+	final FPanel extra = new FPanel(new MigLayout("w 40.85sp:40.85sp, insets 10 10 10 10, wrap 2"));
+
 	private Runnable callback;
 
 }
