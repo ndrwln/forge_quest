@@ -1,6 +1,7 @@
 package forge.screens.home.quest.thos.Events;
 
 import forge.gui.UiCommand;
+import forge.item.PaperCard;
 import forge.localinstance.skin.FSkinProp;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,6 +9,7 @@ import lombok.experimental.Accessors;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 @Getter @Setter @Accessors(fluent = true, chain = true) public class Screen {
     String id;
@@ -42,13 +44,23 @@ import java.util.LinkedHashMap;
     public void push_extra(String msg, final FSkinProp icon)
     {
         dialog.push_extra(msg, icon);
-
     }
 
-    public Screen add_option(String s, UiCommand u)
+
+    public void push_cards(final List<PaperCard> cards)
+    {
+        dialog.push_cards(cards);
+    }
+
+    public Screen option_add(String s, UiCommand u)
     {
         options.put(s, u);
         return this;
+    }
+
+    public void option_clear()
+    {
+        options.clear();
     }
 
     public Screen insertInto(ArrayList<Screen> lst)

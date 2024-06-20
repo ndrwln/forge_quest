@@ -1,9 +1,7 @@
 package forge.gamemodes.quest;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 import forge.LobbyPlayer;
-import forge.card.CardEdition;
 import forge.game.GameEndReason;
 import forge.game.GameFormat;
 import forge.game.GameOutcome;
@@ -17,10 +15,7 @@ import forge.gui.interfaces.IButton;
 import forge.gui.interfaces.IWinLoseView;
 import forge.gui.util.SGuiChoose;
 import forge.item.*;
-import forge.item.IPaperCard.Predicates;
 import forge.item.generation.BoosterSlots;
-import forge.item.generation.IUnOpenedProduct;
-import forge.item.generation.UnOpenedProduct;
 import forge.localinstance.properties.ForgePreferences.FPref;
 import forge.localinstance.skin.FSkinProp;
 import forge.model.FModel;
@@ -32,7 +27,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map.Entry;
 
@@ -94,9 +88,8 @@ public class QuestWinLoseController {
                 {
                     penalizeLoss();
                 }
-                QuestUtil_MatchData.NUM_PROGRESS += wonMatch ? 1 : 100;
+                QuestUtil_MatchData.NUM_PROGRESS += 1;
                 QuestUtil_MatchData.MATCH_RESULT = wonMatch ? QuestUtil_MatchData.MatchResult.WIN : QuestUtil_MatchData.MatchResult.LOSS;
-
             }
         });
     }
@@ -151,7 +144,7 @@ public class QuestWinLoseController {
      * Generates and displays standard rewards for gameplay and skill level.
      *
      */
-    private void awardEventCredits() {
+    public void awardEventCredits() {
         // TODO use q.qdPrefs to write bonus credits in prefs file
         final StringBuilder sb = new StringBuilder();
 
@@ -442,104 +435,33 @@ public class QuestWinLoseController {
      * Generates and displays booster pack win case.
      *
      */
-    private void awardBooster() {
+    public void awardBooster() {
         List<PaperCard> cardsWon;
 
         String title;
-        if (qData.getFormat() == null) {
+        final List<GameFormat> formats = new ArrayList<>();
+        final String preferredFormat = FModel.getQuestPreferences().getPref(QPref.BOOSTER_FORMAT);
 
-            final List<GameFormat> formats = new ArrayList<>();
-            final String preferredFormat = FModel.getQuestPreferences().getPref(QPref.BOOSTER_FORMAT);
-
-            GameFormat pref = null;
-            for (final GameFormat f : FModel.getFormats().getSanctionedList()) {
-                formats.add(f);
-                if (f.toString().equals(preferredFormat)) {
-                    pref = f;
-                }
+        GameFormat pref = null;
+        for (final GameFormat f : FModel.getFormats().getSanctionedList()) {
+            formats.add(f);
+            if (f.toString().equals(preferredFormat)) {
+                pref = f;
             }
-
-            Collections.sort(formats);
-
-            final GameFormat selected = SGuiChoose.getChoices(Localizer.getInstance().getMessage("lblChooseBonusBoosterFormat"), 1, 1, formats, pref, null).get(0);
-            FModel.getQuestPreferences().setPref(QPref.BOOSTER_FORMAT, selected.toString());
-
-            cardsWon = qData.getCards().generateQuestBooster(selected.getFilterPrinted());
-            qData.getCards().addAllCards(cardsWon);
-
-            title = Localizer.getInstance().getMessage("lblBonusFormatBoosterPack", selected.getName());
-
-        } else {
-
-            final List<String> sets = new ArrayList<>();
-
-            for (final SealedProduct.Template bd : FModel.getMagicDb().getBoosters()) {
-                if (bd != null && qData.getFormat().isSetLegal(bd.getEdition())) {
-                    sets.add(bd.getEdition());
-                }
-            }
-
-            boolean customBooster = false;
-
-            //No boosters found for current quest settings
-            if (sets.isEmpty()) {
-                customBooster = true;
-                CardEdition.Collection editions = FModel.getMagicDb().getEditions();
-                for (CardEdition edition : editions) {
-                    if (qData.getFormat().isSetLegal(edition.getCode())) {
-                        sets.add(edition.getCode());
-                    }
-                }
-            }
-
-            int maxChoices = 1;
-            if (wonMatch) {
-                maxChoices++;
-                final int wins = qData.getAchievements().getWin();
-                if ((wins + 1) % 5 == 0) { maxChoices++; }
-                if ((wins + 1) % 20 == 0) { maxChoices++; }
-                if ((wins + 1) % 50 == 0) { maxChoices++; }
-                maxChoices += qData.getAssets().getItemLevel(QuestItemType.MEMBERSHIP_TOKEN);
-            }
-
-            final List<CardEdition> options = new ArrayList<>();
-
-            while (!sets.isEmpty() && maxChoices > 0) {
-                final int ix = MyRandom.getRandom().nextInt(sets.size());
-                final String set = sets.get(ix);
-                sets.remove(ix);
-                options.add(FModel.getMagicDb().getEditions().get(set));
-                maxChoices--;
-            }
-
-            final CardEdition chooseEd = SGuiChoose.one(Localizer.getInstance().getMessage("lblChooseBonusBoosterSet"), options);
-
-            if (customBooster) {
-                List<PaperCard> cards = FModel.getMagicDb().getCommonCards().getAllCards(Predicates.printedInSet(chooseEd.getCode()));
-                final IUnOpenedProduct product = new UnOpenedProduct(getBoosterTemplate(), cards);
-                cardsWon = product.get();
-            } else {
-                final IUnOpenedProduct product;
-                List<String> boosterTypes = Lists.newArrayList(chooseEd.getAvailableBoosterTypes());
-                String setAffix = "";
-                String type = SGuiChoose.one("Which booster type do you choose?", boosterTypes);
-                if (!type.equals("Draft")) {
-                    setAffix = type;
-                }
-                product = new UnOpenedProduct(FModel.getMagicDb().getBoosters().get(chooseEd.getCode() + setAffix));
-
-                cardsWon = product.get();
-            }
-
-            qData.getCards().addAllCards(cardsWon);
-            title = Localizer.getInstance().getMessage("lblBonusSetBoosterPack", chooseEd.getName());
-
         }
 
-        if (cardsWon != null) {
-            BoosterUtils.sort(cardsWon);
-            view.showCards(title, cardsWon);
-        }
+        FModel.getQuestPreferences().setPref(QPref.BOOSTER_FORMAT, pref.toString());
+        cardsWon = qData.getCards().generateQuestBooster(pref.getFilterPrinted());
+        qData.getCards().addAllCards(cardsWon);
+
+        QuestUtil_MatchData.CARDS = cardsWon;
+
+        title = Localizer.getInstance().getMessage("lblBonusFormatBoosterPack", pref.getName());
+
+//        if (cardsWon != null) {
+//            BoosterUtils.sort(cardsWon);
+//            view.showCards(title, cardsWon);
+//        }
     }
 
     private SealedProduct.Template getBoosterTemplate() {

@@ -19,11 +19,8 @@ package forge.screens.match;
 import forge.game.GameView;
 import forge.gamemodes.quest.QuestUtil_MatchData;
 import forge.gamemodes.quest.QuestWinLoseController;
-import forge.gamemodes.quest.data.QuestPreferences;
-import forge.model.FModel;
 import forge.screens.home.quest.thos.Events.EventManager;
 import forge.screens.home.quest.thos.Events._Interface.IMatchHandler;
-import forge.util.Localizer;
 
 import static forge.gui.SOverlayUtils.hideOverlay;
 
@@ -82,9 +79,23 @@ public class QuestWinLose extends ControlWinLose {
         if (EventManager.CURRENT_EVENT instanceof IMatchHandler)
         {
             hideOverlay();
-            final int x = FModel.getQuestPreferences().getPrefInt(QuestPreferences.QPref.PENALTY_LOSS);
-            QuestUtil_MatchData.STR_CRYSTALS_LOSS = Localizer.getInstance().getMessage("lblYouHaveLostNCredits", String.valueOf(x));
+
+            //TODO: revert normal logic
+            //Normal Logic
+//            final int x = FModel.getQuestPreferences().getPrefInt(QuestPreferences.QPref.PENALTY_LOSS);
+//            QuestUtil_MatchData.STR_CRYSTALS_LOSS = Localizer.getInstance().getMessage("lblYouHaveLostNCredits", String.valueOf(x));
+//            ((IMatchHandler) EventManager.CURRENT_EVENT).handle_postmatch();
+
+            //Invert Logic to test victory
+            QuestUtil_MatchData.MATCH_RESULT = QuestUtil_MatchData.MatchResult.WIN;
+            QuestUtil_MatchData.NUM_PROGRESS += 1;
+            controller.awardEventCredits();
+            controller.awardBooster();
             ((IMatchHandler) EventManager.CURRENT_EVENT).handle_postmatch();
+
+
+
+
         }
     }
 

@@ -39,10 +39,10 @@ public class EventExplore extends Event implements IMatchHandler {
                 ;
 
 
-        if (crystals >= 10) start.add_option("Enter the Neophyte Zone (X Crystals)", this::fight);
-        if (crystals >= 20) start.add_option("Enter the Adept Zone (X Crystals)", this::fight);
-        if (crystals >= 50) start.add_option("Enter the Quasi-Wizard Zone (X Crystals)", this::fight);
-        start.add_option("Leave", this::close);
+        if (crystals >= 10) start.option_add("Enter the Neophyte Zone (X Crystals)", this::fight);
+        if (crystals >= 20) start.option_add("Enter the Adept Zone (X Crystals)", this::fight);
+        if (crystals >= 50) start.option_add("Enter the Quasi-Wizard Zone (X Crystals)", this::fight);
+        start.option_add("Leave", this::close);
         screens.add(start);
 
         ////////////////////
@@ -54,28 +54,28 @@ public class EventExplore extends Event implements IMatchHandler {
                 .text("")
                 .preinit(() -> {
                     Screen s = EventManager.CURRENT_EVENT.getScreen("Continue?");
+                    s.option_clear();
                     boolean is_winner = QuestUtil_MatchData.MATCH_RESULT == QuestUtil_MatchData.MatchResult.WIN;
 
                     if (is_winner)
                     {
                         if (QuestUtil_MatchData.NUM_PROGRESS <= 2)
                         {
-                            s.text("A battle well fought. Do you continue exploring?");
-                            s.add_option("Continue", this::fight);
+                            s.text("Well fought. Do you wish to continue exploring?"+ "\n\nYou have " + (3 - QuestUtil_MatchData.NUM_PROGRESS) + "/3 times left to explore the secret realm");
+                            s.option_add("Continue", this::fight);
                         }
-                        else s.text("Your time in the secret plane is up. The protection array teleports you back. Hopefully the harvest was good...");
+                        else s.text("Time is up, you feel a jerking sensation as the protection array teleports you back to the academy. \n\nA good harvest hopefully?...");
                     }
                     else
                     {
-                        s.text("The school's protection array saves your life by teleporting you back outside the secret plane, but you are still injured. " +
-                                "Passing out, the apprentices on duty cart you off to the infirmary");
-
+                        s.text("You were severely injured. Sensing the danger to your life, you were teleported back in time. As you pass out, you feel the apprentices pick you up.");
                     }
 
-                    s.add_option(is_winner ? "Leave" : "...", () ->
+                    s.option_add(is_winner ? "Leave" : "...", () ->
                     {
                         this.close();
                         this.close_match_screen();
+                        QuestUtil_MatchData.flush();
                     });
 
                     s.show_extra(true);
@@ -84,6 +84,7 @@ public class EventExplore extends Event implements IMatchHandler {
                     Screen s = EventManager.CURRENT_EVENT.getScreen("Continue?");
                     if (QuestUtil_MatchData.STR_CRYSTALS != null) s.push_extra(QuestUtil_MatchData.STR_CRYSTALS, FSkinProp.ICO_QUEST_GOLD);
                     if (QuestUtil_MatchData.STR_CRYSTALS_LOSS != null) s.push_extra(QuestUtil_MatchData.STR_CRYSTALS_LOSS, FSkinProp.ICO_QUEST_GOLD);
+                    if (QuestUtil_MatchData.CARDS != null) s.push_cards(QuestUtil_MatchData.CARDS);
 
                 })
         );

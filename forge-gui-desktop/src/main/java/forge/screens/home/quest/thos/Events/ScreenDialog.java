@@ -2,7 +2,9 @@ package forge.screens.home.quest.thos.Events;
 
 import forge.gui.SOverlayUtils;
 import forge.gui.UiCommand;
+import forge.item.PaperCard;
 import forge.localinstance.skin.FSkinProp;
+import forge.screens.match.QuestWinLoseCardViewer;
 import forge.screens.match.ViewWinLose;
 import forge.toolbox.*;
 import forge.util.Localizer;
@@ -13,11 +15,11 @@ import net.miginfocom.swing.MigLayout;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static forge.localinstance.properties.ForgeConstants.CACHE_ICON_PICS_DIR;
@@ -53,7 +55,7 @@ import static forge.localinstance.properties.ForgeConstants.CACHE_ICON_PICS_DIR;
 		//text
 		FTextPane prompt = new FTextPane(text);
 		prompt.setFont(FSkin.getFont(16));
-		content.add(prompt, "w 100%, h 100%");
+		content.add(prompt, "ay top");
 
 		//extra
 		if (show_extra)
@@ -97,22 +99,17 @@ import static forge.localinstance.properties.ForgeConstants.CACHE_ICON_PICS_DIR;
 		lblMessage.setIconTextGap(50);
 		lblMessage.setIcon(icoTemp);
 
-		extra.add(lblMessage, ViewWinLose.CONSTRAINTS_TEXT);
+		extra.add(lblMessage, "w 95%!,");
+	}
+
+	public void push_cards(final List<PaperCard> cards) {
+		final QuestWinLoseCardViewer cv = new QuestWinLoseCardViewer(cards);
+
+		extra.add(cv, "w 95%!, h 330px!, gap 0 0 0 20px");
 	}
 
 	public BufferedImage getImage() throws IOException {
 		return ImageIO.read(new File(CACHE_ICON_PICS_DIR + image_key));
-	}
-
-	public class TitleLabel extends FSkin.SkinnedLabel {
-		TitleLabel(final String msg) {
-			super(msg);
-			setFont(FSkin.getRelativeFont(16));
-			setPreferredSize(new Dimension(200, 40));
-			setHorizontalAlignment(CENTER);
-			setForeground(ViewWinLose.FORE_COLOR);
-			setBorder(new FSkin.MatteSkinBorder(1, 0, 1, 0, ViewWinLose.FORE_COLOR));
-		}
 	}
 
 
@@ -125,7 +122,7 @@ import static forge.localinstance.properties.ForgeConstants.CACHE_ICON_PICS_DIR;
 	final Localizer localizer = Localizer.getInstance();
 
 	private final FPanel mainPanel = new FPanel(new MigLayout("w 43sp:43sp, insets 20, gap 6, center, flowy"));
-	final FPanel extra = new FPanel(new MigLayout("w 40.85sp:40.85sp, insets 10 10 10 10, wrap 2"));
+	final FPanel extra = new FPanel(new MigLayout("w 40.85sp:40.85sp, insets 10 10 10 10, flowy"));
 
 	private Runnable callback;
 
