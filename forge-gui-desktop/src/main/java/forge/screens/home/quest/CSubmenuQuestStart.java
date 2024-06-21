@@ -6,7 +6,6 @@ import forge.gamemodes.quest.QuestMode;
 import forge.gamemodes.quest.QuestUtil;
 import forge.gamemodes.quest.StartingPoolPreferences;
 import forge.gamemodes.quest.data.DeckConstructionRules;
-import forge.gamemodes.quest._thos.PreferencesResearch;
 import forge.gamemodes.quest.data.QuestData;
 import forge.gamemodes.quest.data.QuestPreferences;
 import forge.gui.framework.ICDoc;
@@ -15,15 +14,11 @@ import forge.screens.home.quest.thos.Locations;
 import forge.toolbox.FOptionPane;
 import forge.util.Localizer;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static forge.localinstance.properties.ForgeConstants.PATH_SEPARATOR;
-import static forge.localinstance.properties.ForgeConstants.USER_PREFS_DIR;
-import static forge.model.FModel.setResearchPreferences;
 import static forge.screens.home.quest.thos.Locations.REST_AREA;
 
 /**
@@ -75,12 +70,6 @@ public enum CSubmenuQuestStart implements ICDoc {
         FModel.getQuest().save();
         FModel.getQuestPreferences().setPref(QuestPreferences.QPref.CURRENT_QUEST, questName + ".dat");
         FModel.getQuestPreferences().save();
-
-        String PATH = USER_PREFS_DIR  + questName + PATH_SEPARATOR + "research.preferences";
-        new File(USER_PREFS_DIR  + questName).mkdirs();
-        setResearchPreferences(new PreferencesResearch(PATH));
-        FModel.getResearchPreferences().reset();
-        FModel.getResearchPreferences().save();
         Locations.travelTo(REST_AREA);
     }
 

@@ -5,7 +5,7 @@ import forge.deck.CardPool;
 import forge.deck.Deck;
 import forge.deck.DeckFormat;
 import forge.deck.DeckSection;
-import forge.gamemodes.quest._thos.PreferencesResearch;
+import forge.gamemodes.quest._thos.Research;
 import forge.gamemodes.quest.data.QuestPreferences.QPref;
 import forge.gamemodes.quest.io.ReadPriceList;
 import forge.gui.GuiBase;
@@ -18,10 +18,7 @@ import forge.model.FModel;
 import forge.util.ItemPool;
 import org.apache.commons.lang3.tuple.Pair;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 
 public class QuestSpellShop {
@@ -264,24 +261,8 @@ public class QuestSpellShop {
             }
             else if (item instanceof PreconDeck) {
                 final PreconDeck deck = (PreconDeck) item;
-                for (int i = 0; i < qty; i++) {
-                    PreferencesResearch.Knowledge lesson_ = null;
-                    for (PreferencesResearch.Knowledge lesson : FModel.getResearchPreferences().getEnumValues())
-                    {
-                        if (!lesson.getDeckName().equals(deck.getDeck().getName())) continue;
-                        lesson_ = lesson;
-                        break;
-                    }
-
-                    if (lesson_ == null) break;
-                    FModel.getResearchPreferences().setPref(lesson_, "true");
-                    FModel.getResearchPreferences().save();
-
-                    FModel.getQuest().getCards().buyPreconDeck(deck, value, lesson_);
-                    itemsToAdd.addAllOfType(deck.getDeck().getMain());
-                }
-                GuiBase.getInterface().showCardList(deck.getName(), "You have acquired the following lore:", deck.getDeck().getMain().to_unique_list());
-
+                FModel.getQuest().getCards().buyPreconDeck(deck, value, Research.Knowledge.deck_to_enum.get(deck.getDeck().getName()));
+                itemsToAdd.addAllOfType(deck.getDeck().getMain());
             }
         }
 

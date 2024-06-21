@@ -25,7 +25,6 @@ import forge.deck.DeckGroup;
 import forge.game.GameFormat;
 import forge.game.event.GameEvent;
 import forge.game.event.GameEventMulligan;
-import forge.gamemodes.quest._thos.PreferencesResearch;
 import forge.gamemodes.quest.bazaar.QuestBazaarManager;
 import forge.gamemodes.quest.bazaar.QuestItemType;
 import forge.gamemodes.quest.bazaar.QuestPetStorage;
@@ -44,7 +43,6 @@ import java.util.*;
 
 import static forge.localinstance.properties.ForgeConstants.PATH_SEPARATOR;
 import static forge.localinstance.properties.ForgeConstants.USER_PREFS_DIR;
-import static forge.model.FModel.setResearchPreferences;
 
 /**
  * TODO: Write javadoc for this type.
@@ -251,7 +249,6 @@ public class QuestController {
         {
             String PATH = USER_PREFS_DIR  + selectedQuest.getName() + PATH_SEPARATOR + "research.preferences";
             new File(USER_PREFS_DIR  + selectedQuest.getName()).mkdirs();
-            setResearchPreferences(new PreferencesResearch(PATH));
 
             this.resetDuelsManager();
             this.resetChallengesManager();

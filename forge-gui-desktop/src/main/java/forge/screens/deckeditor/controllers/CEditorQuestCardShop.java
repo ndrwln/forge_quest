@@ -23,6 +23,7 @@ import forge.game.GameType;
 import forge.gamemodes.quest.QuestController;
 import forge.gamemodes.quest.QuestSpellShop;
 import forge.gamemodes.quest.QuestUtil;
+import forge.gamemodes.quest._thos.Research;
 import forge.gui.UiCommand;
 import forge.gui.framework.DragCell;
 import forge.gui.framework.FScreen;
@@ -116,8 +117,9 @@ public final class CEditorQuestCardShop extends ACEditorBase<InventoryItem, Deck
 
         this.setCatalogManager(catalogManager);
         this.setDeckManager(deckManager);
-        this.cardsForSale = this.questData.getCards().getShopList(Locations.CURRENT_LOCATION.lessons());
-//        for (Map.Entry<InventoryItem, Integer>  item : cardsForSale.items.entrySet()) item.setValue(1);
+        this.cardsForSale = this.questData.getCards().getShopList(
+                Research.shops.get(Locations.CURRENT_LOCATION.lesson_key())
+        );
 
         catalogManager.shop_hidestuff();
     }
@@ -255,10 +257,11 @@ public final class CEditorQuestCardShop extends ACEditorBase<InventoryItem, Deck
         prevRem4Cmd = this.getBtnRemove4().getCommand();
 
         VCurrentDeck.SINGLETON_INSTANCE.getPnlHeader().setVisible(false);
-
         QuestSpellShop.updateDecksForEachCard();
-        double multiplier = QuestSpellShop.updateMultiplier();
-        this.cardsForSale = this.questData.getCards().getShopList(Locations.CURRENT_LOCATION.lessons());
+
+        this.cardsForSale = this.questData.getCards().getShopList(
+                Research.shops.get(Locations.CURRENT_LOCATION.lesson_key())
+        );
         for (Map.Entry<InventoryItem, Integer>  item : cardsForSale.items.entrySet()) item.setValue(1);
 
         final ItemPool<InventoryItem> ownedItems = new ItemPool<>(InventoryItem.class);

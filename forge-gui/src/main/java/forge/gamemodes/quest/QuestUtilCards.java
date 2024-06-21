@@ -30,13 +30,14 @@ import forge.card.MagicColor;
 import forge.deck.Deck;
 import forge.deck.DeckSection;
 import forge.game.GameFormat;
+import forge.gamemodes.quest._thos.Research;
 import forge.gamemodes.quest.bazaar.QuestItemType;
 import forge.gamemodes.quest.data.GameFormatQuest;
-import forge.gamemodes.quest._thos.PreferencesResearch;
 import forge.gamemodes.quest.data.QuestAssets;
 import forge.gamemodes.quest.data.QuestPreferences;
 import forge.gamemodes.quest.data.QuestPreferences.DifficultyPrefs;
 import forge.gamemodes.quest.data.QuestPreferences.QPref;
+import forge.gui.GuiBase;
 import forge.item.*;
 import forge.item.SealedProduct.Template;
 import forge.item.generation.BoosterSlots;
@@ -48,10 +49,7 @@ import forge.util.ItemPool;
 import forge.util.MyRandom;
 import org.apache.commons.lang3.tuple.Pair;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.Map.Entry;
 
 /**
@@ -418,17 +416,20 @@ public final class QuestUtilCards {
         }
     }
 
-    public void buyPreconDeck(final PreconDeck precon, final int value, PreferencesResearch.Knowledge lesson) {
+    public void buyPreconDeck(final PreconDeck precon, final int value, Research.Knowledge lesson) {
         if (questAssets.getCredits() >= value) {
             questAssets.subtractCredits(value);
+            lesson.learn();
 
             Deck deck = precon.getDeck();
             addAllCards(deck.getAllCardsInASinglePool().toFlatList());
 
             if (!lesson.add_decklist()) return;
-            if (lesson.getAlternateDeckName() != null) deck = QuestController.getPrecons().get(lesson.getAlternateDeckName()).getDeck();
+            if (lesson.alternate_deck_name() != null) deck = QuestController.getPrecons().get(lesson.alternate_deck_name()).getDeck();
             questController.getMyDecks().add(deck);
             try {deck.get(DeckSection.Sideboard).clear();}catch(Exception e){}
+
+            GuiBase.getInterface().showCardList(deck.getName(), "You have acquired the following lore:", precon.getDeck().getMain().to_unique_list());
         }
     }
 
@@ -831,26 +832,13 @@ public final class QuestUtilCards {
 //        generatePreconsInShop(0);
     }
 
-    public boolean pref_decode(String lesson)
-    {
-        return lesson.equals("true");
-    }
-
-    private void generateCardsInShop(ArrayList<PreferencesResearch.Knowledge> lessons)
+    private void generateCardsInShop(ArrayList<Research.Knowledge> lessons)
     {
         questAssets.getShopList().clear();
-
-        for(PreferencesResearch.Knowledge lesson : lessons)
+        for(Research.Knowledge lesson : lessons)
         {
-            if (pref_decode(FModel.getResearchPreferences().getPref(lesson))) continue; //learned
-
-            boolean reqs_learned = true;
-            if (lesson.getRequirements() != null)
-                for (PreferencesResearch.Knowledge req : lesson.getRequirements())
-                    if (!pref_decode(FModel.getResearchPreferences().getPref(req))) { reqs_learned = false; break; }
-            if (!reqs_learned) continue; //dont have reqs
-
-            questAssets.getShopList().add(QuestController.getPrecons().get(lesson.getDeckName()));
+            if (!lesson.has_prerequisites()) continue;
+            questAssets.getShopList().add(QuestController.getPrecons().get(lesson.deckName()));
         }
     }
 
@@ -874,7 +862,7 @@ public final class QuestUtilCards {
     }
 
 
-    public ItemPool<InventoryItem> getShopList(ArrayList<PreferencesResearch.Knowledge> lessons) {
+    public ItemPool<InventoryItem> getShopList(ArrayList<Research.Knowledge> lessons) {
         generateCardsInShop(lessons);
         return questAssets.getShopList();
     }

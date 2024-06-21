@@ -44,7 +44,6 @@ import forge.gamemodes.planarconquest.ConquestPreferences;
 import forge.gamemodes.planarconquest.ConquestUtil;
 import forge.gamemodes.quest.QuestController;
 import forge.gamemodes.quest.QuestWorld;
-import forge.gamemodes.quest._thos.PreferencesResearch;
 import forge.gamemodes.quest.data.QuestPreferences;
 import forge.gamemodes.tournament.TournamentData;
 import forge.gui.FThreads;
@@ -63,7 +62,9 @@ import forge.util.storage.IStorage;
 import forge.util.storage.StorageBase;
 
 import java.io.File;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * The default Model implementation for Forge.
@@ -76,8 +77,6 @@ import java.util.*;
  */
 public final class FModel {
     private FModel() { } //don't allow creating instance
-
-    private static PreferencesResearch researchPreferences;
 
     private static StaticData magicDb;
     private static QuestPreferences questPreferences;
@@ -496,14 +495,6 @@ public final class FModel {
 
     public static QuestPreferences getQuestPreferences() {
         return questPreferences;
-    }
-
-    public static PreferencesResearch getResearchPreferences() {
-        return researchPreferences;
-    }
-
-    public static void setResearchPreferences(PreferencesResearch research) {
-        researchPreferences = research;
     }
 
     public static ConquestPreferences getConquestPreferences() {

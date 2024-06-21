@@ -3,7 +3,6 @@ package forge.gamemodes.quest._thos;
 import forge._thos.Economy;
 import forge.gamemodes.quest.QuestController;
 import forge.gamemodes.quest.QuestUtil_MatchData;
-import forge.gamemodes.quest.data.QuestAssets;
 import forge.item.PaperCard;
 import forge.model.FModel;
 import lombok.Getter;
@@ -20,20 +19,15 @@ public class Boosters {
 
     public Boosters()
     {
-        if (INSTANCE != null) return;
-
-        INSTANCE = this;
+        if (INSTANCE != null) return; INSTANCE = this;
 
         //Init booster packs
+        HashSet<String> unlocked_cards = FModel.getQuest().getAssets().getCards_unlocked();
         for (Type t : Type.values())
         {
             if (!t.is_dropping_rewards) continue;
 
             List<PaperCard> cards = QuestController.getPrecons().get(t.id()).getDeck().getMain().to_unique_list();
-
-            QuestController q = FModel.getQuest();
-            QuestAssets a = q.getAssets();
-            HashSet<String> unlocked_cards = FModel.getQuest().getAssets().getCards_unlocked();
 
             for (int i = cards.size() - 1; i >= 0; i--)
             {
@@ -180,16 +174,16 @@ public class Boosters {
 
     @Getter @Accessors(fluent = true, chain = false) public enum Type {
 
-        BLACK("_[BLACK]", null, PreferencesResearch.Knowledge.DARKNESS),
+        BLACK("_[BLACK]", null, Research.Knowledge.DARKNESS),
         WHITE("_[WHITE]", null, null),
         RED("_[RED]", null, null),
         BLUE("_[BLUE]", null, null),
-        GREEN("_[GREEN]", null, PreferencesResearch.Knowledge.FOREST),
+        GREEN("_[GREEN]", null, Research.Knowledge.FOREST),
 //        PRISMATIC("_[GREEN]", null),
 //        ARTIFACT("_[GREEN]", null),
 //        ELDRAZI("_[GREEN]", null),
 
-        VAMPIRE("[VAMPIRE]", BLACK, PreferencesResearch.Knowledge.VAMPIRES),
+        VAMPIRE("[VAMPIRE]", BLACK, Research.Knowledge.VAMPIRES),
         NONE("[NONE]", null, false, null),
 
 
@@ -201,34 +195,34 @@ public class Boosters {
         private final String id;
         private final Type alternate;
         private final boolean is_dropping_rewards;
-        private final PreferencesResearch.Knowledge requirement;
+        private final Research.Knowledge requirement;
 
 
-        Type(final String id, final Type alternate, PreferencesResearch.Knowledge requirement) {
+        Type(final String id, final Type alternate, Research.Knowledge requirement) {
             this.id = id;
             this.alternate = alternate;
             this.is_dropping_rewards = true;
             this.requirement = requirement;
         }
 
-        Type(final String id, final Type alternate, final boolean is_dropping_rewards, PreferencesResearch.Knowledge requirement) {
+        Type(final String id, final Type alternate, final boolean is_dropping_rewards, Research.Knowledge requirement) {
             this.id = id;
             this.alternate = alternate;
             this.is_dropping_rewards = is_dropping_rewards;
             this.requirement = requirement;
         }
 
-        public boolean has_requirement()
-        {
-            return FModel.getResearchPreferences().getPref(this.requirement).equals("true");
-        }
-
-
 
         public static final Map<String, Type> ids = new HashMap<>();
         static {
             for (Type t : Type.values()) ids.put(t.id, t);
         }
+
+        public boolean has_requirement()
+        {
+            return FModel.getQuest().getAssets().getKnowledge_unlocked().contains(this.requirement.deckName());
+        }
+
 
     }
 

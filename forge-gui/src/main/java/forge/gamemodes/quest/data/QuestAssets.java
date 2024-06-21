@@ -40,9 +40,8 @@ public class QuestAssets {
     /** The card pool. */
     private final ItemPool<PaperCard> cardPool = new ItemPool<>(PaperCard.class); // player's
     private final HashSet<String> cards_unlocked = new HashSet<>();
+    private final HashSet<String> knowledge_unlocked = new HashSet<>();
     private final Map<String, QuestItemCondition> combatPets = new HashMap<>();
-
-
 
     /** The credits. */
     private long credits; // this money is good for all modes
@@ -233,4 +232,7 @@ public class QuestAssets {
         return new QuestDeckGroupMap(this.draftDecks);
     }
 
+    public HashSet<String> getKnowledge_unlocked() {
+        return knowledge_unlocked;
+    }
 }

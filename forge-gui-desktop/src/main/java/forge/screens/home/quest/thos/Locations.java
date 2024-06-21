@@ -1,9 +1,12 @@
 package forge.screens.home.quest.thos;
 
-import forge.gamemodes.quest.*;
+import forge.gamemodes.quest.DuelBucket;
+import forge.gamemodes.quest.QuestMode;
+import forge.gamemodes.quest.QuestUtil;
+import forge.gamemodes.quest.QuestUtilCards;
 import forge.gamemodes.quest._thos.Boosters;
+import forge.gamemodes.quest._thos.Research;
 import forge.model.FModel;
-import forge.screens.home.quest.VSubmenuQuestStart;
 import forge.sound.MusicPlaylist;
 import forge.sound.SoundSystem;
 import javafx.animation.FadeTransition;
@@ -60,6 +63,7 @@ public class Locations {
             .I(DuelBucket.ABYSSAL_BONE_FOREST_I)
             .II(DuelBucket.ABYSSAL_BONE_FOREST_II)
             .III(DuelBucket.ABYSSAL_BONE_FOREST_III)
+            .lesson_key("ABYSSAL_BONE_FOREST")
 
             ;
 
@@ -139,14 +143,14 @@ public class Locations {
     }
 
     public static boolean is_doing_init = true;
-
     public static void travelTo(Location location)
     {
         if (CURRENT_LOCATION == MAIN_MENU) SoundSystem.instance.setBackgroundMusic(MusicPlaylist.MENUS);
 
         if (is_doing_init)
         {
-            VSubmenuQuestStart.boosters = new Boosters();
+           new Boosters();
+           new Research();
         }
 
         Platform.setImplicitExit(false);
