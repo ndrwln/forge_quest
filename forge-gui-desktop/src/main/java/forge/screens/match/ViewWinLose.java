@@ -3,12 +3,13 @@ package forge.screens.match;
 import forge.game.GameLogEntry;
 import forge.game.GameLogEntryType;
 import forge.game.GameView;
+import forge.gamemodes.quest.QuestUtil_MatchData;
 import forge.gamemodes.quest.QuestWinLoseController;
+import forge.gamemodes.quest._thos.Boosters;
 import forge.gui.SOverlayUtils;
 import forge.gui.UiCommand;
 import forge.gui.interfaces.IWinLoseView;
 import forge.item.PaperCard;
-import forge.localinstance.properties.ForgePreferences.FPref;
 import forge.localinstance.skin.FSkinProp;
 import forge.model.FModel;
 import forge.screens.home.quest.thos.Events.EventManager;
@@ -27,6 +28,30 @@ import java.util.List;
 import static forge.gui.SOverlayUtils.hideOverlay;
 
 public class ViewWinLose implements IWinLoseView<FButton> {
+
+    public void hook_postmatch_info()
+    {
+        if (EventManager.CURRENT_EVENT instanceof IMatchHandler)
+        {
+            QuestUtil_MatchData.NUM_PROGRESS += 1;
+            if (QuestUtil_MatchData.MATCH_RESULT == QuestUtil_MatchData.MatchResult.WIN)
+                Boosters.INSTANCE.reward(QuestUtil_MatchData.ENEMY_TITLE);
+            else
+                Boosters.INSTANCE.punish(QuestUtil_MatchData.ENEMY_TITLE);
+        }
+    }
+
+    public void hook_postmatch_activate()
+    {
+        if (EventManager.CURRENT_EVENT instanceof IMatchHandler)
+        {
+            hideOverlay();
+            ((IMatchHandler) EventManager.CURRENT_EVENT).handle_postmatch();
+        }
+    }
+
+
+
     private final ControlWinLose control;
 
     private final FScrollPane scrLog;
@@ -183,12 +208,7 @@ public class ViewWinLose implements IWinLoseView<FButton> {
 
         if (is_match_over)
         {
-            if (EventManager.CURRENT_EVENT instanceof IMatchHandler)
-            {
-                hideOverlay();
-                ((IMatchHandler) EventManager.CURRENT_EVENT).handle_postmatch();
-            }
-
+            hook_postmatch_activate();
         }
     }
 
@@ -287,13 +307,8 @@ public class ViewWinLose implements IWinLoseView<FButton> {
 
     @Override
     public void showCards(final String title, final List<PaperCard> cards) {
-        final QuestWinLoseCardViewer cv = new QuestWinLoseCardViewer(cards);
-        getPnlCustom().add(new TitleLabel(title), CONSTRAINTS_TITLE);
-        if (FModel.getPreferences().getPrefBoolean(FPref.UI_LARGE_CARD_VIEWERS)) {
-            getPnlCustom().add(cv, CONSTRAINTS_CARDS_LARGE);
-        } else {
-            getPnlCustom().add(cv, CONSTRAINTS_CARDS);
-        }
+        //HACKED PART OF INTERFACE FOR EVENT MATCH LOGIC
+        hook_postmatch_info();
     }
 
     @Override

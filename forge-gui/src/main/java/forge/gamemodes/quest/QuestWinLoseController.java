@@ -6,7 +6,6 @@ import forge.game.GameEndReason;
 import forge.game.GameOutcome;
 import forge.game.GameView;
 import forge.game.player.*;
-import forge.gamemodes.quest._thos.Boosters;
 import forge.gamemodes.quest.bazaar.QuestItemType;
 import forge.gamemodes.quest.data.QuestPreferences;
 import forge.gamemodes.quest.data.QuestPreferences.QPref;
@@ -77,15 +76,11 @@ public class QuestWinLoseController {
         view.showRewards(new Runnable() {
             @Override
             public void run() {
-                if (matchIsNotOver) { return; } //skip remaining logic if match isn't over yet
+                if (matchIsNotOver) { return; }
 
-                QuestUtil_MatchData.NUM_PROGRESS += 1;
+                //Hacked the showcard function in the interface for desktop to act as a notifier/bridge to bypass cyclic dependencies
                 QuestUtil_MatchData.MATCH_RESULT = wonMatch ? QuestUtil_MatchData.MatchResult.WIN : QuestUtil_MatchData.MatchResult.LOSS;
-
-                if (wonMatch)
-                    Boosters.INSTANCE.reward(QuestUtil_MatchData.ENEMY_TITLE);
-                else
-                    Boosters.INSTANCE.punish(QuestUtil_MatchData.ENEMY_TITLE);
+                view.showCards(null, null);
 
             }
         });

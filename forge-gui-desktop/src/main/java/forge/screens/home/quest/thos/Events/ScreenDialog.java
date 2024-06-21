@@ -89,23 +89,28 @@ import static forge.localinstance.properties.ForgeConstants.CACHE_ICON_PICS_DIR;
 
 	//Helper
 	public void push_extra(String msg, final FSkinProp icon) {
-		final FSkin.SkinIcon icoTemp = FSkin.getIcon(icon).scale(0.5);
-
 		if (msg.contains("\n")) { /*ensure new line characters are encoded*/ msg = "<html>" + msg.replace("\n", "<br>") + "</html>";}
 		final FSkin.SkinnedLabel lblMessage = new FSkin.SkinnedLabel(msg);
 		lblMessage.setFont(FSkin.getRelativeFont(14));
 		lblMessage.setForeground(ViewWinLose.FORE_COLOR);
 		lblMessage.setHorizontalAlignment(SwingConstants.CENTER);
-		lblMessage.setIconTextGap(50);
-		lblMessage.setIcon(icoTemp);
 
-		extra.add(lblMessage, "w 95%!,");
+		if (icon != null)
+		{
+			lblMessage.setIconTextGap(50);
+			final FSkin.SkinIcon icoTemp = FSkin.getIcon(icon).scale(0.5);
+			lblMessage.setIcon(icoTemp);
+			extra.add(lblMessage, "w 95%!,");
+		}
+		else
+		{
+			extra.add(lblMessage, "w 95%!,gapy 20");
+		}
 	}
 
 	public void push_cards(final List<PaperCard> cards) {
 		final QuestWinLoseCardViewer cv = new QuestWinLoseCardViewer(cards);
-
-		extra.add(cv, "w 95%!, h 330px!, gap 0 0 0 20px");
+		extra.add(cv, "w 95%!, h 330px!, gapy 10");
 	}
 
 	public BufferedImage getImage() throws IOException {
@@ -122,7 +127,7 @@ import static forge.localinstance.properties.ForgeConstants.CACHE_ICON_PICS_DIR;
 	final Localizer localizer = Localizer.getInstance();
 
 	private final FPanel mainPanel = new FPanel(new MigLayout("w 43sp:43sp, insets 20, gap 6, center, flowy"));
-	final FPanel extra = new FPanel(new MigLayout("w 40.85sp:40.85sp, insets 10 10 10 10, flowy"));
+	final FPanel extra = new FPanel(new MigLayout("w 40.85sp:40.85sp, insets 10 10 10 10, flowy, gap 10"));
 
 	private Runnable callback;
 

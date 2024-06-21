@@ -35,6 +35,29 @@ import static forge.gui.SOverlayUtils.hideOverlay;
  *
  */
 public class QuestWinLose extends ControlWinLose {
+
+    public void hook_postmatch_concede()
+    {
+        if (EventManager.CURRENT_EVENT instanceof IMatchHandler)
+        {
+            hideOverlay();
+
+            Boosters.INSTANCE.punish(QuestUtil_MatchData.ENEMY_TITLE);
+            ((IMatchHandler) EventManager.CURRENT_EVENT).handle_postmatch();
+
+             /**
+             * Invert Logic to test victory
+             */
+//            QuestUtil_MatchData.MATCH_RESULT = QuestUtil_MatchData.MatchResult.WIN;
+//            QuestUtil_MatchData.NUM_PROGRESS += 1;
+//            Boosters.INSTANCE.reward(QuestUtil_MatchData.ENEMY_TITLE);
+//            ((IMatchHandler) EventManager.CURRENT_EVENT).handle_postmatch();
+
+        }
+    }
+
+
+
     public static QuestWinLose INSTANCE;
     public final QuestWinLoseController controller;
 
@@ -76,25 +99,7 @@ public class QuestWinLose extends ControlWinLose {
     @Override
     public final void actionOnQuit() {
         controller.actionOnQuit();
-//        super.actionOnQuit();
-        if (EventManager.CURRENT_EVENT instanceof IMatchHandler)
-        {
-            hideOverlay();
-
-            //TODO: revert normal logic, fix
-            //Normal Logic
-//            final int x = FModel.getQuestPreferences().getPrefInt(QuestPreferences.QPref.PENALTY_LOSS);
-            //Boosters.INSTANCE.punish(QuestUtil_MatchData.ENEMY_TITLE);
-//            QuestUtil_MatchData.STR_CRYSTALS_LOSS = Localizer.getInstance().getMessage("lblYouHaveLostNCredits", String.valueOf(x));
-//            ((IMatchHandler) EventManager.CURRENT_EVENT).handle_postmatch();
-
-            //Invert Logic to test victory
-            QuestUtil_MatchData.MATCH_RESULT = QuestUtil_MatchData.MatchResult.WIN;
-            QuestUtil_MatchData.NUM_PROGRESS += 1;
-            Boosters.INSTANCE.reward(QuestUtil_MatchData.ENEMY_TITLE);
-            ((IMatchHandler) EventManager.CURRENT_EVENT).handle_postmatch();
-
-        }
+        hook_postmatch_concede();
     }
 
 }

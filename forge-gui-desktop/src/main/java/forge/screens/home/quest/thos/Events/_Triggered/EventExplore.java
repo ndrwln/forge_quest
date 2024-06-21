@@ -86,7 +86,7 @@ public class EventExplore extends Event implements IMatchHandler {
                     if (QuestUtil_MatchData.STR_CRYSTALS_LOSS != null) s.push_extra(QuestUtil_MatchData.STR_CRYSTALS_LOSS, FSkinProp.ICO_QUEST_GOLD);
                     if (QuestUtil_MatchData.CARDS != null)
                     {
-                        s.push_extra("You managed to gain an insight into the enemy's lore", FSkinProp.ICO_QUEST_GOLD);
+                        s.push_extra("You derived lore from the defeated enemy:", null);
                         s.push_cards(QuestUtil_MatchData.CARDS);
                     }
 

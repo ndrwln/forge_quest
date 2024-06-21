@@ -1,5 +1,6 @@
 package forge.gamemodes.quest._thos;
 
+import forge._thos.Economy;
 import forge.gamemodes.quest.QuestController;
 import forge.gamemodes.quest.QuestUtil_MatchData;
 import forge.gamemodes.quest.data.QuestAssets;
@@ -52,9 +53,7 @@ public class Boosters {
 
         if (!t.is_dropping_rewards()) return;
 
-        //TODO: logic for booster chance based on lore
-        PaperCard card = reward_card(t);
-
+        reward_card(t, d);
         //award credits based on difficulty
         reward_crystals(d);
 
@@ -62,13 +61,50 @@ public class Boosters {
 
     public void punish(String name)
     {
+        Object[] o = parse(name);
+        Type t = (Type) o[0];
+        Difficulty d = (Difficulty) o[1];
 
+        if (!t.is_dropping_rewards()) return;
+
+        //TODO:
+
+//        punish_health(d);
     }
 
-    public PaperCard reward_card(Type type)
+    public void reward_card(Type type, Difficulty difficulty)
     {
-        //Roll for card and exclude it from future rolls
+        //determine what pool we're rolling chance for here
         List<PaperCard> booster = boosters.get(type);
+        if (booster.isEmpty()) booster = boosters.get(type.alternate);
+
+
+        //Get chance, swap out type if pool is empty
+        int chance = Economy.CHANCE_BOOSTER_BASE;
+        if (type.has_requirement())
+        {
+            chance += Economy.CHANCE_BOOSTER_HAS_KNOWLEDGE;
+            switch(difficulty)
+            {
+                case ADEPT: chance += Economy.CHANCE_BOOSTER_ENEMY_ADEPT; break;
+                case QUASI_WIZARD: chance += Economy.CHANCE_BOOSTER_ENEMY_ADEPT + Economy.CHANCE_BOOSTER_ENEMY_QUASI_WIZARD; break;
+            }
+        }
+
+        System.out.println(chance);
+
+        //roll
+        if (rand.nextInt( 100) + 1 > chance) return; //if 1 to 100 > chance, roll failed
+
+
+        //If the both the default and alternate pools have no cards to give, reward crystals
+        if (booster.isEmpty())
+        {
+            extra_crystals = true;
+            return;
+        }
+
+        //Roll for card and exclude it from future rolls
         PaperCard card = booster.remove(rand.nextInt(booster.size()));
         FModel.getQuest().getAssets().getCards_unlocked().add(card.getName());
 
@@ -78,30 +114,33 @@ public class Boosters {
         //Update reward UI
         QuestUtil_MatchData.CARDS = new ArrayList<>();
         QuestUtil_MatchData.CARDS.add(card);
-
-        return card;
     }
 
+
+    public static boolean extra_crystals = false;
     public void reward_crystals(Difficulty d)
     {
         int amount = 0;
         switch(d)
         {
             case NEOPHYTE:
-                amount += 5;
+                amount += Economy.CRYSTALS_ENEMY_NEOPHYTE;
                 break;
             case ADEPT:
-                amount += 10;
+                amount += Economy.CRYSTALS_ENEMY_ADEPT;
                 break;
             case QUASI_WIZARD:
-                amount += 20;
+                amount += Economy.CRYSTALS_ENEMY_QUASI_WIZARD;
                 break;
         }
 
         FModel.getQuest().getAssets().addCredits(amount);
-        QuestUtil_MatchData.STR_CRYSTALS = "Scavenged materials can sell for " + amount + " crystals";
-
+        QuestUtil_MatchData.STR_CRYSTALS = "You gained " + amount + " crystals";
+        extra_crystals = false;
     }
+
+
+    //HELPER
 
     public Object[] parse(String name)
     {
@@ -141,17 +180,18 @@ public class Boosters {
 
     @Getter @Accessors(fluent = true, chain = false) public enum Type {
 
-        BLACK("_[BLACK]", null),
-        WHITE("_[WHITE]", null),
-        RED("_[RED]", null),
-        BLUE("_[BLUE]", null),
-        GREEN("_[GREEN]", null),
+        BLACK("_[BLACK]", null, PreferencesResearch.Knowledge.DARKNESS),
+        WHITE("_[WHITE]", null, null),
+        RED("_[RED]", null, null),
+        BLUE("_[BLUE]", null, null),
+        GREEN("_[GREEN]", null, PreferencesResearch.Knowledge.FOREST),
 //        PRISMATIC("_[GREEN]", null),
 //        ARTIFACT("_[GREEN]", null),
 //        ELDRAZI("_[GREEN]", null),
 
-        VAMPIRE("[VAMPIRE]", new Type[] {BLACK}),
-        NONE("[NONE]", null, false),
+        VAMPIRE("[VAMPIRE]", BLACK, PreferencesResearch.Knowledge.VAMPIRES),
+        NONE("[NONE]", null, false, null),
+
 
 
         ;
@@ -159,20 +199,28 @@ public class Boosters {
 
         //HELPER CODE
         private final String id;
-        private final Type[] alternates;
+        private final Type alternate;
         private final boolean is_dropping_rewards;
+        private final PreferencesResearch.Knowledge requirement;
 
 
-        Type(final String id, final Type[] alternates) {
+        Type(final String id, final Type alternate, PreferencesResearch.Knowledge requirement) {
             this.id = id;
-            this.alternates = alternates;
+            this.alternate = alternate;
             this.is_dropping_rewards = true;
+            this.requirement = requirement;
         }
 
-        Type(final String id, final Type[] alternates, final boolean is_dropping_rewards) {
+        Type(final String id, final Type alternate, final boolean is_dropping_rewards, PreferencesResearch.Knowledge requirement) {
             this.id = id;
-            this.alternates = alternates;
+            this.alternate = alternate;
             this.is_dropping_rewards = is_dropping_rewards;
+            this.requirement = requirement;
+        }
+
+        public boolean has_requirement()
+        {
+            return FModel.getResearchPreferences().getPref(this.requirement).equals("true");
         }
 
 
@@ -188,7 +236,7 @@ public class Boosters {
 
         NEOPHYTE("[NEOPHYTE]"),
         ADEPT("[ADEPT]"),
-        QUASI_WIZARD("[QUASI-WIZARD]"),
+        QUASI_WIZARD("[QUASI_WIZARD]"),
         WIZARD("[WIZARD]"),
 
         ;
