@@ -839,35 +839,19 @@ public final class QuestUtilCards {
     private void generateCardsInShop(ArrayList<PreferencesResearch.Knowledge> lessons)
     {
         questAssets.getShopList().clear();
-        final List<PreconDeck> lst_lessons = new ArrayList<>();
+
         for(PreferencesResearch.Knowledge lesson : lessons)
         {
-            String press = FModel.getResearchPreferences().getPref(lesson);
-            if (pref_decode(press)) continue;
+            if (pref_decode(FModel.getResearchPreferences().getPref(lesson))) continue; //learned
 
-            //if (lesson.getRequirements() != null && !pref_decode(FModel.getResearchPreferences().getPref(lesson.getRequirements()))) continue;
-            boolean learned = false;
+            boolean reqs_learned = true;
             if (lesson.getRequirements() != null)
-            {
                 for (PreferencesResearch.Knowledge req : lesson.getRequirements())
-                {
-                    if (!pref_decode(FModel.getResearchPreferences().getPref(req)))
-                    {
-                        learned = true;
-                        break;
-                    }
+                    if (!pref_decode(FModel.getResearchPreferences().getPref(req))) { reqs_learned = false; break; }
+            if (!reqs_learned) continue; //dont have reqs
 
-                }
-
-                if (learned) continue;
-            }
-
-            lst_lessons.add(QuestController.getPrecons().get(lesson.getDeckName()));
-
-            //add lesson to shop
-            questAssets.getShopList().addAllOfTypeFlat(lst_lessons);
+            questAssets.getShopList().add(QuestController.getPrecons().get(lesson.getDeckName()));
         }
-
     }
 
     /**
@@ -890,11 +874,8 @@ public final class QuestUtilCards {
     }
 
 
-    ArrayList<PreferencesResearch.Knowledge> lessons;
     public ItemPool<InventoryItem> getShopList(ArrayList<PreferencesResearch.Knowledge> lessons) {
-
-        this.lessons = lessons;
-        generateCardsInShop(this.lessons);
+        generateCardsInShop(lessons);
         return questAssets.getShopList();
     }
 
