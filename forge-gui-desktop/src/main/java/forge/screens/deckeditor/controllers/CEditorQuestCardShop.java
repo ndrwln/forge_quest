@@ -117,7 +117,7 @@ public final class CEditorQuestCardShop extends ACEditorBase<InventoryItem, Deck
         this.setCatalogManager(catalogManager);
         this.setDeckManager(deckManager);
         this.cardsForSale = this.questData.getCards().getShopList(Locations.CURRENT_LOCATION.lessons());
-        for (Map.Entry<InventoryItem, Integer>  item : cardsForSale.items.entrySet()) item.setValue(1);
+//        for (Map.Entry<InventoryItem, Integer>  item : cardsForSale.items.entrySet()) item.setValue(1);
 
         catalogManager.shop_hidestuff();
     }

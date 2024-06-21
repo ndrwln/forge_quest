@@ -287,7 +287,6 @@ public class QuestSpellShop {
 
         inventoryManager.addItems(itemsToAdd);
         shopManager.removeItems(itemsToBuy);
-
     }
 
     public static long getTotalSellValue(Iterable<Entry<InventoryItem, Integer>> items) {

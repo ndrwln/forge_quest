@@ -84,7 +84,7 @@ public class QuestWinLose extends ControlWinLose {
      */
     @Override
     public final boolean populateCustomPanel() {
-        controller.showRewards();
+        controller.showRewards(); //hooked
         return true;
     }
 
@@ -99,7 +99,7 @@ public class QuestWinLose extends ControlWinLose {
     @Override
     public final void actionOnQuit() {
         controller.actionOnQuit();
-        hook_postmatch_concede();
+        hook_postmatch_concede(); //hook
     }
 
 }

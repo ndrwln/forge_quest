@@ -1,13 +1,6 @@
 package forge.screens.quest;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import com.badlogic.gdx.utils.Align;
-
 import forge.Forge;
 import forge.assets.FImage;
 import forge.assets.FSkinFont;
@@ -35,6 +28,12 @@ import forge.toolbox.GuiChoose;
 import forge.util.Callback;
 import forge.util.ItemPool;
 import forge.util.Utils;
+
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class QuestSpellShopScreen extends TabPageScreen<QuestSpellShopScreen> {
     private final SpellShopPage spellShopPage;
@@ -108,9 +107,9 @@ public class QuestSpellShopScreen extends TabPageScreen<QuestSpellShopScreen> {
     }
 
     public void updateCreditsLabel() {
-        String credits = Forge.getLocalizer().getMessage("lblCredits") + ": " + QuestUtil.formatCredits(FModel.getQuest().getAssets().getCredits());
-        spellShopPage.lblCredits.setText(credits);
-        inventoryPage.lblCredits.setText(credits);
+//        String credits = Forge.getLocalizer().getMessage("lblCredits") + ": " + QuestUtil.formatCredits(FModel.getQuest().getAssets().getCredits());
+//        spellShopPage.lblCredits.setText(credits);
+//        inventoryPage.lblCredits.setText(credits);
     }
 
     private void updateBuySellButtonCaption() {
@@ -324,20 +323,19 @@ public class QuestSpellShopScreen extends TabPageScreen<QuestSpellShopScreen> {
 
         @Override
         protected void refresh() {
-            Map<ColumnDef, ItemColumn> colOverrides = new HashMap<>();
-            ItemColumn.addColOverride(ItemManagerConfig.QUEST_INVENTORY, colOverrides, ColumnDef.PRICE, QuestSpellShop.fnPriceCompare, QuestSpellShop.fnPriceSellGet);
-            ItemColumn.addColOverride(ItemManagerConfig.QUEST_INVENTORY, colOverrides, ColumnDef.NEW, FModel.getQuest().getCards().getFnNewCompare(), FModel.getQuest().getCards().getFnNewGet());
-            ItemColumn.addColOverride(ItemManagerConfig.QUEST_INVENTORY, colOverrides, ColumnDef.DECKS, QuestSpellShop.fnDeckCompare, QuestSpellShop.fnDeckGet);
-            itemManager.setup(ItemManagerConfig.QUEST_INVENTORY, colOverrides);
-
-            final ItemPool<InventoryItem> ownedItems = new ItemPool<>(InventoryItem.class);
-            ownedItems.addAllOfType(FModel.getQuest().getCards().getCardpool().getView());
-            itemManager.setPool(ownedItems);
+//            Map<ColumnDef, ItemColumn> colOverrides = new HashMap<>();
+//            ItemColumn.addColOverride(ItemManagerConfig.QUEST_INVENTORY, colOverrides, ColumnDef.PRICE, QuestSpellShop.fnPriceCompare, QuestSpellShop.fnPriceSellGet);
+//            ItemColumn.addColOverride(ItemManagerConfig.QUEST_INVENTORY, colOverrides, ColumnDef.NEW, FModel.getQuest().getCards().getFnNewCompare(), FModel.getQuest().getCards().getFnNewGet());
+//            ItemColumn.addColOverride(ItemManagerConfig.QUEST_INVENTORY, colOverrides, ColumnDef.DECKS, QuestSpellShop.fnDeckCompare, QuestSpellShop.fnDeckGet);
+//            itemManager.setup(ItemManagerConfig.QUEST_INVENTORY, colOverrides);
+//            final ItemPool<InventoryItem> ownedItems = new ItemPool<>(InventoryItem.class);
+//            ownedItems.addAllOfType(FModel.getQuest().getCards().getCardpool().getView());
+//            itemManager.setPool(ownedItems);
         }
 
         @Override
         protected void activateItems(ItemPool<InventoryItem> items) {
-            QuestSpellShop.sell(items, parentScreen.spellShopPage.itemManager, itemManager, true);
+//            QuestSpellShop.sell(items, parentScreen.spellShopPage.itemManager, itemManager, true);
         }
 
         @Override

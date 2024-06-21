@@ -48,28 +48,12 @@ public class QuestWinLoseController {
 
     public void showRewards() {
         view.getBtnRestart().setVisible(false);
-        final QuestController qc = FModel.getQuest();
-
-        final LobbyPlayer questLobbyPlayer = GamePlayerUtil.getQuestPlayer();
-        PlayerView player = null;
-        for (final PlayerView p : lastGame.getPlayers()) {
-            if (p.isLobbyPlayer(questLobbyPlayer)) {
-                player = p;
-            }
-        }
-
         final boolean matchIsNotOver = !lastGame.isMatchOver();
-        if (matchIsNotOver) {
-            view.getBtnQuit().setText(Localizer.getInstance().getMessage("lblQuitByPayCredits"));
-        }
+        if (matchIsNotOver) view.getBtnQuit().setText(Localizer.getInstance().getMessage("lblQuitByPayCredits"));
         else {
             view.getBtnContinue().setVisible(false);
-            if (wonMatch) {
-                view.getBtnQuit().setText(Localizer.getInstance().getMessage("lblGreat") + "!");
-            }
-            else {
-                view.getBtnQuit().setText(Localizer.getInstance().getMessage("lblOK"));
-            }
+            if (wonMatch) view.getBtnQuit().setText(Localizer.getInstance().getMessage("lblGreat") + "!");
+            else view.getBtnQuit().setText(Localizer.getInstance().getMessage("lblOK"));
         }
 
         //give controller a chance to run remaining logic on a separate thread
@@ -97,33 +81,15 @@ public class QuestWinLoseController {
     }
 
     public void actionOnQuit() {
-        final int x = FModel.getQuestPreferences().getPrefInt(QPref.PENALTY_LOSS);
-
         // Record win/loss in quest data
-        if (wonMatch) {
-            qData.getAchievements().addWin();
-        }
-        else {
-            qData.getAchievements().addLost();
-        }
+        if (wonMatch) qData.getAchievements().addWin();else qData.getAchievements().addLost();
 
-        // Reset cards and zeppelin use
+//         Reset cards and zeppelin use
         if (qData.getAssets().hasItem(QuestItemType.ZEPPELIN)) {
             qData.getAssets().setItemLevel(QuestItemType.ZEPPELIN, 1);
         }
 
-//        if (qEvent instanceof QuestEventChallenge) {
-//            if (wonMatch || (!((QuestEventChallenge)qEvent).isPersistent())) {
-//                final String id = ((QuestEventChallenge) qEvent).getId();
-//                qData.getAchievements().getCurrentChallenges().remove(id);
-//                qData.getAchievements().addLockedChallenge(id);
-//
-//                // Increment challenge counter to limit challenges available
-//                qData.getAchievements().addChallengesPlayed();
-//            }
-//        }
-//
-//        qData.setCurrentEvent(null);
+        qData.setCurrentEvent(null);
         qData.save();
         FModel.getQuestPreferences().save();
     }

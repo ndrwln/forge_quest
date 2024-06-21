@@ -3,9 +3,12 @@ package forge.screens.match;
 import forge.Singletons;
 import forge.game.GameView;
 import forge.gamemodes.match.NextGameDecision;
+import forge.gamemodes.quest.QuestController;
+import forge.gamemodes.quest.QuestUtil_MatchData;
 import forge.gui.SOverlayUtils;
 import forge.gui.framework.FScreen;
 import forge.interfaces.IGameController;
+import forge.model.FModel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -73,6 +76,12 @@ public class ControlWinLose {
     }
 
     public void actionOnQuit_real() {
+        QuestController q = FModel.getQuest();
+        if (QuestUtil_MatchData.MATCH_RESULT == QuestUtil_MatchData.MatchResult.WIN) q.getAchievements().addWin();else q.getAchievements().addLost();
+        q.setCurrentEvent(null);
+        q.save();
+        FModel.getQuestPreferences().save();
+
         nextGameAction(NextGameDecision.QUIT);
         Singletons.getControl().setCurrentScreen(FScreen.HOME_SCREEN);
     }
