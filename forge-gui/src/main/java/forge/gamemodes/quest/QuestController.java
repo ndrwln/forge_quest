@@ -25,6 +25,7 @@ import forge.deck.DeckGroup;
 import forge.game.GameFormat;
 import forge.game.event.GameEvent;
 import forge.game.event.GameEventMulligan;
+import forge.gamemodes.quest._thos.PreferencesResearch;
 import forge.gamemodes.quest.bazaar.QuestBazaarManager;
 import forge.gamemodes.quest.bazaar.QuestItemType;
 import forge.gamemodes.quest.bazaar.QuestPetStorage;

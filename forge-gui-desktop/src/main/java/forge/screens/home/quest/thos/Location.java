@@ -1,7 +1,7 @@
 package forge.screens.home.quest.thos;
 
 import forge.gamemodes.quest.DuelBucket;
-import forge.gamemodes.quest.data.PreferencesResearch;
+import forge.gamemodes.quest._thos.PreferencesResearch;
 import forge.screens.home.VHomeUI;
 import forge.screens.home.quest.VSubmenuQuestStart;
 import javafx.scene.media.Media;

@@ -44,7 +44,7 @@ import forge.gamemodes.planarconquest.ConquestPreferences;
 import forge.gamemodes.planarconquest.ConquestUtil;
 import forge.gamemodes.quest.QuestController;
 import forge.gamemodes.quest.QuestWorld;
-import forge.gamemodes.quest.data.PreferencesResearch;
+import forge.gamemodes.quest._thos.PreferencesResearch;
 import forge.gamemodes.quest.data.QuestPreferences;
 import forge.gamemodes.tournament.TournamentData;
 import forge.gui.FThreads;

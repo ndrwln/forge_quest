@@ -68,7 +68,10 @@ public class Buttons {
                 .ui(UI_MAIN)
                 .fn((UiCommand) () -> {
                     if (FModel.getQuest().is_quest_existing())
+                    {
                         Locations.travelTo(REST_AREA);
+                    }
+
                 });
 
         //UI Info

@@ -6,7 +6,7 @@ import forge.gamemodes.quest.QuestMode;
 import forge.gamemodes.quest.QuestUtil;
 import forge.gamemodes.quest.StartingPoolPreferences;
 import forge.gamemodes.quest.data.DeckConstructionRules;
-import forge.gamemodes.quest.data.PreferencesResearch;
+import forge.gamemodes.quest._thos.PreferencesResearch;
 import forge.gamemodes.quest.data.QuestData;
 import forge.gamemodes.quest.data.QuestPreferences;
 import forge.gui.framework.ICDoc;

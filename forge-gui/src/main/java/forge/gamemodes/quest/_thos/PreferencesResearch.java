@@ -1,4 +1,4 @@
-package forge.gamemodes.quest.data;
+package forge.gamemodes.quest._thos;
 
 import forge.localinstance.properties.PreferencesStore;
 

@@ -1,6 +1,6 @@
 package forge.screens.home.quest.thos;
 
-import forge.gamemodes.quest.data.PreferencesResearch;
+import forge.gamemodes.quest._thos.PreferencesResearch;
 
 import static forge.screens.home.quest.thos.Locations.ABYSSAL_BONE_FOREST;
 

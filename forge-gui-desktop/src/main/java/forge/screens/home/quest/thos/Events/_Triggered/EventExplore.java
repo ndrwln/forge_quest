@@ -84,7 +84,11 @@ public class EventExplore extends Event implements IMatchHandler {
                     Screen s = EventManager.CURRENT_EVENT.getScreen("Continue?");
                     if (QuestUtil_MatchData.STR_CRYSTALS != null) s.push_extra(QuestUtil_MatchData.STR_CRYSTALS, FSkinProp.ICO_QUEST_GOLD);
                     if (QuestUtil_MatchData.STR_CRYSTALS_LOSS != null) s.push_extra(QuestUtil_MatchData.STR_CRYSTALS_LOSS, FSkinProp.ICO_QUEST_GOLD);
-                    if (QuestUtil_MatchData.CARDS != null) s.push_cards(QuestUtil_MatchData.CARDS);
+                    if (QuestUtil_MatchData.CARDS != null)
+                    {
+                        s.push_extra("You managed to gain an insight into the enemy's lore", FSkinProp.ICO_QUEST_GOLD);
+                        s.push_cards(QuestUtil_MatchData.CARDS);
+                    }
 
                 })
         );

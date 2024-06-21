@@ -5,13 +5,15 @@ import forge.item.PaperCard;
 import java.util.List;
 
 public class QuestUtil_MatchData {
+
+
     public static int NUM_PROGRESS = 0;
 
     //Volatile
     public static QuestUtil_MatchData.MatchResult MATCH_RESULT = QuestUtil_MatchData.MatchResult.NONE;
     public static String ENEMY_TITLE;
 
-        //Rewards
+    //Rewards
     public static String STR_CRYSTALS;
     public static String STR_CRYSTALS_LOSS;
     public static String STR_HEALTH_LOSS;

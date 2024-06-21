@@ -1,5 +1,6 @@
 package forge.screens.home.quest;
 
+import forge.gamemodes.quest._thos.Boosters;
 import forge.gui.framework.DragCell;
 import forge.gui.framework.DragTab;
 import forge.gui.framework.EDocID;
@@ -31,6 +32,9 @@ public enum VSubmenuQuestStart implements IVSubmenu<CSubmenuQuestStart> {
     public static Buttons b = new Buttons();
     public static Research r = new Research();
 
+    //Quest Classes
+    public static Boosters boosters;
+
     private final JPanel main_panel = new JPanel();
     public static JPanel MAIN_PANEL;
     public static final MediaView MEDIA_VIEW = new MediaView();
@@ -58,6 +62,8 @@ public enum VSubmenuQuestStart implements IVSubmenu<CSubmenuQuestStart> {
         Location.init_videos();
         SNode.init_panels(main_panel);
         SNode.populate_nodes();
+
+
 
         Platform.runLater(new Runnable() {
             @Override

@@ -3,10 +3,10 @@ package forge.gamemodes.quest;
 import com.google.common.collect.ImmutableList;
 import forge.LobbyPlayer;
 import forge.game.GameEndReason;
-import forge.game.GameFormat;
 import forge.game.GameOutcome;
 import forge.game.GameView;
 import forge.game.player.*;
+import forge.gamemodes.quest._thos.Boosters;
 import forge.gamemodes.quest.bazaar.QuestItemType;
 import forge.gamemodes.quest.data.QuestPreferences;
 import forge.gamemodes.quest.data.QuestPreferences.QPref;
@@ -79,17 +79,14 @@ public class QuestWinLoseController {
             public void run() {
                 if (matchIsNotOver) { return; } //skip remaining logic if match isn't over yet
 
-                if (wonMatch)
-                {
-                    awardEventCredits();
-//                    awardBooster();
-                }
-                else
-                {
-                    penalizeLoss();
-                }
                 QuestUtil_MatchData.NUM_PROGRESS += 1;
                 QuestUtil_MatchData.MATCH_RESULT = wonMatch ? QuestUtil_MatchData.MatchResult.WIN : QuestUtil_MatchData.MatchResult.LOSS;
+
+                if (wonMatch)
+                    Boosters.INSTANCE.reward(QuestUtil_MatchData.ENEMY_TITLE);
+                else
+                    Boosters.INSTANCE.punish(QuestUtil_MatchData.ENEMY_TITLE);
+
             }
         });
     }
@@ -113,7 +110,6 @@ public class QuestWinLoseController {
         }
         else {
             qData.getAchievements().addLost();
-            qData.getAssets().subtractCredits(x);
         }
 
         // Reset cards and zeppelin use
@@ -121,18 +117,18 @@ public class QuestWinLoseController {
             qData.getAssets().setItemLevel(QuestItemType.ZEPPELIN, 1);
         }
 
-        if (qEvent instanceof QuestEventChallenge) {
-            if (wonMatch || (!((QuestEventChallenge)qEvent).isPersistent())) {
-                final String id = ((QuestEventChallenge) qEvent).getId();
-                qData.getAchievements().getCurrentChallenges().remove(id);
-                qData.getAchievements().addLockedChallenge(id);
-
-                // Increment challenge counter to limit challenges available
-                qData.getAchievements().addChallengesPlayed();
-            }
-        }
-
-        qData.setCurrentEvent(null);
+//        if (qEvent instanceof QuestEventChallenge) {
+//            if (wonMatch || (!((QuestEventChallenge)qEvent).isPersistent())) {
+//                final String id = ((QuestEventChallenge) qEvent).getId();
+//                qData.getAchievements().getCurrentChallenges().remove(id);
+//                qData.getAchievements().addLockedChallenge(id);
+//
+//                // Increment challenge counter to limit challenges available
+//                qData.getAchievements().addChallengesPlayed();
+//            }
+//        }
+//
+//        qData.setCurrentEvent(null);
         qData.save();
         FModel.getQuestPreferences().save();
     }
@@ -428,41 +424,8 @@ public class QuestWinLoseController {
         view.showCards(Localizer.getInstance().getMessage("lblJustWonTenRandomRares"), cardsWon);
     }
 
-    /**
-     * <p>
-     * awardBooster.
-     * </p>
-     * Generates and displays booster pack win case.
-     *
-     */
-    public void awardBooster() {
-        List<PaperCard> cardsWon;
 
-        String title;
-        final List<GameFormat> formats = new ArrayList<>();
-        final String preferredFormat = FModel.getQuestPreferences().getPref(QPref.BOOSTER_FORMAT);
-
-        GameFormat pref = null;
-        for (final GameFormat f : FModel.getFormats().getSanctionedList()) {
-            formats.add(f);
-            if (f.toString().equals(preferredFormat)) {
-                pref = f;
-            }
-        }
-
-        FModel.getQuestPreferences().setPref(QPref.BOOSTER_FORMAT, pref.toString());
-        cardsWon = qData.getCards().generateQuestBooster(pref.getFilterPrinted());
-        qData.getCards().addAllCards(cardsWon);
-
-        QuestUtil_MatchData.CARDS = cardsWon;
-
-        title = Localizer.getInstance().getMessage("lblBonusFormatBoosterPack", pref.getName());
-
-//        if (cardsWon != null) {
-//            BoosterUtils.sort(cardsWon);
-//            view.showCards(title, cardsWon);
-//        }
-    }
+    public void awardBooster() {}
 
     private SealedProduct.Template getBoosterTemplate() {
         return new SealedProduct.Template(ImmutableList.of(

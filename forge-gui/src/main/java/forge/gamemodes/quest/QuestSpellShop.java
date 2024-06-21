@@ -5,7 +5,7 @@ import forge.deck.CardPool;
 import forge.deck.Deck;
 import forge.deck.DeckFormat;
 import forge.deck.DeckSection;
-import forge.gamemodes.quest.data.PreferencesResearch;
+import forge.gamemodes.quest._thos.PreferencesResearch;
 import forge.gamemodes.quest.data.QuestPreferences.QPref;
 import forge.gamemodes.quest.io.ReadPriceList;
 import forge.gui.GuiBase;
@@ -280,12 +280,7 @@ public class QuestSpellShop {
                     FModel.getQuest().getCards().buyPreconDeck(deck, value, lesson_);
                     itemsToAdd.addAllOfType(deck.getDeck().getMain());
                 }
-
-                CardPool pool =  deck.getDeck().getMain();
-                List<PaperCard> lst = new ArrayList<>();
-                for(int i = 0; i < pool.countAll(); i++) if (!lst.contains(pool.get(i))) lst.add(pool.get(i));
-
-                GuiBase.getInterface().showCardList(deck.getName(), "You have acquired the following lore:", lst);
+                GuiBase.getInterface().showCardList(deck.getName(), "You have acquired the following lore:", deck.getDeck().getMain().to_unique_list());
 
             }
         }

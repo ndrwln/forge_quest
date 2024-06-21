@@ -115,7 +115,7 @@ public class QuestUtil {
         MapOfLists<DuelBucket, QuestEventDuel> duels_map =  ((MainWorldEventDuelManager) FModel.getQuest().getDuelsManager()).sortedDuels;
         List<QuestEventDuel> duels = (List<QuestEventDuel>) duels_map.get(QuestUtilCards.I);
         event = duels.get(rand.nextInt(duels.size()));
-        QuestUtil_MatchData.ENEMY_TITLE = event.getTitle();
+        QuestUtil_MatchData.ENEMY_TITLE = event.getName();
 
         FThreads.invokeInBackgroundThread(new Runnable() {
             @Override

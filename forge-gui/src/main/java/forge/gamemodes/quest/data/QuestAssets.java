@@ -23,15 +23,14 @@ import forge.gamemodes.quest.QuestDeckGroupMap;
 import forge.gamemodes.quest.QuestDeckMap;
 import forge.gamemodes.quest.QuestMode;
 import forge.gamemodes.quest.bazaar.QuestItemType;
-import forge.gamemodes.quest.data.QuestPreferences.QPref;
 import forge.item.InventoryItem;
 import forge.item.PaperCard;
-import forge.model.FModel;
 import forge.util.ItemPool;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.EnumMap;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 /** */
@@ -40,6 +39,11 @@ public class QuestAssets {
     // Cards associated with quest
     /** The card pool. */
     private final ItemPool<PaperCard> cardPool = new ItemPool<>(PaperCard.class); // player's
+    private final HashSet<String> cards_unlocked = new HashSet<>();
+    private final Map<String, QuestItemCondition> combatPets = new HashMap<>();
+
+
+
     /** The credits. */
     private long credits; // this money is good for all modes
     // game
@@ -63,9 +67,9 @@ public class QuestAssets {
             QuestItemType.class);
 
     // Much the same like other map, but keyed by string (to support a lot of custom pets)
-    private final Map<String, QuestItemCondition> combatPets = new HashMap<>();
 
     private final HashMap<String, DeckGroup> draftDecks = new HashMap<>();
+
     /**
      * Checks for item.
      *
@@ -176,109 +180,55 @@ public class QuestAssets {
      * Instantiates a new quest assets.
      */
     public QuestAssets(GameFormatQuest useFormat) {
-        final QuestPreferences prefs = FModel.getQuestPreferences();
-        int snowLands = prefs.getPrefInt(QPref.STARTING_SNOW_LANDS);
-        if (useFormat != null && !useFormat.hasSnowLands()) {
-            snowLands = 0;
-        }
+//        final QuestPreferences prefs = FModel.getQuestPreferences();
+//        int snowLands = prefs.getPrefInt(QPref.STARTING_SNOW_LANDS);
+//        if (useFormat != null && !useFormat.hasSnowLands()) {
+//            snowLands = 0;
+//        }
         // Non-snow basic lands are no longer generated (we use Add Basic Lands)
 //        final ItemPool<PaperCard> lands = QuestUtilCards.generateBasicLands(
 //                /*prefs.getPrefInt(QPref.STARTING_BASIC_LANDS)*/0,  snowLands, useFormat);
 //        this.getCardPool().addAll(lands);
     }
 
-    /**
-     * Gets the credits.
-     *
-     * @return the credits
-     */
+    public ItemPool<PaperCard> getCardPool() {return this.cardPool;}
+    public HashSet<String> getCards_unlocked() {return cards_unlocked;}
+
+
     public long getCredits() {
         return this.credits;
     }
-
-    // Life (only fantasy)
-    /**
-     * Gets the life.
-     *
-     * @param mode the mode
-     * @return the life
-     */
-    public int getLife(final QuestMode mode) {
-        return Math.max(1, getLifeMax(mode) - this.getItemLevel(QuestItemType.POUND_FLESH));
-    }
-
+    public int getLife(final QuestMode mode) {return Math.max(1, getLifeMax(mode) - this.getItemLevel(QuestItemType.POUND_FLESH));}
     public int getLifeMax(final QuestMode mode) {
         return 20 + this.getItemLevel(QuestItemType.ELIXIR_OF_LIFE);
     }
 
-    /**
-     * Gets the new card list.
-     *
-     * @return the newCardList
-     */
+
     public ItemPool<InventoryItem> getNewCardList() {
         return this.newCardList;
     }
-
-    /**
-     * Gets the shop list.
-     *
-     * @return the shopList
-     */
     public ItemPool<InventoryItem> getShopList() {
         return this.shopList;
     }
 
-    /**
-     * Sets the credits.
-     *
-     * @param credits0
-     *            the credits to set
-     */
+
+
     public void setCredits(final long credits0) {
         this.credits = credits0;
     }
-
-    // Credits
-    /**
-     * Adds the credits.
-     *
-     * @param c
-     *            the c
-     */
     public void addCredits(final long c) {
         this.setCredits(this.getCredits() + c);
     }
-
-    /**
-     * Gets the card pool.
-     *
-     * @return the cardPool
-     */
-    public ItemPool<PaperCard> getCardPool() {
-        return this.cardPool;
-    }
-
-    /**
-     * Subtract credits.
-     *
-     * @param c
-     *            the c
-     */
     public void subtractCredits(final long c) {
         this.setCredits(this.getCredits() > c ? this.getCredits() - c : 0);
     }
 
-    /**
-     * @return the deck storage
-     */
+
+
+
     public QuestDeckMap getDeckStorage() {
         return new QuestDeckMap(this.myDecks);
     }
-
-    /**
-     * @return the tournament deck storage
-     */
     public QuestDeckGroupMap getDraftDeckStorage() {
         return new QuestDeckGroupMap(this.draftDecks);
     }

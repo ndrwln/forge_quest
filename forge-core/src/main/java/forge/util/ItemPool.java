@@ -172,6 +172,14 @@ public class ItemPool<T extends InventoryItem> implements Iterable<Entry<T, Inte
         return result;
     }
 
+    public final List<T> to_unique_list() {
+        final List<T> result = new ArrayList<>();
+        for (final Entry<T, Integer> e : this) {
+            result.add(e.getKey());
+        }
+        return result;
+    }
+
     public Map<String, Integer> toNameLookup() {
         final Map<String, Integer> result = new HashMap<>();
         for (final Entry<T, Integer> e : this) {

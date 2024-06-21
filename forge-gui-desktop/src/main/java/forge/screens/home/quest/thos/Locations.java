@@ -1,7 +1,9 @@
 package forge.screens.home.quest.thos;
 
 import forge.gamemodes.quest.*;
+import forge.gamemodes.quest._thos.Boosters;
 import forge.model.FModel;
+import forge.screens.home.quest.VSubmenuQuestStart;
 import forge.sound.MusicPlaylist;
 import forge.sound.SoundSystem;
 import javafx.animation.FadeTransition;
@@ -136,9 +138,17 @@ public class Locations {
 
     }
 
+    public static boolean is_doing_init = true;
+
     public static void travelTo(Location location)
     {
         if (CURRENT_LOCATION == MAIN_MENU) SoundSystem.instance.setBackgroundMusic(MusicPlaylist.MENUS);
+
+        if (is_doing_init)
+        {
+            VSubmenuQuestStart.boosters = new Boosters();
+        }
+
         Platform.setImplicitExit(false);
         Platform.runLater(() -> {
             MediaPlayer player = location.player();
