@@ -1,0 +1,12 @@
+[shop]
+Credits=15
+[metadata]
+Name=Tales of Elves - Collected Company
+Description=Replenish your dwindling combatants... (15 crystals)
+Deck Type=constructed
+Image=green_elves_company.jpg
+[Avatar]
+
+[Main]
+4 Collected Company|DTK|1
+

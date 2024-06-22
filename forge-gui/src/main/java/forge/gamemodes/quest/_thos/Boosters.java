@@ -184,6 +184,8 @@ public class Boosters {
 //        ELDRAZI("_[GREEN]", null),
 
         VAMPIRE("[VAMPIRE]", BLACK, Research.Knowledge.VAMPIRES),
+        ELF("[ELF]", GREEN, Research.Knowledge.ELVES),
+
         NONE("[NONE]", null, false, null),
 
 

@@ -1,0 +1,12 @@
+[shop]
+Credits=15
+[metadata]
+Name=Tales of Elves - Steel Leaf Champion
+Description=A powerful attacker. Combo with fast mana for a strong move... (15 crystals)
+Deck Type=constructed
+Image=green_elves_champion.jpg
+[Avatar]
+
+[Main]
+4 Steel Leaf Champion|DOM|1
+
