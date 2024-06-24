@@ -1,16 +1,6 @@
 package forge.game.ability.effects;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import forge.card.CardType;
-import forge.game.card.*;
-import forge.util.Lang;
-import org.apache.commons.lang3.StringUtils;
-
 import forge.card.mana.ManaCost;
 import forge.game.Game;
 import forge.game.GameActionUtil;
@@ -18,6 +8,7 @@ import forge.game.GameEntityCounterTable;
 import forge.game.ability.AbilityKey;
 import forge.game.ability.AbilityUtils;
 import forge.game.ability.SpellAbilityEffect;
+import forge.game.card.*;
 import forge.game.cost.Cost;
 import forge.game.keyword.Keyword;
 import forge.game.player.Player;
@@ -26,7 +17,11 @@ import forge.game.spellability.SpellAbility;
 import forge.game.trigger.TriggerType;
 import forge.game.zone.ZoneType;
 import forge.util.Aggregates;
+import forge.util.Lang;
 import forge.util.Localizer;
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.*;
 
 public class SacrificeEffect extends SpellAbilityEffect {
 
@@ -80,7 +75,7 @@ public class SacrificeEffect extends SpellAbilityEffect {
         }
 
         // Expand Sacrifice keyword here depending on what we need out of it.
-        final int amount = AbilityUtils.calculateAmount(host, sa.getParamOrDefault("Amount", "1"), sa);
+        int amount = AbilityUtils.calculateAmount(host, sa.getParamOrDefault("Amount", "1"), sa);
         final boolean devour = sa.isKeyword(Keyword.DEVOUR);
         final boolean exploit = sa.isKeyword(Keyword.EXPLOIT);
         final boolean sacEachValid = sa.hasParam("SacEachValid");
@@ -94,6 +89,17 @@ public class SacrificeEffect extends SpellAbilityEffect {
         final boolean optional = sa.hasParam("Optional");
         Map<AbilityKey, Object> params = AbilityKey.newMap();
         CardZoneTable zoneMovements = AbilityKey.addCardZoneTableParams(params, sa);
+
+        if ("Ravenous Rotbelly".equals(host.getName()) && remSacrificed) {
+            //how much players can give
+            amount = Math.min(activator.getCreaturesInPlay().size(), amount);
+            if (activator.getCreaturesInPlay().size() < 3) amount -= 1;
+
+            int opponent_amount = activator.getOpponents().getCreaturesInPlay().size();
+            if (opponent_amount < amount) amount = opponent_amount;
+
+            amount = Math.max(0, amount);
+        }
 
         if (valid.equals("Self") && game.getZoneOf(host) != null) {
             if (game.getZoneOf(host).is(ZoneType.Battlefield)) {

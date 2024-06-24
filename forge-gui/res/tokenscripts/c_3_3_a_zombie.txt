@@ -2,4 +2,5 @@ Name:Zombie Token
 ManaCost:no cost
 PT:3/3
 Types:Artifact Creature Zombie
+SVar:SacMe:90
 Oracle:

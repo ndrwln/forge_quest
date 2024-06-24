@@ -3,4 +3,5 @@ ManaCost:no cost
 Types:Enchantment Creature Zombie
 Colors:black
 PT:2/2
+SVar:SacMe:90
 Oracle:

@@ -3,4 +3,5 @@ ManaCost:no cost
 Colors:black
 Types:Creature Zombie
 PT:*/*
+SVar:SacMe:90
 Oracle:

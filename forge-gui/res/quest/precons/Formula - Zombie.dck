@@ -1,0 +1,18 @@
+[shop]
+Credits=100
+[metadata]
+Name=Formula - Zombie
+Description=This formula leverages the resilience of zombies with curses to exhaust the enemy's resources to achieve a crushing effect on the opponent... [By comprehending this secret, the holder can derive lore from defeated zombies] (100 Crystals)
+Deck Type=constructed
+Image=black_zombies.jpg
+[Avatar]
+
+[Main]
+4 Accursed Marauder|MH3|3
+4 Black Cat|M15|1
+4 Fleshbag Marauder|ORI|1
+4 Gravecrawler|DKA|1
+4 Headless Rider|VOW|2
+4 No Way Out|MID|1
+4 Poxwalkers|40K|1
+4 Ravenous Rotbelly|MIC|1

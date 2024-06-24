@@ -4,4 +4,5 @@ Types:Creature Zombie
 Colors:blue,black
 PT:*/*
 K:Menace
+SVar:SacMe:90
 Oracle:Menace

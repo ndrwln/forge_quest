@@ -6,5 +6,5 @@ R:Event$ Moved | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.
 SVar:DBExile:DB$ ChangeZone | Defined$ ReplacedCard | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBAddTurn
 SVar:DBAddTurn:DB$ AddTurn | Defined$ ReplacedCardLKIController | NumTurns$ 1
 AI:RemoveDeck:Random
-SVar:SacMe:5
+SVar:SacMe:100
 Oracle:If a player would begin an extra turn, that player skips that turn instead.\nIf Ugin's Nexus would be put into a graveyard from the battlefield, instead exile it and take an extra turn after this one.

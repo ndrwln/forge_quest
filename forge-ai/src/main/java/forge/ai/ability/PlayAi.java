@@ -56,6 +56,12 @@ public class PlayAi extends SpellAbilityAi {
             return true;
         }
 
+        if (source.getName().equals("Fleshbag Marauder")
+                || source.getName().equals("Accursed Marauder")
+                || source.getName().equals("Gatekeeper of Malakir")) {
+            if (ai.getOpponents().getCreaturesInPlay().isEmpty()) return false;
+        }
+
         List<Card> cards = getPlayableCards(sa, ai);
         if (cards.isEmpty()) {
             return false;
