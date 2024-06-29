@@ -20,6 +20,8 @@ public final class ImageKeys {
     public static final String PRECON_PREFIX         = "p:";
     public static final String TOURNAMENTPACK_PREFIX = "o:";
     public static final String ADVENTURECARD_PREFIX = "a:";
+    public static final String QUESTCARD_PREFIX = "q:";
+
 
     public static final String HIDDEN_CARD           = "hidden";
     public static final String MORPH_IMAGE           = "morph";
@@ -38,7 +40,10 @@ public final class ImageKeys {
     private static String CACHE_CARD_PICS_DIR, CACHE_TOKEN_PICS_DIR, CACHE_ICON_PICS_DIR, CACHE_BOOSTER_PICS_DIR,
         CACHE_FATPACK_PICS_DIR, CACHE_BOOSTERBOX_PICS_DIR, CACHE_PRECON_PICS_DIR, CACHE_TOURNAMENTPACK_PICS_DIR, DEFAULTS_DIR;
     public static String ADVENTURE_CARD_PICS_DIR;
+    public static String QUEST_CARD_PICS_DIR;
+
     private static Map<String, String> CACHE_CARD_PICS_SUBDIR;
+
 
     private static Map<String, Boolean> editionImageLookup = new HashMap<>();
 
@@ -126,6 +131,9 @@ public final class ImageKeys {
         } else if (key.startsWith(ImageKeys.ADVENTURECARD_PREFIX)) {
             filename = key.substring(ImageKeys.ADVENTURECARD_PREFIX.length());
             dir = ADVENTURE_CARD_PICS_DIR;
+        } else if (key.startsWith(ImageKeys.QUESTCARD_PREFIX)) {
+            filename = key.substring(ImageKeys.QUESTCARD_PREFIX.length());
+            dir = QUEST_CARD_PICS_DIR;
         }else {
             filename = key;
             dir = CACHE_CARD_PICS_DIR;

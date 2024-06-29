@@ -99,6 +99,9 @@ public final class ForgeConstants {
     public static final String GENETIC_AI_DECK_DIR          = RES_DIR + "geneticaidecks" + PATH_SEPARATOR;
 
     private static final String QUEST_DIR                   = RES_DIR + "quest" + PATH_SEPARATOR;
+    public static final String CUSTOM_DIR                   = QUEST_DIR + "_custom" + PATH_SEPARATOR;
+    public static final String CUSTOM_CARDS_DIR             = CUSTOM_DIR + "cards" + PATH_SEPARATOR;
+    public static final String CUSTOM_PICS_DIR              = CUSTOM_DIR + "pics" + PATH_SEPARATOR;
     public static final String QUEST_WORLD_DIR              = QUEST_DIR + "world" + PATH_SEPARATOR;
     public static final String QUEST_PRECON_DIR             = QUEST_DIR + "precons" + PATH_SEPARATOR;
     public static final String PRICES_BOOSTER_FILE          = QUEST_DIR + "booster-prices.txt";

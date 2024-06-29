@@ -26,8 +26,7 @@ import forge.ImageKeys;
 import forge.MulliganDefs;
 import forge.StaticData;
 import forge.ai.AiProfileUtil;
-import forge.card.CardRulesPredicates;
-import forge.card.CardType;
+import forge.card.*;
 import forge.deck.CardArchetypeLDAGenerator;
 import forge.deck.CardRelationMatrixGenerator;
 import forge.deck.io.DeckPreferences;
@@ -62,9 +61,16 @@ import forge.util.storage.IStorage;
 import forge.util.storage.StorageBase;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import static forge.localinstance.properties.ForgeConstants.CUSTOM_CARDS_DIR;
+import static forge.localinstance.properties.ForgeConstants.CUSTOM_PICS_DIR;
 
 /**
  * The default Model implementation for Forge.
@@ -288,6 +294,9 @@ public final class FModel {
             }
         }
 
+        load_quest_cards();
+
+
         if (GuiBase.getInterface().isLibgdxPort() && GuiBase.getDeviceRAM() < 5000)
             return; // don't preload ItemPool on mobile port with less than 5GB RAM
 
@@ -305,6 +314,33 @@ public final class FModel {
             tinyLeadersCommander = getTinyLeadersCommander();
             avatarPool = getAvatarPool();
             conspiracyPool = getConspiracyPool();
+        }
+    }
+
+    public static void load_quest_cards() {
+        final CardRules.Reader rulesReader = new CardRules.Reader();
+        ImageKeys.QUEST_CARD_PICS_DIR = CUSTOM_PICS_DIR;// not the cleanest solution
+        File[] customCards = new File(CUSTOM_CARDS_DIR).listFiles();
+        if (customCards == null)
+            return;
+        for (File cardFile : customCards) {
+            FileInputStream fileInputStream;
+            try {
+                fileInputStream = new FileInputStream(cardFile);
+                rulesReader.reset();
+                final List<String> lines = FileUtil.readAllLines(new InputStreamReader(fileInputStream, Charset.forName(CardStorageReader.DEFAULT_CHARSET_NAME)), true);
+                CardRules rules = rulesReader.readCard(lines, com.google.common.io.Files.getNameWithoutExtension(cardFile.getName()));
+                rules.setCustom();
+                PaperCard card = new PaperCard(rules, CardEdition.UNKNOWN.getCode(), CardRarity.Special) {
+                    @Override
+                    public String getImageKey(boolean altState) {
+                        return ImageKeys.QUESTCARD_PREFIX + getName();
+                    }
+                };
+                FModel.getMagicDb().getCommonCards().addCard(card);
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 

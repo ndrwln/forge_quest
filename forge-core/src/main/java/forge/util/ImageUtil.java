@@ -37,6 +37,8 @@ public class ImageUtil {
             key = imageKey.substring(ImageKeys.TOURNAMENTPACK_PREFIX.length());
         else if (imageKey.startsWith(ImageKeys.ADVENTURECARD_PREFIX))
             key = imageKey.substring(ImageKeys.ADVENTURECARD_PREFIX.length());
+        else if (imageKey.startsWith(ImageKeys.QUESTCARD_PREFIX))
+            key = imageKey.substring(ImageKeys.QUESTCARD_PREFIX.length());
         else if (imageKey.contains(".full")) {//no prefix found, construct a valid key if imageKey is art imagekey.
             key = transformKey(imageKey);
         } else //try anyway...
