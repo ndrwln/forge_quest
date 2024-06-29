@@ -1,0 +1,11 @@
+[shop]
+Credits=15
+[metadata]
+Name=Formula - Zombie - Ghoulcaller's Chant
+Description=Never run out of resources to swarm the opponent... (15 crystals)
+Deck Type=constructed
+Image=black_zombies_chant.jpg
+[Avatar]
+
+[Main]
+1 Ghoulcaller's Chant|ISD|1

@@ -1,0 +1,11 @@
+[shop]
+Credits=15
+[metadata]
+Name=Formula - Zombie - Unearth
+Description=Return the lesser zombies your enemies destroyed... (15 crystals)
+Deck Type=constructed
+Image=black_zombies_unearth.jpg
+[Avatar]
+
+[Main]
+4 Unearth|MH1|1

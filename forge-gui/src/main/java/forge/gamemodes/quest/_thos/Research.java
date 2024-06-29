@@ -42,7 +42,6 @@ public class Research {
         THE_SPROUTING_LORE_III("ABYSSAL_BONE_FOREST", "The Sprouting Lore III", new Knowledge[] {THE_SPROUTING_LORE_II}, false),
 
 
-
         //TODO: enemy decks
         VAMPIRES("ABYSSAL_BONE_FOREST", "Tales of Vampires", new Knowledge[] {THE_PALE_LORE_I}, "Tales of Vampires - Starter", true),
         VAMPIRES_I("ABYSSAL_BONE_FOREST", "Tales of Vampires - Vampire Nighthawk", new Knowledge[] {VAMPIRES}, false),
@@ -53,10 +52,13 @@ public class Research {
         SORIN_II("ABYSSAL_BONE_FOREST", "Tales of Sorin Markov II", new Knowledge[] {SORIN_I, THE_PALE_LORE_II}, false),
 
         //TODO: images, descriptions, prices, enemy decks//redo zombie deck
-        ZOMBIES("ABYSSAL_BONE_FOREST", "Tales of Zombies", new Knowledge[] {THE_PALE_LORE_I}, "Tales of Zombies - Starter", true),
-        ZOMBIES_I("ABYSSAL_BONE_FOREST", "Tales of Zombies - Diregraf Colossus", new Knowledge[] {ZOMBIES}, false),
-        ZOMBIES_II("ABYSSAL_BONE_FOREST", "Tales of Zombies - Geralf's Messenger", new Knowledge[] {ZOMBIES}, false),
-        ZOMBIES_III("ABYSSAL_BONE_FOREST", "Tales of Zombies - Stitcher's Supplier", new Knowledge[] {ZOMBIES}, false),
+        ZOMBIES("ABYSSAL_BONE_FOREST", "Formula - Zombie", new Knowledge[] {THE_PALE_LORE_I}, "Formula - Zombie - Starter", true),
+        ZOMBIES_I("ABYSSAL_BONE_FOREST", "Formula - Zombie - Ghoulcaller's Chant", new Knowledge[] {ZOMBIES}, false),
+        ZOMBIES_II("ABYSSAL_BONE_FOREST", "Formula - Zombie - Prized Amalgam", new Knowledge[] {ZOMBIES}, false),
+        ZOMBIES_III("ABYSSAL_BONE_FOREST", "Formula - Zombie - Unearth", new Knowledge[] {ZOMBIES}, false),
+        ZOMBIES_IV("ABYSSAL_BONE_FOREST", "Formula - Zombie - Village Rites", new Knowledge[] {ZOMBIES}, false),
+        ZOMBIES_V("ABYSSAL_BONE_FOREST", "Formala - Zombie - Tergrid",
+                new Knowledge[] {ZOMBIES, ZOMBIES_I, ZOMBIES_II, ZOMBIES_III, ZOMBIES_IV, THE_PALE_LORE_II}, false),
 
         //TODO: images, descriptions, prices, enemy decks//redo darkness deck
         DARKNESS("ABYSSAL_BONE_FOREST", "Tales of Darkness...", new Knowledge[] {THE_PALE_LORE_I}, "Tales of Darkness - Starter", true),
